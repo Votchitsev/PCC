@@ -1,0 +1,13 @@
+@use './styles/index.scss';
+
+.welcome {
+  text-align: center;
+
+  h1 {
+    color: white;
+  }
+
+  .content {
+    color: white;
+  }
+}

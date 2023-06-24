@@ -1,12 +1,23 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsx",
+    "target": "es2022",
+    "jsx": "react",
     "strictNullChecks": true,
+    "checkJs": true,
+    "module": "ES2022",
     "rootDir": "./src",
-    "baseUrl": "./src",
-    "allowJs": true
+    "baseUrl": "./",
+    "allowJs": true,
+    "paths": {
+      "@/*": ["./*"],
+    },
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "Node"
   }, 
   "include": [
-    "./src/**/*"
+    "./src/**/*",
   ]
 }

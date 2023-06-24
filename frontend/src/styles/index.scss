@@ -1,0 +1,25 @@
+$red: #ff1a1a;
+
+* {
+  font-family: Roboto, sans-serif;
+  font-size: 18px;
+}
+
+body {
+  background-color: $red;
+}
+
+h1 {
+  font-family: RobotoMedium, sans-serif;
+  font-size: 48px;
+}
+
+@font-face {
+  font-family: RobotoMedium;
+  src: url('./fonts/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url('./fonts/Roboto-Regular.ttf');
+}

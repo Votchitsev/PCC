@@ -18,14 +18,17 @@ module.exports = {
         loader: 'ts-loader',
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
+        test: /\.(css|scss)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
   resolve: {
     extensions: ['.*', '.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      '@styles': path.resolve(__dirname, 'src/styles'),
+    }
   },
   watch: true,
   mode: 'development',
-}
+};
