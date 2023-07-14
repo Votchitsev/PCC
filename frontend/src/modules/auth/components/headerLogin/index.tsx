@@ -20,7 +20,7 @@ const Login = () => {
         return;
       }
 
-      timeout = setTimeout(() => setAuthMenuClasses([style.menu, style.hide]), 1000);
+      timeout = setTimeout(() => setAuthMenuClasses([style.menu, style.hide]), 500);
     };
   };
 
