@@ -6,8 +6,8 @@
 }
 
 .container {
-  width: 1200px;
+  max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: auto auto 20%;
+  grid-template-columns: 3fr 3fr 1fr;
 }

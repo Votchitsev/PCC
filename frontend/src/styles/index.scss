@@ -1,3 +1,5 @@
+@import '@styles/colors.scss';
+
 * {
   font-family: Roboto, sans-serif;
   font-size: 18px;
@@ -10,6 +12,8 @@ body {
 h1 {
   font-family: RobotoMedium, sans-serif;
   font-size: 48px;
+  text-align: center;
+  color: $light_blue;
 }
 
 @font-face {
