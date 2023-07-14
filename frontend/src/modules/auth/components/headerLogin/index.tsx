@@ -1,5 +1,7 @@
 import React, { MouseEvent, useState } from 'react';
+import { Link } from 'react-router-dom';
 import style from './LoginHeader.module.scss';
+import { AUTH_ROUTE, REG_ROUTE } from '@lib/routes';
 
 const Login = () => {
   const [authMenuClasses, setAuthMenuClasses] = useState([style.menu, style.hide]);
@@ -48,8 +50,8 @@ const Login = () => {
           onMouseLeave={ onLeave }
           onMouseEnter={ menuEnterHandle }
         >
-          <li>Войти</li>
-          <li>Зарегистрироваться</li>
+          <li><Link to={AUTH_ROUTE}>Войти</Link></li>
+          <li><Link to={REG_ROUTE}>Зарегистрироваться</Link></li>
         </ul>
       </div>     
     </>

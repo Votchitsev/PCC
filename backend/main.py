@@ -16,3 +16,11 @@ def root(request: Request):
             "request": request,
         }
     )
+
+@app.exception_handler(404)
+def redirect_to_client(request: Request, _):
+    return frontend.TemplateResponse(
+        "index.html", {
+            "request": request,
+        }
+    )   

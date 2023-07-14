@@ -1,3 +1,5 @@
+@import '@styles/colors.scss';
+
 .form {
   border: 1px solid white;
   padding: 50px;
@@ -7,7 +9,20 @@
 
 .button_container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  gap: 10px;
   width: 100%;
   margin-top: 40px;
+}
+
+.back {
+  color: $light_blue;
+  font-size: 0.8em;
+
+  &:hover {
+    color: $light_blue_hover;
+    transition: all 500ms ease;
+  }
 }

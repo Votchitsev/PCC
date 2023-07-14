@@ -12,6 +12,7 @@
       "@styles/*": ["./styles/*"],
       "@main/*": ["./modules/main/*"],
       "@auth/*": ["./modules/auth/*"],
+      "@lib/*": ["./lib/*"],
     },
     "esModuleInterop": true,
     "skipLibCheck": true,

@@ -2,6 +2,8 @@ import React, { useState, type ChangeEvent, FormEvent } from 'react';
 import Input from '@main/components/input';
 import style from './form.module.scss';
 import Button from '@main/components/button';
+import { Link } from 'react-router-dom';
+import { ROOT_ROUTE } from '@lib/routes';
 
 interface IFormData {
   username: string;
@@ -63,6 +65,7 @@ const SignUpForm = () => {
           text="ОК"
           type="submit"
         />
+        <Link className={ style.back } to={ROOT_ROUTE}>Назад</Link>
       </div>
     </form>
   );
