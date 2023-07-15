@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from modules.router import router as api_router
 
 
 app = FastAPI()
@@ -24,3 +25,5 @@ def redirect_to_client(request: Request, _):
             "request": request,
         }
     )   
+
+app.include_router(api_router);

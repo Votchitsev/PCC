@@ -13,6 +13,7 @@
       "@main/*": ["./modules/main/*"],
       "@auth/*": ["./modules/auth/*"],
       "@lib/*": ["./lib/*"],
+      "@api/*": ["./api/*"]
     },
     "esModuleInterop": true,
     "skipLibCheck": true,

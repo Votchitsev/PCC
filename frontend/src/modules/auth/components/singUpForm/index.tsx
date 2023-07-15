@@ -1,9 +1,11 @@
 import React, { useState, type ChangeEvent, FormEvent } from 'react';
-import Input from '@main/components/input';
-import style from './form.module.scss';
-import Button from '@main/components/button';
 import { Link } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import { useStore } from 'store';
+import Input from '@main/components/input';
+import Button from '@main/components/button';
 import { ROOT_ROUTE } from '@lib/routes';
+import style from './form.module.scss';
 
 interface IFormData {
   username: string;
@@ -19,6 +21,7 @@ const initFormData: IFormData = {
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState<IFormData>(initFormData);
+  const { AuthStore } = useStore();
 
   const onChangeHandler = (e: ChangeEvent<HTMLFormElement>) => {
     setFormData({
@@ -29,9 +32,7 @@ const SignUpForm = () => {
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    console.log(formData);
-    
+    AuthStore.fetchRegData(formData);
     setFormData(initFormData);
   };
 
@@ -71,4 +72,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default observer(SignUpForm) ;
