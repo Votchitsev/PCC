@@ -1,11 +1,12 @@
-from fastapi import APIRouter
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+from modules.auth.utils import users as users_utils
 
 
 router = APIRouter(
     prefix="/sign-up"
 )
+
 
 class Credentials(BaseModel):
     username: str;
@@ -15,4 +16,8 @@ class Credentials(BaseModel):
 
 @router.post('/')
 async def sign_up(data: Credentials):
-    return data
+    db_user = await users_utils.get_user_by_name(username=data.username)
+
+    if db_user:
+        raise HTTPException(status_code=400, detail="USER_EXISTS")
+    return await users_utils.create_user(user=data)
