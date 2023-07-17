@@ -12,6 +12,11 @@ interface IUser {
   accessToken: string;
 }
 
+interface IAuthData {
+  username: string;
+  password: string;
+}
+
 class AuthStore {
   _authUser: IUser;
 
@@ -39,6 +44,15 @@ class AuthStore {
     const response = await ApiClient.post('/auth/sign-up/', credentials);
     this.setAuthUser(response.data);
     
+  }
+
+  /**
+   * Отправляет на сервер запрос для авторизации
+   * @param credentials данные для авторизации
+   */
+  async fetchAuthData(credentials: IAuthData): Promise<void> {
+    const response = await ApiClient.post('/auth/sign-in/', credentials);
+    this.setAuthUser(response.data);
   }
 }
 

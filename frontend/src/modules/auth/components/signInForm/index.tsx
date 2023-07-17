@@ -4,6 +4,8 @@ import Button from '@main/components/button';
 import { Link } from 'react-router-dom';
 import { ROOT_ROUTE } from '@lib/routes';
 import style from './form.module.scss';
+import { observer } from 'mobx-react';
+import { useStore } from 'store';
 
 interface IFormData {
   username: string;
@@ -17,7 +19,8 @@ const initFormData = {
 
 const SignInForm = () => {
   const [formData, setFormData] = useState<IFormData>(initFormData);
-
+  const { AuthStore } = useStore();
+  
   const onChangeHandler = (e: ChangeEvent<HTMLFormElement>) => {
     setFormData({
       ...formData,
@@ -27,9 +30,7 @@ const SignInForm = () => {
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    console.log(formData);
-    
+    AuthStore.fetchAuthData(formData);
     setFormData(initFormData);
   };
 
@@ -62,4 +63,4 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default observer(SignInForm);
