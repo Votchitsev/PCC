@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from .sign_up import router as sign_up_router
-from .sign_in import router as sign_in_router
-from .get_user import router as get_user_router
+from .crud.sign_up import router as sign_up_router
+from .crud.sign_in import router as sign_in_router
+from .crud.get_user import router as get_user_router
 
 router = APIRouter(prefix='/auth')
 

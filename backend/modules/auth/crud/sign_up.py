@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
 from modules.auth.utils import users as users_utils
+from ..schemas import SignUpData
 
 
 router = APIRouter(
@@ -8,14 +8,8 @@ router = APIRouter(
 )
 
 
-class Credentials(BaseModel):
-    username: str;
-    password: str;
-    confirmPassword: str;
-
-
 @router.post('/')
-async def sign_up(data: Credentials):
+async def sign_up(data: SignUpData):
     db_user = await users_utils.get_user_by_name(username=data.username)
 
     if db_user:

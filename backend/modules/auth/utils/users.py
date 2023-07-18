@@ -5,12 +5,7 @@ from pydantic import BaseModel
 from sqlalchemy import and_
 from db.database import database
 from modules.auth.models.tables import users, tokens
-
-
-class User(BaseModel):
-    username: str;
-    password: str;
-    confirmPassword: str;
+from ..schemas import SignUpData
 
 
 def get_random_string(length=12):
@@ -60,7 +55,7 @@ async def create_user_token(user_id: int):
     return await database.fetch_one(query)
 
 
-async def create_user(user: User):
+async def create_user(user: SignUpData):
     """ Создает нового пользователя в БД """
     salt = get_random_string()
 

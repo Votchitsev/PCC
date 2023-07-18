@@ -2,17 +2,14 @@ from fastapi import Depends, APIRouter, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
 from modules.auth.utils import users as users_utils
+from ..schemas import SignInData
 
 
 router = APIRouter(prefix='/sign-in')
 
-class SignInForm(BaseModel):
-    username: str
-    password: str
-
 
 @router.post('/')
-async def sign_in(form_data: SignInForm):
+async def sign_in(form_data: SignInData):
     user = await users_utils.get_user_by_name(username=form_data.username)
 
     if not user:
