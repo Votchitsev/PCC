@@ -1,4 +1,4 @@
-$red: #ff1a1a;
+@import '@styles/colors.scss';
 
 * {
   font-family: Roboto, sans-serif;
@@ -6,12 +6,19 @@ $red: #ff1a1a;
 }
 
 body {
-  background-color: $red;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 h1 {
   font-family: RobotoMedium, sans-serif;
   font-size: 48px;
+  text-align: center;
+  color: $light_blue;
 }
 
 @font-face {

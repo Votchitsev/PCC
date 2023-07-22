@@ -1,0 +1,19 @@
+@import '@styles/colors.scss';
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  background-color: $light_blue;
+  color: $light_text;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $light_blue_hover;
+    transition: all 500ms ease;
+  }
+}
