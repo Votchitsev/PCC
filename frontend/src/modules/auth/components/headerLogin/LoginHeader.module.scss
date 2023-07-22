@@ -18,7 +18,8 @@
   list-style: none;
   margin-top: 30px;
   display: grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: repeat(auto-fit, 1fr);
+  min-width: 150px;
   row-gap: 10px;
   color: initial;
 
@@ -40,6 +41,13 @@
   visibility: visible;
   animation: menu-animation;
   animation-duration: 500ms;
+}
+
+.user {
+  padding-bottom: 5px;
+  padding-top: 0;
+  border-bottom: solid $grey 1px;
+  color: $blue;
 }
 
 @keyframes menu-animation {

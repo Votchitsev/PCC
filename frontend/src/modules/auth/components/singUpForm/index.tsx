@@ -1,11 +1,18 @@
-import React, { useState, type ChangeEvent, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import React, {
+    useState,
+    FormEvent,
+    useEffect,
+    type ChangeEvent, 
+  } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useStore } from 'store';
 import Input from '@main/components/input';
 import Button from '@main/components/button';
 import { ROOT_ROUTE } from '@lib/routes';
 import style from './form.module.scss';
+import { comparePassword } from '@lib/utils/validators';
+import { EError } from '@auth/store';
 
 interface IFormData {
   username: string;
@@ -22,19 +29,46 @@ const initFormData: IFormData = {
 const SignUpForm = () => {
   const [formData, setFormData] = useState<IFormData>(initFormData);
   const { AuthStore } = useStore();
+  const { authUser, error } = AuthStore;
+
+  const navigate = useNavigate();
 
   const onChangeHandler = (e: ChangeEvent<HTMLFormElement>) => {
+    if (error) {
+      AuthStore.setError(null);
+    }
+
     setFormData({
       ...formData,
-      [e.target.id]: e.target.value },
-    );
+      [e.target.id]: e.target.value,
+    });
   };
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!comparePassword(formData.password, formData.confirmPassword)) {      
+      AuthStore.setError(EError.NOT_COMPARE_PASSWORD);
+      return;
+    }
+
     AuthStore.fetchRegData(formData);
-    setFormData(initFormData);
   };
+
+  useEffect(() => {
+    if (error) {
+      return;
+    }
+
+    if (authUser) {
+      setFormData(initFormData);
+      navigate(ROOT_ROUTE);
+    }
+  }, [error, authUser]);
+
+  useEffect(() => {
+    return AuthStore.setError(null);
+  }, []);
 
   return (
     <form
@@ -46,6 +80,8 @@ const SignUpForm = () => {
         onChange={onChangeHandler}
         id="username"
         value={formData.username}
+        error={error === EError.USER_EXISTS ? error : null}
+        isRequired={true}
       />
       <Input
         label="Пароль"
@@ -53,6 +89,7 @@ const SignUpForm = () => {
         id="password"
         type="password"
         value={formData.password}
+        isRequired={true}
       />
       <Input
         label="Повторите пароль"
@@ -60,6 +97,8 @@ const SignUpForm = () => {
         id="confirmPassword"
         type="password"
         value={formData.confirmPassword}
+        error={error === EError.NOT_COMPARE_PASSWORD ? error : null}
+        isRequired={true}
       />
       <div className={ style.button_container }>
         <Button
@@ -72,4 +111,4 @@ const SignUpForm = () => {
   );
 };
 
-export default observer(SignUpForm) ;
+export default observer(SignUpForm);

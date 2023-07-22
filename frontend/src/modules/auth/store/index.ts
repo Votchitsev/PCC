@@ -1,5 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 import ApiClient from '@api/index';
+import LocalStorage from '@lib/utils/localStorage';
+
+export enum EError {
+  USER_EXISTS = 'Пользователь существует',
+  NOT_COMPARE_PASSWORD = 'Пароли не совпадают',
+  BAD_CREDENTIALS = 'Неверный логин или пароль',
+}
 
 interface IRegCredentials {
   username: string;
@@ -9,7 +16,7 @@ interface IRegCredentials {
 
 interface IUser {
   username: string;
-  accessToken: string;
+  token: string;
 }
 
 interface IAuthData {
@@ -18,22 +25,62 @@ interface IAuthData {
 }
 
 class AuthStore {
-  _authUser: IUser;
-
+  _authUser: IUser | null = null;
+  _error: EError | null = null;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setAuthUser(user: IUser) {
+  public setAuthUser(user: IUser) {
     this._authUser = user;
   }
 
   /**
    *  Возвращает данные об авторизованном пользователе
    */
-  get authUser () {
-    return this.authUser;
+  public get authUser () {
+    return this._authUser;
+  }
+
+  /**
+   * Устанавливает состояние ошибки
+   * @param text ключ ошибки
+   */
+
+  public setError(text: EError | null) {
+    this._error = text;    
+  }
+
+  public get error(): EError | null {
+    return this._error;
+  }
+
+  /**
+   * Получает данные авторизованного пользователя
+   * @param token токен авторизации
+   * @returns 
+   */
+
+  async fetchUser(token: string): Promise<IUser | null> {
+    try {
+      const response = await ApiClient.get('/auth/me/', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 200) {
+        this._authUser = {
+          username: response.data.username,
+          token,
+        };
+      }
+
+      return null;
+    } catch (error) {
+      return null;
+    }
   }
 
   /**
@@ -41,9 +88,21 @@ class AuthStore {
    * @param credentials данные для регистрации
    */
   async fetchRegData(credentials: IRegCredentials): Promise<void> {
-    const response = await ApiClient.post('/auth/sign-up/', credentials);
-    this.setAuthUser(response.data);
-    
+    try {
+      const response = await ApiClient.post('/auth/sign-up/', credentials);
+
+      if (response.status === 200) {
+        this.setAuthUser({
+          username: response.data.username,
+          token: response.data.token,
+        });
+
+        LocalStorage.set('token', response.data.token);
+      }
+      
+    } catch (error) {
+      this.setError(EError[error.response.data.detail]);
+    }
   }
 
   /**
@@ -51,8 +110,33 @@ class AuthStore {
    * @param credentials данные для авторизации
    */
   async fetchAuthData(credentials: IAuthData): Promise<void> {
-    const response = await ApiClient.post('/auth/sign-in/', credentials);
-    this.setAuthUser(response.data);
+    try {
+      const response = await ApiClient.post('/auth/sign-in/', credentials);
+
+      if (response.status === 200) {
+        this.setAuthUser({
+          username: credentials.username,
+          token: response.data.token,
+        });
+
+        LocalStorage.set('token', response.data.token);
+      }
+    } catch (error) {      
+      this.setError(EError[error.response.data.detail]);
+    }
+  }
+
+  async fetchLogout(token: string): Promise<void> {
+    const response = await ApiClient.post('/auth/logout/', undefined, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.data.detail === 'USER LOGOUT') {
+      this._authUser = null;
+      LocalStorage.remove('token');
+    }
   }
 }
 

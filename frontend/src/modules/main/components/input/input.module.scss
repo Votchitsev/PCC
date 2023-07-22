@@ -32,7 +32,9 @@
   font-size: 0.7em;
   position: absolute;
   top: 18px;
-  left: 52px;
+  left: 50%;
+  translate: -50%;
+  white-space: nowrap;
   background-color: white;
   padding-right: 5px;
   padding-left: 5px;

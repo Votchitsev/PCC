@@ -1,9 +1,12 @@
 import React, { MouseEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import style from './LoginHeader.module.scss';
-import { AUTH_ROUTE, REG_ROUTE } from '@lib/routes';
+import { AUTH_ROUTE, REG_ROUTE, ROOT_ROUTE } from '@lib/routes';
+import { useStore } from 'store';
 
 const Login = () => {
+  const { AuthStore } = useStore();
+  const navigate = useNavigate();
   const [authMenuClasses, setAuthMenuClasses] = useState([style.menu, style.hide]);
 
   function onLeave() {
@@ -37,6 +40,16 @@ const Login = () => {
     setAuthMenuClasses([...authMenuClasses, style.show]);
   };
 
+  const logoutHandle = () => {
+    const token = AuthStore.authUser?.token;
+    
+    if (token) {      
+      AuthStore.fetchLogout(token);
+      setAuthMenuClasses([style.menu, style.hide]);
+      navigate(ROOT_ROUTE);
+    }
+  };
+
   return (
     <>
       <div
@@ -50,8 +63,18 @@ const Login = () => {
           onMouseLeave={ onLeave }
           onMouseEnter={ menuEnterHandle }
         >
-          <li><Link to={AUTH_ROUTE}>Войти</Link></li>
-          <li><Link to={REG_ROUTE}>Зарегистрироваться</Link></li>
+          { AuthStore.authUser && <div className={style.user}>{ AuthStore.authUser.username }</div> }
+          { AuthStore.authUser
+            ? 
+            <>
+              <li onClick={logoutHandle}>Выйти</li>
+            </>
+            : 
+            <>
+              <li><Link to={AUTH_ROUTE}>Войти</Link></li>
+              <li><Link to={REG_ROUTE}>Зарегистрироваться</Link></li>
+            </>
+          }
         </ul>
       </div>     
     </>

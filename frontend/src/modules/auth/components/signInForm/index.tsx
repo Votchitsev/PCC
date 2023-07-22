@@ -1,11 +1,17 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useState,
+} from 'react';
 import Input from '@main/components/input';
 import Button from '@main/components/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ROOT_ROUTE } from '@lib/routes';
 import style from './form.module.scss';
 import { observer } from 'mobx-react';
 import { useStore } from 'store';
+import { EError } from '@auth/store';
 
 interface IFormData {
   username: string;
@@ -20,6 +26,7 @@ const initFormData = {
 const SignInForm = () => {
   const [formData, setFormData] = useState<IFormData>(initFormData);
   const { AuthStore } = useStore();
+  const navigate = useNavigate();
   
   const onChangeHandler = (e: ChangeEvent<HTMLFormElement>) => {
     setFormData({
@@ -31,8 +38,22 @@ const SignInForm = () => {
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     AuthStore.fetchAuthData(formData);
-    setFormData(initFormData);
   };
+
+  useEffect(() => {
+    if (AuthStore.error) {
+      return;
+    }
+
+    if (AuthStore.authUser) {
+      setFormData(initFormData);
+      navigate(ROOT_ROUTE);
+    }
+  }, [AuthStore.error, AuthStore.authUser]);
+
+  useEffect(() => {
+    return AuthStore.setError(null);
+  }, []);
 
   return (
     <form
@@ -44,6 +65,8 @@ const SignInForm = () => {
         onChange={onChangeHandler}
         id="username"
         value={formData.username}
+        isRequired={true}
+        error={AuthStore.error === EError.BAD_CREDENTIALS ? AuthStore.error : null}
       />
       <Input
         label="Пароль"
@@ -51,6 +74,7 @@ const SignInForm = () => {
         id="password"
         type="password"
         value={formData.password}
+        isRequired={true}
       />
       <div className={ style.button_container }>
         <Button
