@@ -69,7 +69,7 @@ class CheckListStore {
     };
     
     const response = await ApiClient.post(
-      '/check_list/create',
+      '/check-list/create',
       data,
       {
         headers: {

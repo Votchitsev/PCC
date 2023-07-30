@@ -4,6 +4,7 @@ from fastapi.templating import Jinja2Templates
 from db.database import database
 from modules.router import router as api_router
 
+
 app = FastAPI()
 app.mount('/static', StaticFiles(directory='../frontend/dist'))
 
