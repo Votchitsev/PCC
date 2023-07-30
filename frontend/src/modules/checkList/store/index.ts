@@ -1,6 +1,7 @@
+import { makeAutoObservable, values } from 'mobx';
+import { makePersistable } from 'mobx-persist-store';
 import ApiClient from '@api/index';
 import LocalStorage from '@lib/utils/localStorage';
-import { makeAutoObservable } from 'mobx';
 
 export interface IQuestion {
   text: string;
@@ -12,7 +13,23 @@ class CheckListStore {
   _title: string;
   
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
+    makePersistable(this, {
+      name: CheckListStore.name,
+      properties: [
+        '_title',
+        {
+          key: '_questions',
+          serialize: (value) => {
+            return JSON.stringify(value);
+          },
+          deserialize: (value) => {
+            return JSON.parse(value);
+          },
+        },
+      ],
+      storage: window.localStorage,
+    });
   }
 
   /**

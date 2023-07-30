@@ -10,7 +10,6 @@ interface IProp {
   max?: number;
   clue?: string;
   onChangeHandler: ChangeEventHandler;
-  onSave?: () => void;
 }
 
 const DynamicInput = ({
@@ -22,7 +21,6 @@ const DynamicInput = ({
   max,
   clue,
   onChangeHandler,
-  onSave,
 }: IProp) => {
   const [value, setValue] = useState(initValue);
   
@@ -42,10 +40,6 @@ const DynamicInput = ({
     if (type === 'text' && !value) {      
       inputRef.current.value = initValue;
       return;
-    }
-    
-    if (onSave) {
-      onSave();
     }
 
     setInputVisibility(!inputVisibility);

@@ -44,11 +44,6 @@ const CheckListForm = () => {
     }
   };
 
-  const onSave = () => {
-    LocalStorage.set('questions', JSON.stringify(CheckListStore.questions));
-    LocalStorage.set('checkListTitle', CheckListStore.title);
-  };
-
   const addQuestionHandler = () => {
     CheckListStore.updateQuestions([...CheckListStore.questions, { text: 'Новый вопрос', grade: 0 }]);
   };
@@ -59,29 +54,12 @@ const CheckListForm = () => {
 
     const newQuestions = questions.filter(question => questions.indexOf(question) !== Number(questionIndex));
     CheckListStore.updateQuestions(newQuestions);
-    onSave();
   };
 
   useEffect(() => {
-    const questions = LocalStorage.get('questions');
-    const title = LocalStorage.get('checkListTitle');
-
-    if (questions) {
-      const questionsArray: IQuestion[] = JSON.parse(questions);
-
-      questionsArray.map(question => question.grade = Number(question.grade));
-      CheckListStore.updateQuestions(questionsArray);     
-    }
-
-    if (title) {
-      CheckListStore.setTitle(title);
-    }
-    
     return () => {
       CheckListStore.updateQuestions([]);
       CheckListStore.setTitle('');
-      LocalStorage.remove('questions');
-      LocalStorage.remove('checkListTitle');
     };
   }, []);
 
@@ -97,7 +75,6 @@ const CheckListForm = () => {
         initValue={ CheckListStore.title?.length ? CheckListStore.title : 'Новый чек-лист' }
         extraStyle={style.check_list_title}
         clue="Название чек-листа"
-        onSave={onSave}
       />
       {
         CheckListStore.questions.map((question, index) =>
@@ -106,7 +83,6 @@ const CheckListForm = () => {
               id={ `${index}` }
               type="text"
               onChangeHandler={ questionChangeHandler }
-              onSave={ onSave }
               clue="Вопрос"
               initValue={ question.text }
             />
@@ -114,7 +90,6 @@ const CheckListForm = () => {
               id={ `${index}` }
               type="number"
               onChangeHandler={ questionChangeHandler }
-              onSave={ onSave }
               initValue={ question.grade }
               min={0}
               max={5}
