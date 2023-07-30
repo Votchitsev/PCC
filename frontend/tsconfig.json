@@ -13,7 +13,8 @@
       "@main/*": ["./modules/main/*"],
       "@auth/*": ["./modules/auth/*"],
       "@lib/*": ["./lib/*"],
-      "@api/*": ["./api/*"]
+      "@api/*": ["./api/*"],
+      "@assets/*": ["./assets/*"]
     },
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -23,5 +24,6 @@
   }, 
   "include": [
     "./src/**/*",
+    "./src/assets.d.ts"
   ]
 }

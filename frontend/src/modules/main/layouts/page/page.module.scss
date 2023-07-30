@@ -1,0 +1,24 @@
+.page {
+  max-width: 1024px;
+  width: 1024px;
+  margin: 0 auto;
+}
+
+
+@media (max-width: 1024px) {
+  .page {
+    width: 768px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    width: 640px;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    width: 90%;
+  }
+};

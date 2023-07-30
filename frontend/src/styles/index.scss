@@ -3,6 +3,7 @@
 * {
   font-family: Roboto, sans-serif;
   font-size: 18px;
+  box-sizing: border-box;
 }
 
 body {
@@ -19,6 +20,13 @@ h1 {
   font-size: 48px;
   text-align: center;
   color: $light_blue;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
 @font-face {

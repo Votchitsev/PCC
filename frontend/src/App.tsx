@@ -11,6 +11,8 @@ import AuthPage from '@auth/pages/auth';
 import RegPage from '@auth/pages/reg';
 import { useStore } from 'store';
 import { useAuth } from '@lib/hooks/auth';
+import MainPage from '@main/pages';
+import CheckListRouter from 'modules/checkList/router';
 
 const _currentUser = observer(() => {
   const { AuthStore } = useStore();
@@ -32,10 +34,11 @@ const App = () => {
       <BrowserRouter>
         <Header />
           <Routes>
-            <Route path="/" element={<_currentUser />} />
+            <Route path="/" element={<MainPage />} />
             <Route path="/sign-in" element={ <AuthPage /> } />
             <Route path="/sign-up" element={ <RegPage /> } />
           </Routes>
+          <CheckListRouter />
       </BrowserRouter>
     </MainLayout>
   );

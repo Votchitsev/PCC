@@ -1,0 +1,33 @@
+.form {
+  margin-top: 60px;
+  width: 100%;
+  padding-inline: 20px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(50px, 1fr));
+  gap: 10px;
+}
+
+.check_list_title {
+  font-size: 1.5em;
+}
+
+.buttons_bar {
+  display: grid;
+  grid-template-columns: auto auto ;
+  gap: 20px;
+  width: fit-content;
+  margin-top: 40px;
+}
+
+.grade {
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+}
+
+.close {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
