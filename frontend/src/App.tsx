@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  BrowserRouter,
   RouterProvider,
   createBrowserRouter,
 } from 'react-router-dom';
@@ -9,7 +8,6 @@ import AuthPage from '@auth/pages/auth';
 import RegPage from '@auth/pages/reg';
 import { useAuth } from '@lib/hooks/auth';
 import MainPage from '@main/pages';
-import CheckListRouter from 'modules/checkList/router';
 import { AUTH_ROUTE, REG_ROUTE, ROOT_ROUTE } from '@lib/routes';
 import checkListRouter from 'modules/checkList/router';
 
