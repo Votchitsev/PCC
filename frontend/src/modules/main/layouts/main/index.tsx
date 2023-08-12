@@ -1,11 +1,16 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import style from './MainLayout.module.scss';
+import Header from '@main/components/header';
+import { Outlet } from 'react-router-dom';
 
-const MainLayout = ({ children } : { children: ReactNode }) => {
+const MainLayout = () => {
   return (
-    <div className={ style.wrapper }>
-      { children }
-    </div>
+    <>
+      <Header />
+      <div className={ style.wrapper }>
+        <Outlet />
+      </div>
+    </>
   );
 };
 

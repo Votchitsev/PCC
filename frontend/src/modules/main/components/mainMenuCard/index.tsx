@@ -3,6 +3,7 @@ import Button from '../button';
 import style from './mainMenuCard.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { ADD_CHECKLIST_ROUTE } from '@lib/routes';
+import Card from '../card/card';
 
 interface IProps {
   title: string;
@@ -17,7 +18,7 @@ const MainMenuCard = ({ title, description }: IProps) => {
   };
 
   return (
-    <div className={style.main_menu_card}>
+    <Card>
       <h3>{ title }</h3>
       <p>{ description }</p>
       <div>
@@ -27,7 +28,7 @@ const MainMenuCard = ({ title, description }: IProps) => {
           clickHandler={onClickHandler}
          />
       </div>
-    </div>
+    </Card>
   );
 };
 
