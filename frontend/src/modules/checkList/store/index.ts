@@ -2,15 +2,11 @@ import { makeAutoObservable, values } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 import ApiClient from '@api/index';
 import LocalStorage from '@lib/utils/localStorage';
-
-export interface IQuestion {
-  text: string;
-  grade: number;
-}
+import { IQuestion } from '../entity';
 
 class CheckListStore {
   _questions: IQuestion[] = [];
-  _title: string;
+  _title: string = 'Новый чек-лист';
   
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });

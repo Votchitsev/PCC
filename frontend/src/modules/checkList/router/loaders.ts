@@ -12,8 +12,14 @@ export const checkListsLoader = async () => {
   return data;
 };
 
-export const checkListByIdLoader = async ({ _, params }) => {
+export const checkListByIdLoader = async ({ request, params }) => {
   const { id } = params;
-  console.log(id);
-  // сначала написать логику на сервере
+
+  const { data } = await ApiClient.get(EAPIRoutes.ROOT + `/${id}`, {
+    headers: {
+      Authorization: `Bearer ${LocalStorage.get('token')}`,
+    },
+  });
+
+  return data;
 };

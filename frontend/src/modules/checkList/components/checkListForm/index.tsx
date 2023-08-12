@@ -1,17 +1,25 @@
-import React, { ChangeEvent, MouseEvent, FormEvent, useEffect } from 'react';
+import React, {
+  ChangeEvent,
+  MouseEvent,
+  FormEvent,
+  useEffect,
+} from 'react';
 import DynamicInput from '@main/components/dynamicInput';
 import Question from '../question';
 import { observer } from 'mobx-react';
 import { useStore } from 'store';
 import Button from '@main/components/button';
-import LocalStorage from '@lib/utils/localStorage';
 import { useNavigate } from 'react-router-dom';
 import { ROOT_ROUTE } from '@lib/routes';
-import { IQuestion } from 'modules/checkList/store';
 import style from './checkListForm.module.scss';
 import TrashIcon from '@assets/icons/trash';
+import { ICheckList, IQuestion } from 'modules/checkList/entity';
 
-const CheckListForm = () => {
+interface IProps {
+  readonly checkListData?: ICheckList;
+}
+
+const CheckListForm = ({ checkListData }: IProps) => {
   const { CheckListStore } = useStore();
   const navigate = useNavigate();
 
@@ -62,6 +70,13 @@ const CheckListForm = () => {
       CheckListStore.setTitle('');
     };
   }, []);
+
+  useEffect(() => {
+    if (checkListData) {
+      CheckListStore.setTitle(checkListData.name);
+      CheckListStore.updateQuestions(checkListData.questions);
+    }
+  }, [checkListData]);
 
   return (
     <form
@@ -114,4 +129,3 @@ const CheckListForm = () => {
 };
 
 export default observer(CheckListForm);
-

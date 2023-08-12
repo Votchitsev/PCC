@@ -15,6 +15,7 @@ const CheckLists = ({ checkLists } : IProps) => {
           checkList => (
             <CheckListItem
               key={ checkList.id }
+              id={ checkList.id }
               title={ checkList.name }
               strLen={50}
             />

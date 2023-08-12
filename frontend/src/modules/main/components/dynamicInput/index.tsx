@@ -52,6 +52,10 @@ const DynamicInput = ({
   };
 
   useEffect(() => {
+    setValue(initValue);
+  }, [initValue]);
+
+  useEffect(() => {
     if (inputVisibility) {
       inputRef.current.focus();
       inputRef.current.select();
