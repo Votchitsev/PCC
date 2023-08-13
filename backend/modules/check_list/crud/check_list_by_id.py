@@ -55,7 +55,7 @@ async def put(id: int, data: SCheckListData):
 
     name = await database.fetch_one(name_query)
 
-    if name != None:
+    if name != None and name.id != id:
         raise HTTPException(status_code=400, detail="TITLE_EXISTS") 
 
     update_query = (
@@ -84,3 +84,21 @@ async def put(id: int, data: SCheckListData):
             )
 
         await database.execute(question_query)
+
+
+@router.delete('/')
+async def delete(id: int):
+    """Delete check list"""
+
+    delete_questions_query = (
+        questions.delete()
+            .where(questions.c.check_list_id == id)
+    )
+
+    delete_query = (
+        check_list.delete()
+            .where(check_list.c.id == id)
+    )
+
+    await database.execute(delete_questions_query)
+    await database.execute(delete_query)
