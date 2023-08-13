@@ -3,6 +3,7 @@ import { makePersistable } from 'mobx-persist-store';
 import ApiClient from '@api/index';
 import LocalStorage from '@lib/utils/localStorage';
 import { IQuestion } from '../entity';
+import { EAPIRoutes } from '@lib/routes';
 
 class CheckListStore {
   _questions: IQuestion[] = [];
@@ -52,7 +53,7 @@ class CheckListStore {
     return this._questions;
   }
 
-  public async saveToDb () {
+  public async saveToDb (id?: number) {
     const token = LocalStorage.get('token');
 
     if (!token) {
@@ -63,6 +64,19 @@ class CheckListStore {
       title: this._title,
       questions: this._questions,
     };
+
+    if (id) {
+      await ApiClient.put(
+        EAPIRoutes.ROOT + `/${id}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        return;
+    }
     
     const response = await ApiClient.post(
       '/check-list/create',

@@ -26,7 +26,7 @@ const CheckListForm = ({ checkListData }: IProps) => {
   const onSubmitHandler = (e: FormEvent) => {
     e.preventDefault();
 
-    CheckListStore.saveToDb();
+    CheckListStore.saveToDb(checkListData?.id);
     navigate(ROOT_ROUTE);
   };
 
