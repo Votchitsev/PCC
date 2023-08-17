@@ -12,6 +12,7 @@
       "@styles/*": ["./styles/*"],
       "@main/*": ["./modules/main/*"],
       "@auth/*": ["./modules/auth/*"],
+      "@checkList/*": ["./modules/checkList/*"],
       "@lib/*": ["./lib/*"],
       "@api/*": ["./api/*"],
       "@assets/*": ["./assets/*"]
