@@ -8,7 +8,7 @@ import DynamicInput from '@main/components/dynamicInput';
 import Question from '../question';
 import { observer } from 'mobx-react';
 import { useStore } from 'store';
-import Button from '@main/components/button';
+import Button, { EButtonColor } from '@main/components/button';
 import { useNavigate } from 'react-router-dom';
 import { EAPIRoutes, ERoutes } from '@lib/routes';
 import style from './checkListForm.module.scss';
@@ -126,6 +126,7 @@ const CheckListForm = ({ checkListData }: IProps) => {
               text="Удалить"
               type="button"
               clickHandler={deleteCheckListHandler}
+              color={EButtonColor.danger}
             /> : null }
         
       </div>
@@ -168,6 +169,7 @@ const CheckListForm = ({ checkListData }: IProps) => {
           type={'submit'}
           text={'Сохранить'}
           isLoading={CheckListStore.isLoading.create}
+          color={EButtonColor.danger}
         />
       </div>
     </form>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../modal';
-import Button from '../button';
+import Button, { EButtonColor } from '../button';
 import style from './dialogModal.module.scss';
 import { useStore } from 'store';
 import { observer } from 'mobx-react';
@@ -23,6 +23,7 @@ const DialogModal = ({ title,  question, store, confirmAction, breakAction }: IP
           text="Да"
           type="button"
           isLoading={store.isLoading.delete}
+          color={EButtonColor.danger}
           clickHandler={confirmAction}
         />
         <Button

@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../button';
+import Button, { EButtonColor } from '../button';
 import style from './mainMenuCard.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { ADD_CHECKLIST_ROUTE } from '@lib/routes';

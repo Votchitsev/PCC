@@ -8,12 +8,10 @@
   height: 50px;
   border: none;
   border-radius: 5px;
-  background-color: $light_blue;
   color: $light_text;
   cursor: pointer;
 
   &:hover {
-    background-color: $light_blue_hover;
     transition: all 500ms ease;
   }
 }
@@ -21,4 +19,20 @@
 .loading {
   height: 100%;
   width: 100%;
+}
+
+.regular {
+  background-color: $light_blue;
+
+  &:hover {
+    background-color: $light_blue_hover;
+  }
+}
+
+.danger {
+  background-color: $red;
+
+  &:hover {
+    background-color: $red_hover;
+  }
 }

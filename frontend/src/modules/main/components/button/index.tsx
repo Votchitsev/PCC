@@ -2,14 +2,20 @@ import React, { MouseEvent } from 'react';
 import style from './button.module.scss';
 import Loader from '@assets/icons/ButtonLoader.svg';
 
+export enum EButtonColor {
+  regular = 'regular',
+  danger = 'danger',
+}
+
 interface IProp {
   text: string;
   type: 'submit' | 'button';
   isLoading?: boolean;
+  color?: EButtonColor;
   clickHandler?: (e: MouseEvent) => void;
 }
 
-const Button = ({ text, type, isLoading = false, clickHandler } : IProp) => {
+const Button = ({ text, type, isLoading = false, color = EButtonColor.regular, clickHandler } : IProp) => {
   const onClick = (e: MouseEvent) => {
     if (!isLoading && clickHandler) {
       clickHandler(e);
@@ -18,7 +24,7 @@ const Button = ({ text, type, isLoading = false, clickHandler } : IProp) => {
 
   return (
     <button
-      className={ style.button }
+      className={ `${style.button} ${ style[color] }` }
       type={ type }
       onClick={ onClick }
     >
