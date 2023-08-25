@@ -30,6 +30,7 @@ module.exports = {
     'object-curly-spacing': ['error', 'always'],
     quotes: ['error', 'single'],
     'jsx-quotes': ['error', 'prefer-double'],
+    'react/display-name': 'off',
   },
   settings: {
     react: {

@@ -1,7 +1,7 @@
 import hashlib
 import random
 import string
-from pydantic import BaseModel
+from fastapi import HTTPException
 from sqlalchemy import and_
 from db.database import database
 from modules.auth.models.tables import users, tokens
@@ -35,6 +35,13 @@ async def get_user_by_name(username: str):
 
 async def get_user_by_token(token: str):
     """ Возвращает информацию о владельце указанного токена """
+
+    if token == 'null' or not token:
+        raise HTTPException(status_code=400, detail="BAD_TOKEN")
+    
+    if len(token) < 32 or len(token) > 36:
+        raise HTTPException(status_code=400, detail="BAD_TOKEN")
+
     query = tokens.join(users).select().where(
         and_(
             tokens.c.token == token,

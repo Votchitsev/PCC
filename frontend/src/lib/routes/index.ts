@@ -13,6 +13,7 @@ export const GET_CHECK_LISTS_ROUTE = ROOT_API_ROUTE + '/check-list/list';
 
 export enum ERoutes {
   ROOT = '/',
+  AUTH_ROUTE = '/sign-in',
   CHECK_LIST_ROOT = '/check-list',
   ADD_CHECK_LIST = '/check-list/add',
   CHECK_LISTS = '/check-list/all',

@@ -110,6 +110,11 @@ class CheckListStore {
     try {
       await ApiClient.delete(
         EAPIRoutes.ROOT + `/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${LocalStorage.get('token')}`,
+          },
+        },
       );
     } catch (error) {
       console.error(error);

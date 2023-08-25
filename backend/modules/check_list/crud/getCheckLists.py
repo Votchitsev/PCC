@@ -10,8 +10,8 @@ router = APIRouter(
 )
 
 
-@router.get('/')
-async def get():
+@router.get('/', )
+async def get(_ = Depends(get_current_user)):
     try:
         query = (
             select(check_list)

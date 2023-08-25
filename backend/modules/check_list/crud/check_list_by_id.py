@@ -1,4 +1,5 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
+from modules.auth.utils.dependencies import get_current_user
 from db.database import database
 from ..models.tables import check_list, questions
 from ..schemas.schemas import SCheckListData
@@ -10,7 +11,7 @@ router = APIRouter(
 
 
 @router.get('/')
-async def get(id: int):
+async def get(id: int, _ = Depends(get_current_user)):
     """Get check list name and its questions by id"""
 
     try:
@@ -45,7 +46,7 @@ async def get(id: int):
 
 
 @router.put('/')
-async def put(id: int, data: SCheckListData):
+async def put(id: int, data: SCheckListData, _ = Depends(get_current_user)):
     """Change existing check list"""
 
     name_query = (
@@ -87,7 +88,7 @@ async def put(id: int, data: SCheckListData):
 
 
 @router.delete('/')
-async def delete(id: int):
+async def delete(id: int, _ = Depends(get_current_user)):
     """Delete check list"""
 
     delete_questions_query = (

@@ -10,7 +10,7 @@ router = APIRouter(
 )
 
 @router.post('/')
-async def create_check_list(CheckListData: SCheckListData, current_user = Depends(get_current_user)):
+async def create_check_list(CheckListData: SCheckListData, _ = Depends(get_current_user)):
     try:
         create_check_list_query = (
             check_list.insert()
