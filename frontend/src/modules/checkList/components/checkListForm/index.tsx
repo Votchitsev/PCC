@@ -10,7 +10,7 @@ import { observer } from 'mobx-react';
 import { useStore } from 'store';
 import Button from '@main/components/button';
 import { useNavigate } from 'react-router-dom';
-import { EAPIRoutes, ROOT_ROUTE } from '@lib/routes';
+import { EAPIRoutes, ERoutes } from '@lib/routes';
 import style from './checkListForm.module.scss';
 import TrashIcon from '@assets/icons/trash';
 import { ICheckList, IQuestion } from 'modules/checkList/entity';
@@ -31,7 +31,7 @@ const CheckListForm = ({ checkListData }: IProps) => {
   const onSubmitHandler = async (e: FormEvent) => {
     e.preventDefault();
     await CheckListStore.saveToDb(checkListData?.id);
-    navigate(ROOT_ROUTE);
+    navigate(ERoutes.CHECK_LISTS);
   };
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

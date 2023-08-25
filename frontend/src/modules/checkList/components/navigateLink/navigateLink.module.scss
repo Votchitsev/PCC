@@ -1,0 +1,9 @@
+@import 'styles/colors.scss';
+
+.link {
+  color: $blue;
+
+  &:hover {
+    color: $blue_hover;
+  }
+}
