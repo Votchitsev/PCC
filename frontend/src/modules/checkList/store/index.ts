@@ -1,13 +1,22 @@
-import { makeAutoObservable, values } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 import ApiClient from '@api/index';
 import LocalStorage from '@lib/utils/localStorage';
 import { IQuestion } from '../entity';
 import { EAPIRoutes } from '@lib/routes';
 
+interface ILoading {
+  create: boolean;
+  delete: boolean;
+}
+
 class CheckListStore {
   _questions: IQuestion[] = [];
   _title: string = 'Новый чек-лист';
+  _isLoading: ILoading = {
+    create: false,
+    delete: false,
+  };
   
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -54,9 +63,12 @@ class CheckListStore {
   }
 
   public async saveToDb (id?: number) {
+    this._isLoading.create = true;
+
     const token = LocalStorage.get('token');
 
     if (!token) {
+      this._isLoading.create = false;
       return;
     }
     
@@ -75,6 +87,7 @@ class CheckListStore {
           },
         });
 
+        this._isLoading.create = false;
         return;
     }
     
@@ -87,7 +100,30 @@ class CheckListStore {
         },
       });
 
+    this._isLoading.create = false;
     console.log(response);
+  }
+
+  public async deleteFromDb (id: number) {
+    this._isLoading.delete = true;
+
+    try {
+      await ApiClient.delete(
+        EAPIRoutes.ROOT + `/${id}`,
+      );
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this._isLoading.delete = false;
+    }
+  }
+
+  public setIsLoading(loading: ILoading) {
+    this._isLoading = loading;
+  }
+
+  public get isLoading () {
+    return this._isLoading;
   }
 }
 

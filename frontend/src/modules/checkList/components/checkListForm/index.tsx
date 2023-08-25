@@ -10,23 +10,27 @@ import { observer } from 'mobx-react';
 import { useStore } from 'store';
 import Button from '@main/components/button';
 import { useNavigate } from 'react-router-dom';
-import { ROOT_ROUTE } from '@lib/routes';
+import { EAPIRoutes, ROOT_ROUTE } from '@lib/routes';
 import style from './checkListForm.module.scss';
 import TrashIcon from '@assets/icons/trash';
 import { ICheckList, IQuestion } from 'modules/checkList/entity';
+import DialogModal from '@main/components/dialogModal';
 
 interface IProps {
   readonly checkListData?: ICheckList;
 }
 
+interface IContext {
+  isLoading: boolean;
+}
+
 const CheckListForm = ({ checkListData }: IProps) => {
-  const { CheckListStore } = useStore();
+  const { CheckListStore, ModalStore } = useStore();
   const navigate = useNavigate();
 
-  const onSubmitHandler = (e: FormEvent) => {
+  const onSubmitHandler = async (e: FormEvent) => {
     e.preventDefault();
-
-    CheckListStore.saveToDb(checkListData?.id);
+    await CheckListStore.saveToDb(checkListData?.id);
     navigate(ROOT_ROUTE);
   };
 
@@ -53,15 +57,40 @@ const CheckListForm = ({ checkListData }: IProps) => {
   };
 
   const addQuestionHandler = () => {
-    CheckListStore.updateQuestions([...CheckListStore.questions, { text: 'Новый вопрос', grade: 0 }]);
+    CheckListStore.updateQuestions(
+      [
+        ...CheckListStore.questions,
+        { text: 'Новый вопрос', grade: 0 },
+      ],
+    );
   };
 
   const deleteQuestionHandler = (e: MouseEvent) => {
     const questionIndex = e.currentTarget.getAttribute('id');
     const questions = CheckListStore.questions;
 
-    const newQuestions = questions.filter(question => questions.indexOf(question) !== Number(questionIndex));
+    const newQuestions = questions.filter(
+      question => questions.indexOf(question) !== Number(questionIndex),
+    );
+
     CheckListStore.updateQuestions(newQuestions);
+  };
+
+  const onConfirmHandler = async () => {
+    await CheckListStore.deleteFromDb(checkListData?.id as number);
+    ModalStore.setModal(null);
+    navigate(EAPIRoutes.CHECK_LISTS);
+  };
+
+  const deleteCheckListHandler = () => {
+    ModalStore.setModal(
+      <DialogModal
+        title="Удалить чек-лист?"
+        confirmAction={onConfirmHandler}
+        store={CheckListStore}
+        breakAction={() => ModalStore.setModal(null)}
+      />,
+    );
   };
 
   useEffect(() => {
@@ -83,14 +112,23 @@ const CheckListForm = ({ checkListData }: IProps) => {
       className={style.form}
       onSubmit={onSubmitHandler}
     >
-      <DynamicInput
-        id={ 'title' }
-        type="text"
-        onChangeHandler={onChangeHandler}
-        initValue={ CheckListStore.title?.length ? CheckListStore.title : 'Новый чек-лист' }
-        extraStyle={style.check_list_title}
-        clue="Название чек-листа"
-      />
+      <div className={style.title_container}>
+        <DynamicInput
+          id={ 'title' }
+          type="text"
+          onChangeHandler={onChangeHandler}
+          initValue={ CheckListStore.title?.length ? CheckListStore.title : 'Новый чек-лист' }
+          extraStyle={style.check_list_title}
+          clue="Название чек-листа"
+        />
+        { checkListData 
+          ? <Button
+              text="Удалить"
+              type="button"
+              clickHandler={deleteCheckListHandler}
+            /> : null }
+        
+      </div>
       {
         CheckListStore.questions.map((question, index) =>
           <Question key={ index }>
@@ -121,8 +159,16 @@ const CheckListForm = ({ checkListData }: IProps) => {
           </Question>)
       }
       <div className={style.buttons_bar}>
-        <Button type={'button'} text={'Добавить'} clickHandler={addQuestionHandler} />
-        <Button type={'submit'} text={'Сохранить'} />
+        <Button
+          type={'button'}
+          text={'Добавить'}
+          clickHandler={addQuestionHandler}
+        />
+        <Button
+          type={'submit'}
+          text={'Сохранить'}
+          isLoading={CheckListStore.isLoading.create}
+        />
       </div>
     </form>
   );

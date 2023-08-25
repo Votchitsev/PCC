@@ -1,5 +1,5 @@
 import AuthStore from '@auth/store';
-import ModalStore from '@main/store';
+import { ModalStore } from '@main/store';
 import CheckListStore from '@checkList/store';
 import { createContext, useContext } from 'react';
 

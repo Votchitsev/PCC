@@ -6,7 +6,7 @@ from ..models.tables import check_list
 
 
 router = APIRouter(
-    prefix="/list"
+    prefix="/all"
 )
 
 
