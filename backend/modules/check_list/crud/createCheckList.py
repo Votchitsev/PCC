@@ -11,6 +11,9 @@ router = APIRouter(
 
 @router.post('/')
 async def create_check_list(CheckListData: SCheckListData, _ = Depends(get_current_user)):
+    if not CheckListData.title:
+        raise HTTPException(status_code=400, detail="TITLE_REQUIRED")
+
     try:
         create_check_list_query = (
             check_list.insert()

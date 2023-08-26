@@ -9,6 +9,7 @@ interface IProp {
   min?: number;
   max?: number;
   clue?: string;
+  isRequired?: boolean;
   onChangeHandler: ChangeEventHandler;
 }
 
@@ -20,6 +21,7 @@ const DynamicInput = ({
   min,
   max,
   clue,
+  isRequired = false,
   onChangeHandler,
 }: IProp) => {
   const [value, setValue] = useState(initValue);
@@ -76,6 +78,7 @@ const DynamicInput = ({
         min={min}
         max={max}
         onKeyDown={onKeyDown}
+        required={isRequired}
       />
       <div
         className={`${style.preview} ${!previewVisibility && style.hidden} ${extraStyle}`}

@@ -96,7 +96,7 @@ const CheckListForm = ({ checkListData }: IProps) => {
   useEffect(() => {
     return () => {
       CheckListStore.updateQuestions([]);
-      CheckListStore.setTitle('');
+      CheckListStore.setTitle('Новый чек-лист');
     };
   }, []);
 
@@ -119,6 +119,7 @@ const CheckListForm = ({ checkListData }: IProps) => {
           onChangeHandler={onChangeHandler}
           initValue={ CheckListStore.title?.length ? CheckListStore.title : 'Новый чек-лист' }
           extraStyle={style.check_list_title}
+          isRequired={true}
           clue="Название чек-листа"
         />
         { checkListData 
