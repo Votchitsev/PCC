@@ -117,7 +117,7 @@ const CheckListForm = ({ checkListData }: IProps) => {
           id={ 'title' }
           type="text"
           onChangeHandler={onChangeHandler}
-          initValue={ CheckListStore.title?.length ? CheckListStore.title : 'Новый чек-лист' }
+          initValue={ CheckListStore.title }
           extraStyle={style.check_list_title}
           isRequired={true}
           clue="Название чек-листа"
