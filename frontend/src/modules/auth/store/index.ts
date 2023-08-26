@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import ApiClient from '@api/index';
 import LocalStorage from '@lib/utils/localStorage';
+import { EAPIRoutes } from '@lib/routes';
 
 export enum EError {
   USER_EXISTS = 'Пользователь существует',
@@ -89,7 +90,7 @@ class AuthStore {
    */
   async fetchRegData(credentials: IRegCredentials): Promise<void> {
     try {
-      const response = await ApiClient.post('/auth/sign-up/', credentials);
+      const response = await ApiClient.post(EAPIRoutes.SIGN_UP, credentials);
 
       if (response.status === 200) {
         this.setAuthUser({
@@ -111,7 +112,7 @@ class AuthStore {
    */
   async fetchAuthData(credentials: IAuthData): Promise<void> {
     try {
-      const response = await ApiClient.post('/auth/sign-in/', credentials);
+      const response = await ApiClient.post(EAPIRoutes.SIGN_IN, credentials);
 
       if (response.status === 200) {
         this.setAuthUser({
@@ -128,7 +129,7 @@ class AuthStore {
   }
 
   async fetchLogout(token: string): Promise<void> {
-    const response = await ApiClient.post('/auth/logout/', undefined, {
+    const response = await ApiClient.post(EAPIRoutes.LOG_OUT, undefined, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

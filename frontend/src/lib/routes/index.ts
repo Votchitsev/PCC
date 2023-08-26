@@ -21,6 +21,9 @@ export enum ERoutes {
 }
 
 export enum EAPIRoutes {
-  ROOT = '/check-list',
-  CHECK_LISTS = '/check-list/all',
+  SIGN_UP = '/auth/sign-up/',
+  SIGN_IN = '/auth/sign-in/',
+  LOG_OUT = '/auth/logout/',
+  CHECK_LIST = '/check-list',
+  CHECK_LISTS = '/check-list/all/',
 }

@@ -79,7 +79,7 @@ class CheckListStore {
 
     if (id) {
       await ApiClient.put(
-        EAPIRoutes.ROOT + `/${id}`,
+        EAPIRoutes.CHECK_LIST + `/${id}/`,
         data,
         {
           headers: {
@@ -109,7 +109,7 @@ class CheckListStore {
 
     try {
       await ApiClient.delete(
-        EAPIRoutes.ROOT + `/${id}`,
+        EAPIRoutes.CHECK_LIST + `/${id}/`,
         {
           headers: {
             Authorization: `Bearer ${LocalStorage.get('token')}`,
