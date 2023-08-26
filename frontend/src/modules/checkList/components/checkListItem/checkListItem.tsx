@@ -12,11 +12,11 @@ interface IProp {
 
 const CheckListItem = ({ id, title, strLen = 200 }: IProp) => {
   return (
-    <Card>
-      <Link to={ERoutes.CHECK_LIST_ROOT + `/${id}`}>
+    <Link to={ERoutes.CHECK_LIST_ROOT + `/${id}`}>
+      <Card>
         <h3>{ `${title.substring(0, strLen)} ${ title.length > strLen ? '...' : '' }` }</h3>
-      </Link>
-    </Card>
+      </Card>
+    </Link>
   );
 };
 
