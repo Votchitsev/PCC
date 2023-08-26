@@ -40,7 +40,7 @@ const SignInForm = () => {
     AuthStore.fetchAuthData(formData);
   };
 
-  useEffect(() => {
+  useEffect(() => {   
     if (AuthStore.error) {
       return;
     }

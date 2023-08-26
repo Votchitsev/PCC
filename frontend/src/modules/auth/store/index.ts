@@ -120,6 +120,7 @@ class AuthStore {
         });
 
         LocalStorage.set('token', response.data.token);
+        this._error = null;
       }
     } catch (error) {      
       this.setError(EError[error.response.data.detail]);
