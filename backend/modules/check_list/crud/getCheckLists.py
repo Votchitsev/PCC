@@ -15,6 +15,7 @@ async def get(_ = Depends(get_current_user)):
     try:
         query = (
             select(check_list)
+                .order_by(check_list.c.id)
         )
 
         response = await database.fetch_all(query)   
