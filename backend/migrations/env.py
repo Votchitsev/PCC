@@ -8,6 +8,7 @@ from alembic import context
 
 from modules.auth.models import tables as auth_tables
 from modules.check_list.models import tables as check_list_tables
+from modules.departments.models import tables as department_tables
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -30,7 +31,11 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = [auth_tables.metadata, check_list_tables.metadata]
+target_metadata = [
+    auth_tables.metadata,
+    check_list_tables.metadata,
+    department_tables.metadata,
+]
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
