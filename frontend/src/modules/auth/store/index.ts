@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import ApiClient from '@api/index';
+import { ApiClient, FormDataApiClient } from '@api/index';
 import LocalStorage from '@lib/utils/localStorage';
 import { EAPIRoutes } from '@lib/routes';
 
@@ -110,13 +110,13 @@ class AuthStore {
    * Отправляет на сервер запрос для авторизации
    * @param credentials данные для авторизации
    */
-  async fetchAuthData(credentials: IAuthData): Promise<void> {
+  async fetchAuthData(credentials: any): Promise<void> {
     try {
-      const response = await ApiClient.post(EAPIRoutes.SIGN_IN, credentials);
-
+      const response = await FormDataApiClient.post(EAPIRoutes.SIGN_IN, credentials);
+      
       if (response.status === 200) {
         this.setAuthUser({
-          username: credentials.username,
+          username: credentials.get('username'),
           token: response.data.token,
         });
 

@@ -7,7 +7,7 @@ from ..models.tables import tokens
 router = APIRouter(prefix='/logout')
 
 
-@router.post('/')
+@router.post('/', summary="Выход из аккаунта")
 async def logout(current_user = Depends(get_current_user)):
     try:
         query = (

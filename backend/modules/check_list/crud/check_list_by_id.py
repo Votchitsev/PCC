@@ -10,7 +10,7 @@ router = APIRouter(
 )
 
 
-@router.get('/')
+@router.get('/', summary="Получение информации о чек-листе")
 async def get(id: int, _ = Depends(get_current_user)):
     """Get check list name and its questions by id"""
 
@@ -45,7 +45,7 @@ async def get(id: int, _ = Depends(get_current_user)):
         raise HTTPException(status_code=500, detail="UNKNOWN_ERROR")
 
 
-@router.put('/')
+@router.put('/', summary="Изменение чек-листа")
 async def put(id: int, data: SCheckListData, _ = Depends(get_current_user)):
     """Change existing check list"""
 
@@ -87,7 +87,7 @@ async def put(id: int, data: SCheckListData, _ = Depends(get_current_user)):
         await database.execute(question_query)
 
 
-@router.delete('/')
+@router.delete('/', summary="Удаление чек-листа")
 async def delete(id: int, _ = Depends(get_current_user)):
     """Delete check list"""
 

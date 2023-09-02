@@ -5,7 +5,11 @@ from db.database import database
 from modules.router import router as api_router
 
 
-app = FastAPI()
+app = FastAPI(
+    title="Public Catering Check API",
+    version="0.0.1",
+)
+
 app.mount('/static', StaticFiles(directory='../frontend/dist'))
 
 frontend = Jinja2Templates(directory="templates")
@@ -21,7 +25,7 @@ async def shutdown():
     await database.disconnect()
 
 
-@app.get('/')
+@app.get('/', include_in_schema=False)
 def root(request: Request):
     return frontend.TemplateResponse(
         "index.html", {

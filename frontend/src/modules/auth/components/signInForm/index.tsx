@@ -37,7 +37,11 @@ const SignInForm = () => {
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    AuthStore.fetchAuthData(formData);
+    const data = new FormData();
+    data.append('username', formData.username);
+    data.append('password', formData.password);
+    
+    AuthStore.fetchAuthData(data);
   };
 
   useEffect(() => {   

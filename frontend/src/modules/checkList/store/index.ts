@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
-import ApiClient from '@api/index';
+import { ApiClient } from '@api/index';
 import LocalStorage from '@lib/utils/localStorage';
 import { IQuestion } from '../entity';
 import { EAPIRoutes } from '@lib/routes';

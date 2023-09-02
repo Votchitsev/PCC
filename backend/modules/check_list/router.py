@@ -4,7 +4,10 @@ from .crud.getCheckLists import router as get_check_lists_router
 from .crud.check_list_by_id import router as get_check_list_by_id_router
 
 
-router = APIRouter(prefix="/check-list")
+router = APIRouter(
+    prefix="/check-list",
+    tags=["Создание, редактирование и удаление чек-листов"],
+)
 
 router.include_router(create_check_list_router)
 router.include_router(get_check_lists_router)

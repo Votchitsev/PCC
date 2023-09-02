@@ -1,10 +1,15 @@
 import axios from 'axios';
 
-const ApiClient = axios.create({
+export const ApiClient = axios.create({
   baseURL: process.env.BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-export default ApiClient;
+export const FormDataApiClient = axios.create({
+  baseURL: process.env.BASE_URL,
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+})

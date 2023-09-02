@@ -9,7 +9,7 @@ router = APIRouter(
     prefix="/create"
 )
 
-@router.post('/')
+@router.post('/', summary="Создание чек-листа")
 async def create_check_list(CheckListData: SCheckListData, _ = Depends(get_current_user)):
     if not CheckListData.title:
         raise HTTPException(status_code=400, detail="TITLE_REQUIRED")

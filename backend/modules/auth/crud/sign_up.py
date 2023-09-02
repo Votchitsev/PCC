@@ -4,11 +4,11 @@ from ..schemas import SignUpData
 
 
 router = APIRouter(
-    prefix="/sign-up"
+    prefix="/sign-up",
 )
 
 
-@router.post('/')
+@router.post('/', description="Регистрация пользователя", summary="Регистрация пользователя")
 async def sign_up(data: SignUpData):
     db_user = await users_utils.get_user_by_name(username=data.username)
 

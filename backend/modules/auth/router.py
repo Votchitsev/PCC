@@ -5,7 +5,10 @@ from .crud.get_user import router as get_user_router
 from .crud.logout import router as logout_router
 
 
-router = APIRouter(prefix='/auth')
+router = APIRouter(
+    prefix='/auth',
+    tags=['Регистрация и авторизация пользователей'],
+)
 
 router.include_router(sign_up_router)
 router.include_router(sign_in_router)
