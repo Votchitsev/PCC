@@ -13,6 +13,7 @@
       "@main/*": ["./modules/main/*"],
       "@auth/*": ["./modules/auth/*"],
       "@checkList/*": ["./modules/checkList/*"],
+      "@departments/*": ["./modules/departments/*"],
       "@lib/*": ["./lib/*"],
       "@api/*": ["./api/*"],
       "@assets/*": ["./assets/*"]

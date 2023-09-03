@@ -1,10 +1,10 @@
 import Container from '@main/components/container';
 import DepartmentGroupItem from '../departmentGroupItem';
-import { IDepartment } from 'modules/departments/entity';
+import { IDepartmentGroup } from 'modules/departments/entity';
 import React from 'react';
 
 interface IProps {
-  departmentGroups: IDepartment[];
+  departmentGroups: IDepartmentGroup[];
 }
 
 const DepartmentGroupList = ({ departmentGroups }: IProps) => {

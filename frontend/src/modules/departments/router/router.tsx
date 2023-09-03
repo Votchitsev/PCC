@@ -1,7 +1,8 @@
 import React from 'react';
 import { ERoutes } from '@lib/routes';
 import DepartmentGroupsPage from '../pages/departmentGroupsPage';
-import { departmentGroupsLoader } from './loaders';
+import { departmentGroupsLoader, departmentsLoader } from './loaders';
+import DepartmentsPage from '../pages/departmentsPage';
 
 const departmentsRouter = [
   {
@@ -10,7 +11,9 @@ const departmentsRouter = [
     loader: departmentGroupsLoader,
   },
   {
-    path: ERoutes.DEPARTMENTS,
+    path: ERoutes.DEPARTMENTS_BY_ID,
+    element: <DepartmentsPage />,
+    loader: departmentsLoader,
   },
 ];
 

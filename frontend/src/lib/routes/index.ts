@@ -22,6 +22,7 @@ export enum ERoutes {
   DEPARTMENTS_ROOT = '/departments',
   DEPARTMENT_GROUPS = DEPARTMENTS_ROOT + '/department-groups',
   DEPARTMENTS = DEPARTMENT_GROUPS + '/departments',
+  DEPARTMENTS_BY_ID = DEPARTMENT_GROUPS + '/departments/:id',
   
 }
 
