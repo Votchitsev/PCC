@@ -19,8 +19,10 @@ export enum ERoutes {
   CHECK_LISTS = '/check-list/all',
   CHECK_LIST_BY_ID = '/check-list/:id',
 
-  DEPARTMENT_GROUPS = '/department-groups',
-  DEPARTMENTS = '/departments',
+  DEPARTMENTS_ROOT = '/departments',
+  DEPARTMENT_GROUPS = DEPARTMENTS_ROOT + '/department-groups',
+  DEPARTMENTS = DEPARTMENT_GROUPS + '/departments',
+  
 }
 
 export enum EAPIRoutes {
@@ -29,4 +31,7 @@ export enum EAPIRoutes {
   LOG_OUT = '/auth/logout/',
   CHECK_LIST = '/check-list',
   CHECK_LISTS = '/check-list/all/',
+
+  DEPARTMENT_GROUPS = '/departments/department_groups/',
+  DEPARTMENTS = '/departments/department/',
 }

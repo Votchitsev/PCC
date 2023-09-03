@@ -8,8 +8,9 @@ import AuthPage from '@auth/pages/auth';
 import RegPage from '@auth/pages/reg';
 import { useAuth } from '@lib/hooks/auth';
 import MainPage from '@main/pages';
-import { AUTH_ROUTE, REG_ROUTE, ROOT_ROUTE } from '@lib/routes';
+import { AUTH_ROUTE, ERoutes, REG_ROUTE, ROOT_ROUTE } from '@lib/routes';
 import checkListRouter from 'modules/checkList/router';
+import departmentsRouter from 'modules/departments/router';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: '/check-list',
         children: checkListRouter,
+      },
+      {
+        path: ERoutes.DEPARTMENTS_ROOT,
+        children: departmentsRouter,
       },
     ],
   },
