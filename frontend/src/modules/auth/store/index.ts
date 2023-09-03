@@ -120,7 +120,7 @@ class AuthStore {
           token: response.data.token,
         });
 
-        LocalStorage.set('token', response.data.token);
+        LocalStorage.set('token', response.data.access_token);
         this._error = null;
       }
     } catch (error) {      
