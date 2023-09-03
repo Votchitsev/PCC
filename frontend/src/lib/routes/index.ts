@@ -18,6 +18,9 @@ export enum ERoutes {
   ADD_CHECK_LIST = '/check-list/add',
   CHECK_LISTS = '/check-list/all',
   CHECK_LIST_BY_ID = '/check-list/:id',
+
+  DEPARTMENT_GROUPS = '/department-groups',
+  DEPARTMENTS = '/departments',
 }
 
 export enum EAPIRoutes {

@@ -2,25 +2,26 @@ import React from 'react';
 import Button, { EButtonColor } from '../button';
 import style from './mainMenuCard.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { ADD_CHECKLIST_ROUTE } from '@lib/routes';
+import { ERoutes } from '@lib/routes';
 import Card from '../card/card';
 
 interface IProps {
   title: string;
   description: string;
+  href: ERoutes;
 }
 
-const MainMenuCard = ({ title, description }: IProps) => {
+const MainMenuCard = ({ title, description, href }: IProps) => {
   const navigate = useNavigate();
 
   const onClickHandler = () => {
-    navigate(ADD_CHECKLIST_ROUTE);
+    navigate(href);
   };
 
   return (
-    <Card>
+    <Card extraStyle={{ display: 'flex', flexDirection: 'column' }}>
       <h3>{ title }</h3>
-      <p>{ description }</p>
+      <p className={ style.description }>{ description }</p>
       <div>
         <Button
           text={'Перейти'}
