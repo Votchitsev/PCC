@@ -1,6 +1,8 @@
 import sqlalchemy
 from sqlalchemy.dialects.postgresql import UUID
 
+from modules.employees.models.tables import profile
+
 
 metadata = sqlalchemy.MetaData()
 
@@ -11,6 +13,7 @@ users = sqlalchemy.Table(
     sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
     sqlalchemy.Column("username", sqlalchemy.String(22), unique=True),
     sqlalchemy.Column("password", sqlalchemy.String()),
+    sqlalchemy.Column("profile_id", sqlalchemy.ForeignKey(profile.c.id, back_populates="user")),
 )
 
 tokens = sqlalchemy.Table(
