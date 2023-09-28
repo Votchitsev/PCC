@@ -23,6 +23,8 @@ async def create_check_list(CheckListData: SCheckListData, _ = Depends(get_curre
 
         check_list_id = await database.execute(create_check_list_query)
 
+        total_grade = 0
+
         for question in CheckListData.questions:
             question_query = (
                 questions.insert()
@@ -34,6 +36,15 @@ async def create_check_list(CheckListData: SCheckListData, _ = Depends(get_curre
             )
 
             await database.execute(question_query)
+            total_grade += question.grade
+
+        total_grade_query = (
+            check_list.update()
+                .where(check_list.c.id == check_list_id)
+                .values(total_grade=total_grade) 
+        )
+        
+        await database.execute(total_grade_query)
 
     except:
         HTTPException(status_code=500, detail="UNKNOWN ERROR")
