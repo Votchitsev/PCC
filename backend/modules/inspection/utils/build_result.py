@@ -63,6 +63,16 @@ async def build_inspection_result(inspection_id: int):
 
     total_result = (result / inspection_summary["total_grade"]) * 100
 
+    add_total_result_query = (
+        inspection.update()
+            .where(inspection.c.id == inspection_id)
+            .values(
+                total_result=total_result
+            )
+    )
+
+    await database.execute(add_total_result_query)
+
     return {
         "id": inspection_summary["id"],
         "date": inspection_summary["date"],

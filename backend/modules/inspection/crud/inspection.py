@@ -81,7 +81,7 @@ async def put(id: int, result: list[SInspectionQuestionChange], _ = Depends(get_
 
             await database.execute(update_query)
 
-    response = await build_inspection_result(oldResult[0].inspection_id)
+    response = await build_inspection_result(id)
 
     return response
 
@@ -102,3 +102,21 @@ async def get_inspection_by_id(id: int):
     response = await build_inspection_result(id)
 
     return response
+
+
+@router.delete('/result/{id}', summary="Получение результатов проверки")
+async def delete_result(id: int):
+    delete_result_query = (
+        inspection_question.delete()
+            .where(inspection_question.c.inspection_id == id)
+    )
+
+    delete_inspection_query = (
+        inspection.delete()
+            .where(inspection.c.id == id)
+    )
+
+    await database.execute(delete_result_query)
+    await database.execute(delete_inspection_query)
+
+    return "OK"
