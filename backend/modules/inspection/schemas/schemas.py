@@ -7,6 +7,11 @@ class SInspectionQuestion(BaseModel):
     result: bool
 
 
+class SInspectionQuestionChange(BaseModel):
+    question_id: int
+    result: bool
+
+
 class SInspection(BaseModel):
     department_id: int
     date: date

@@ -1,7 +1,7 @@
 from fastapi import Depends, APIRouter, HTTPException
 from db.database import database
 from modules.auth.utils.dependencies import get_current_user
-from modules.inspection.schemas.schemas import SInspection, SInspectionQuestion
+from modules.inspection.schemas.schemas import SInspection, SInspectionQuestion, SInspectionQuestionChange
 from ..models.tables import inspection, inspection_question
 from modules.departments.models.tables import department
 from modules.check_list.models.tables import questions, check_list
@@ -59,7 +59,7 @@ async def create_result(result: list[SInspectionQuestion], _ = Depends(get_curre
 
 
 @router.put('/result/{id}', summary="Изменение результатов проверки")
-async def put(id: int, result: list[SInspectionQuestion], _ = Depends(get_current_user)):
+async def put(id: int, result: list[SInspectionQuestionChange], _ = Depends(get_current_user)):
     result_query = (
         inspection_question.select()
             .where(inspection_question.c.inspection_id == id)
@@ -74,7 +74,7 @@ async def put(id: int, result: list[SInspectionQuestion], _ = Depends(get_curren
                     .where(inspection_question.c.question_id == question.question_id)
                     .values(
                         question_id=question.question_id,
-                        inspection_id=question.inspection_id,
+                        inspection_id=id,
                         result=question.result,
                     )
             )

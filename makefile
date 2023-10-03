@@ -1,8 +1,3 @@
-dev-server:
-	cd backend && uvicorn main:app --reload
-
-server:
-	cd backend && uvicorn main:app
-
-dev-client:
+run:
+	cd backend && . env/bin/activate && uvicorn main:app --reload &
 	cd frontend && npm start
