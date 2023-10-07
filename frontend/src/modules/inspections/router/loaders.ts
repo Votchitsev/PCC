@@ -1,4 +1,5 @@
 import { ApiClient } from '@api/index';
+import { IInspection } from '@inspections/entity';
 import { EAPIRoutes } from '@lib/routes';
 import LocalStorage from '@lib/utils/localStorage';
 
@@ -18,4 +19,11 @@ export const newInspectionLoader = async () => {
     }));
 
   return data;
+};
+
+
+export const getAllInspectionsLoader = async () => {
+  const { data } = await ApiClient.get(EAPIRoutes.INSPECTIONS);
+
+  return data as IInspection[];
 };

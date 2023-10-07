@@ -39,5 +39,6 @@ export enum EAPIRoutes {
   DEPARTMENT_GROUPS = '/departments/department_groups/',
   DEPARTMENTS = '/departments/department/',
 
+  INSPECTIONS = '/inspection',
   INSPECTIONS_CREATE = 'inspection/summary-info/'
 }
