@@ -23,7 +23,10 @@ export enum ERoutes {
   DEPARTMENT_GROUPS = DEPARTMENTS_ROOT + '/department-groups',
   DEPARTMENTS = DEPARTMENT_GROUPS + '/departments',
   DEPARTMENTS_BY_ID = DEPARTMENT_GROUPS + '/departments/:id',
-  
+
+  INSPECTIONS_ROOT = '/inspections',
+  INSPECTIONS_NEW = INSPECTIONS_ROOT + '/new',
+  INSPECTIONS_NEW_DETAILS = '/new/details',
 }
 
 export enum EAPIRoutes {

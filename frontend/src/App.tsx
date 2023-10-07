@@ -11,6 +11,7 @@ import MainPage from '@main/pages';
 import { AUTH_ROUTE, ERoutes, REG_ROUTE, ROOT_ROUTE } from '@lib/routes';
 import checkListRouter from 'modules/checkList/router';
 import departmentsRouter from 'modules/departments/router';
+import inspectionsRouter from 'modules/inspections/router';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: ERoutes.DEPARTMENTS_ROOT,
         children: departmentsRouter,
+      },
+      {
+        path: ERoutes.INSPECTIONS_ROOT,
+        children: inspectionsRouter,
       },
     ],
   },

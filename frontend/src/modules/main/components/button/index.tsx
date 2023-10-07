@@ -5,26 +5,35 @@ import Loader from '@assets/icons/ButtonLoader.svg';
 export enum EButtonColor {
   regular = 'regular',
   danger = 'danger',
+  disable = 'disable',
 }
 
 interface IProp {
   text: string;
   type: 'submit' | 'button';
   isLoading?: boolean;
+  isDisable?: boolean;
   color?: EButtonColor;
   clickHandler?: (e: MouseEvent) => void;
 }
 
-const Button = ({ text, type, isLoading = false, color = EButtonColor.regular, clickHandler } : IProp) => {
+const Button = ({
+  text,
+  type,
+  isLoading = false,
+  isDisable = false,
+  color = EButtonColor.regular,
+  clickHandler,
+} : IProp) => {
   const onClick = (e: MouseEvent) => {
-    if (!isLoading && clickHandler) {
+    if (!isLoading && !isDisable && clickHandler) {
       clickHandler(e);
     }
   };
 
   return (
     <button
-      className={ `${style.button} ${ style[color] }` }
+      className={ `${style.button} ${ isDisable ? style.disable : style[color] }` }
       type={ type }
       onClick={ onClick }
     >

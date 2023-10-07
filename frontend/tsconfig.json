@@ -16,7 +16,8 @@
       "@departments/*": ["./modules/departments/*"],
       "@lib/*": ["./lib/*"],
       "@api/*": ["./api/*"],
-      "@assets/*": ["./assets/*"]
+      "@assets/*": ["./assets/*"],
+      "@inspections/*": ["./modules/inspections/*"],
     },
     "esModuleInterop": true,
     "skipLibCheck": true,
