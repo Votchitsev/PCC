@@ -20,6 +20,7 @@ const NewInspectionForm = () => {
     department,
     onSubmit,
     isValid,
+    isLoading,
   } = useForm();
 
   return (
@@ -70,6 +71,7 @@ const NewInspectionForm = () => {
         text="Далее"
         type="submit"
         isDisable={!isValid}
+        isLoading={isLoading}
       />
     </form>
   );
