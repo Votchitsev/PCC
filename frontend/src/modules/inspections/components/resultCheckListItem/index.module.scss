@@ -1,0 +1,11 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding-bottom: 1em;
+  padding-top: 1em;
+  border-bottom: 1px solid #ddd;
+}
+
+.text {
+  margin-right: 1em;
+}

@@ -16,6 +16,7 @@ async def build_inspection_result(inspection_id: int):
             inspection_question.c.result,
         )
         .join(questions, inspection_question.c.question_id == questions.c.id)
+        .join(inspection, inspection_question.c.inspection_id == inspection.c.id)
         .where(inspection.c.id == inspection_id)
         .group_by(
             questions.c.id,
@@ -30,11 +31,15 @@ async def build_inspection_result(inspection_id: int):
 
     inspection_result = await database.fetch_all(inspection_result_query)
 
+    if not inspection_result:
+        inspection_result = []
+
     inspection_summary_query = (
         select(
             inspection.c.id,
             inspection.c.department_id,
             inspection.c.date,
+            inspection.c.check_list_id,
             check_list.c.total_grade.label("total_grade"),
             department.c.name.label("department"),
             department_group.c.name.label("department_group"),
@@ -55,13 +60,19 @@ async def build_inspection_result(inspection_id: int):
 
     inspection_summary = await database.fetch_one(inspection_summary_query)
 
+    if not inspection_summary:
+        return None
+
     result = 0
 
     for i in inspection_result:
         if i.result:
             result += i.grade
+    
+    total_result = 0
 
-    total_result = (result / inspection_summary["total_grade"]) * 100
+    if inspection_summary and inspection_summary["total_grade"] > 0:
+        total_result = (result / inspection_summary["total_grade"]) * 100
 
     add_total_result_query = (
         inspection.update()
@@ -79,5 +90,6 @@ async def build_inspection_result(inspection_id: int):
         "department": inspection_summary["department"],
         "department_group": inspection_summary["department_group"],
         "result": inspection_result,
+        "check_list_id": inspection_summary["check_list_id"],
         "total_result": total_result,
     }

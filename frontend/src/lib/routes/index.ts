@@ -26,7 +26,8 @@ export enum ERoutes {
 
   INSPECTIONS_ROOT = '/inspections',
   INSPECTIONS_NEW = INSPECTIONS_ROOT + '/new',
-  INSPECTIONS_NEW_DETAILS = '/new/details',
+  INSPECTIONS_NEW_DETAILS = INSPECTIONS_ROOT + '/new/details/:id',
+  INSPECTIONS_DETAIL = INSPECTIONS_ROOT + '/:id',
 }
 
 export enum EAPIRoutes {
@@ -40,5 +41,6 @@ export enum EAPIRoutes {
   DEPARTMENTS = '/departments/department/',
 
   INSPECTIONS = '/inspection',
-  INSPECTIONS_CREATE = 'inspection/summary-info/'
+  INSPECTIONS_CREATE = 'inspection/summary-info/',
+  INSPECTIONS_RESULT = 'inspection/result'
 }

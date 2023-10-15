@@ -1,5 +1,5 @@
 from fastapi import Depends, APIRouter, HTTPException
-from sqlalchemy import select
+from sqlalchemy import select, update
 from db.database import database
 from modules.auth.utils.dependencies import get_current_user
 from modules.inspection.schemas.schemas import SInspection, SInspectionQuestion, SInspectionQuestionChange
@@ -72,12 +72,10 @@ async def put(id: int, result: list[SInspectionQuestionChange], _ = Depends(get_
         if (question.question_id in [i.question_id for i in oldResult]):
             update_query = (
                 inspection_question.update()
-                    .where(inspection_question.c.question_id == question.question_id)
                     .values(
-                        question_id=question.question_id,
-                        inspection_id=id,
                         result=question.result,
                     )
+                    .where(inspection_question.c.question_id == question.question_id)
             )
 
             await database.execute(update_query)
