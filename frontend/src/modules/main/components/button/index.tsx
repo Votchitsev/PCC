@@ -33,11 +33,15 @@ const Button = ({
 
   return (
     <button
-      className={ `${style.button} ${ isDisable ? style.disable : style[color] }` }
+      className={
+        `${style.button} ${ isDisable ? style.disable : style[color] }`
+      }
       type={ type }
       onClick={ onClick }
     >
-      {isLoading ?  <img className={ style.loading } src={Loader as any} /> : text }
+      { isLoading
+        ? <img className={ style.loading } src={Loader as any} />
+        : text }
     </button>
   );
 };

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import style from './index.module.scss';
 import ResultCheckListItem from '../resultCheckListItem';
-import { IInspectionResult, type IInspection } from '@inspections/entity';
+import { type IInspection } from '@inspections/entity';
 import { useInspectionResult } from '@inspections/hooks';
 import Button from '@main/components/button';
 
@@ -9,7 +9,13 @@ interface IProps {
   readonly inspection: IInspection;
 }
 const ResultCheckList = ({ inspection }: IProps) => {
-  const { setResult, checkListResult, isLoading, onSubmit } = useInspectionResult(inspection);
+  const {
+    setResult,
+    inspectionResult,
+    isLoading,
+    onSubmit,
+    changed,
+  } = useInspectionResult(inspection);
 
   return (
     <>
@@ -18,16 +24,22 @@ const ResultCheckList = ({ inspection }: IProps) => {
           <span>{ inspection.date }</span>
           <div className={ style.title_department }>
             <span>{ inspection.department }</span>
-            <span className={ style.department_group }>{ inspection.department_group }</span>
+            <span
+              className={ style.department_group }>
+                { inspection.department_group }
+              </span>
           </div>
         </div>
-        { checkListResult.result.map((result_question) => (
+        { inspectionResult.result.map((result_question) => (
           <ResultCheckListItem
             key={ result_question.id }
             result_question={ result_question }
             setResult={setResult}
           />
         )) }
+        <div className={ style.total_result_container }>
+          <span>{`Общая оценка: ${inspection.total_result}`}</span>
+        </div>
       </div>
       <div className={ style.button_wrapper }>
         <Button
@@ -35,6 +47,7 @@ const ResultCheckList = ({ inspection }: IProps) => {
           type="button"
           isLoading={isLoading}
           clickHandler={onSubmit}
+          isDisable={!changed}
         />
       </div>
     </>

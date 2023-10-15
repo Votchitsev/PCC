@@ -31,6 +31,11 @@ module.exports = {
     quotes: ['error', 'single'],
     'jsx-quotes': ['error', 'prefer-double'],
     'react/display-name': 'off',
+    'max-len': [
+      "error", {
+        "code": 80,
+      }
+    ]
   },
   settings: {
     react: {
