@@ -2,12 +2,13 @@ import React from 'react';
 import style from './index.module.scss';
 import ResultCheckListItem from '../resultCheckListItem';
 import { type IInspection } from '@inspections/entity';
-import { useInspectionResult } from '@inspections/hooks';
-import Button from '@main/components/button';
+import { useInspection, useInspectionResult } from '@inspections/hooks';
+import Button, { EButtonColor } from '@main/components/button';
 
 interface IProps {
   readonly inspection: IInspection;
 }
+
 const ResultCheckList = ({ inspection }: IProps) => {
   const {
     setResult,
@@ -16,6 +17,8 @@ const ResultCheckList = ({ inspection }: IProps) => {
     onSubmit,
     changed,
   } = useInspectionResult(inspection);
+
+  const { onDelete } = useInspection(inspection.id); 
 
   return (
     <>
@@ -48,6 +51,12 @@ const ResultCheckList = ({ inspection }: IProps) => {
           isLoading={isLoading}
           clickHandler={onSubmit}
           isDisable={!changed}
+        />
+        <Button
+          text="Удалить проверку"
+          type="button"
+          color={EButtonColor.danger}
+          clickHandler={onDelete}
         />
       </div>
     </>

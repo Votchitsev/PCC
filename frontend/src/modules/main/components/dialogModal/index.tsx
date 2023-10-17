@@ -13,7 +13,13 @@ interface IProps {
   readonly breakAction: () => void;
 }
 
-const DialogModal = ({ title,  question, store, confirmAction, breakAction }: IProps) => {
+const DialogModal = ({
+  title,
+  question,
+  store,
+  confirmAction,
+  breakAction,
+}: IProps) => {
   return (
     <Modal>
       { title && <h3 className={style.title}>{ title }</h3> }

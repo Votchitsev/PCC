@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { IInspection, IInspectionResult } from '@inspections/entity';
 import { ApiClient } from '@api/index';
-import { EAPIRoutes } from '@lib/routes';
+import { EAPIRoutes, ERoutes } from '@lib/routes';
 import { useStore } from 'store';
+import DialogModal from '@main/components/dialogModal';
+import { useNavigate } from 'react-router-dom';
 
 export function useInspectionResult (inspection: IInspection) {
   const [resultState, setResultState] = useState(inspection);
@@ -54,5 +56,37 @@ export function useInspectionResult (inspection: IInspection) {
     onSubmit,
     isLoading,
     changed,
+  };
+}
+
+export function useInspection(inspectionId: number) {
+  const { ModalStore } = useStore();
+  const navigation = useNavigate();
+
+  const onDelete = () => {
+    ModalStore.setModal(
+      <DialogModal
+        title="Удалить чек-лист?"
+        confirmAction={executeDelete}
+        store={ModalStore}
+        breakAction={() => ModalStore.setModal(null)}
+      />,
+    );
+  };
+
+  const executeDelete = async () => {
+    ModalStore.setIsLoading(true);
+
+    await ApiClient.delete(
+      `${EAPIRoutes.INSPECTIONS_RESULT}/${inspectionId}`,
+    );
+    
+    ModalStore.setIsLoading(false);
+    ModalStore.setModal(null);
+    navigation(ERoutes.INSPECTIONS_ROOT);
+  };
+
+  return {
+    onDelete,
   };
 }
