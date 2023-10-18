@@ -48,6 +48,8 @@ export function useInspectionResult (inspection: IInspection) {
     setResultState(data);
 
     setIsLoading(false);
+
+    setChanged(false);
   };
 
   return {

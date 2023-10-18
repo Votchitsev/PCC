@@ -17,3 +17,9 @@ export interface IInspectionResult {
 export interface IInspectionExtended extends IInspection {
   result: IInspectionResult[];
 }
+
+export interface IInspectionList {
+  count: number;
+  page: number;
+  inspections: IInspection[];
+}

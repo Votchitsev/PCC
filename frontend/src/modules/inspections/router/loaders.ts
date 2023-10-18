@@ -1,5 +1,8 @@
 import { ApiClient } from '@api/index';
-import { type IInspection, type IInspectionExtended } from '@inspections/entity';
+import {
+  type IInspection,
+  type IInspectionExtended,
+} from '@inspections/entity';
 import { EAPIRoutes } from '@lib/routes';
 import LocalStorage from '@lib/utils/localStorage';
 import { buildEmptyResult } from './utils';
@@ -23,14 +26,21 @@ export const newInspectionLoader = async () => {
 };
 
 
-export const getAllInspectionsLoader = async () => {
-  const { data } = await ApiClient.get(EAPIRoutes.INSPECTIONS);
+export const getAllInspectionsLoader = async ({ request }) => {
+  const url = new URL(request.url);
+  const page = Number(url.searchParams.get('page'));
+
+  const { data } = await ApiClient.get(
+    `${EAPIRoutes.INSPECTIONS}${page ? `?page=${page}` : ''}`,
+  );
 
   return data as IInspection[];
 };
 
 export const getInspectionResultLoader = async ({ request, params }) => {
-  const { data } = await ApiClient.get(EAPIRoutes.INSPECTIONS + `/${params.id}/`);
+  const { data } = await ApiClient.get(
+    EAPIRoutes.INSPECTIONS + `/${params.id}/`,
+  );
 
   if (data.result.length > 0) {
     return data as IInspectionExtended;

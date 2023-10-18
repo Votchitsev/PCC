@@ -1,5 +1,6 @@
+from typing import Union
 from fastapi import Depends, APIRouter, HTTPException
-from sqlalchemy import select, update
+from sqlalchemy import select, func
 from db.database import database
 from modules.auth.utils.dependencies import get_current_user
 from modules.inspection.schemas.schemas import SInspection, SInspectionQuestion, SInspectionQuestionChange
@@ -60,7 +61,7 @@ async def create_result(result: list[SInspectionQuestion], _ = Depends(get_curre
 
 
 @router.put('/result/{id}', summary="Изменение результатов проверки")
-async def put(id: int, result: list[SInspectionQuestionChange], _ = Depends(get_current_user)):
+async def put(id: int, result: Union[list[SInspectionQuestionChange], list[SInspectionQuestion]], _ = Depends(get_current_user)):
     result_query = (
         inspection_question.select()
             .where(inspection_question.c.inspection_id == id)
@@ -80,13 +81,34 @@ async def put(id: int, result: list[SInspectionQuestionChange], _ = Depends(get_
 
             await database.execute(update_query)
 
+        else:
+            create_result_query = (
+                inspection_question.insert()
+                    .values(
+                        question_id=question.question_id,
+                        inspection_id=question.inspection_id,
+                        result=question.result,
+                    )
+            )
+
+            await database.execute(create_result_query)
+
     response = await build_inspection_result(id)
 
     return response
 
 
 @router.get('/', summary="Получение списка проверок")
-async def get_all():
+async def get_all(page: int = 1):
+    inspections_count_query = (
+        select(func.count(inspection.c.id))
+    )
+
+    count = await database.execute(inspections_count_query)
+
+    offset = (page - 1) * 12
+    limit = 12
+
     inspection_list_query = (
         select(
             inspection.c.id,
@@ -103,12 +125,19 @@ async def get_all():
             department_group.c.name,
             inspection.c.date,
             inspection.c.total_result,
-        )
+        ).
+        order_by(inspection.c.date.desc())
+        .offset(offset)
+        .limit(limit)
     )
 
     inspection_list = await database.fetch_all(inspection_list_query)
 
-    return inspection_list
+    return {
+        "page": page,
+        "count": count,
+        "inspections": inspection_list
+    }
 
 
 @router.get('/{id}', summary="Получение информации о проверке")

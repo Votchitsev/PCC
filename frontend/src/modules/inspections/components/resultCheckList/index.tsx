@@ -41,7 +41,7 @@ const ResultCheckList = ({ inspection }: IProps) => {
           />
         )) }
         <div className={ style.total_result_container }>
-          <span>{`Общая оценка: ${inspection.total_result}`}</span>
+          <span>{`Общая оценка: ${inspectionResult.total_result}`}</span>
         </div>
       </div>
       <div className={ style.button_wrapper }>

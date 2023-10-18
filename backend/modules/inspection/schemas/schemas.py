@@ -9,6 +9,7 @@ class SInspectionQuestion(BaseModel):
 
 class SInspectionQuestionChange(BaseModel):
     question_id: int
+    inspection_id: int | None
     result: bool | None
 
 
