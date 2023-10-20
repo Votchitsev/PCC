@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
-import NavigateLink from '@checkList/components/navigateLink';
+import NavigateLink from '@main/components/navigateLink';
 import PageLayout from '@main/layouts/page';
 import { ERoutes } from '@lib/routes';
 import InspectionList from '@inspections/components/InspectionList';
@@ -52,4 +52,5 @@ const TopContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: baseline;
+  margin-top: 20px;
 `;

@@ -4,18 +4,20 @@ import PageLayout from '@main/layouts/page';
 import CheckListForm from '../components/checkListForm';
 import { ICheckList } from '../entity';
 import { ERoutes } from '@lib/routes';
-import NavigateLink from '@checkList/components/navigateLink';
+import NavigateLink from '@main/components/navigateLink';
+import styled from 'styled-components';
 
 const CheckListPage = () => {  
   const checkList = useLoaderData() as ICheckList;
 
   return (
     <PageLayout>
-      <NavigateLink
-        name="Назад"
-        href={ERoutes.CHECK_LISTS}
-        { ...style }
-      />
+      <StyledNavLink>
+        <NavigateLink
+          name="Назад"
+          href={ERoutes.CHECK_LISTS}
+        />
+      </StyledNavLink>
       <CheckListForm checkListData={checkList} />
     </PageLayout>
   );
@@ -29,3 +31,9 @@ const style = {
 };
 
 export default CheckListPage;
+
+const StyledNavLink = styled.div`
+  width: fit-content;
+  margin-top: 20px;
+  margin-left: 20px;
+`;

@@ -1,9 +1,10 @@
 import PageLayout from '@main/layouts/page';
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
+import styled from 'styled-components';
 import { IDepartmentGroup } from '../entity';
 import DepartmentList from '../components/departmentList';
-import NavigateLink from '@checkList/components/navigateLink';
+import NavigateLink from '@main/components/navigateLink';
 import { ERoutes } from '@lib/routes';
 
 const DepartmentsPage = () => {
@@ -11,7 +12,13 @@ const DepartmentsPage = () => {
 
   return (
     <PageLayout>
-      <NavigateLink { ...style } href={ERoutes.DEPARTMENT_GROUPS} name="Назад" />
+      <LinkContainer>
+        <NavigateLink
+          { ...style }
+          href={ERoutes.DEPARTMENT_GROUPS}
+          name="Назад"
+        />
+      </LinkContainer>
       <h1>{ departmentsData.name }</h1>
       <DepartmentList departments={ departmentsData.departments }/>
     </PageLayout>
@@ -26,3 +33,7 @@ const style = {
 };
 
 export default DepartmentsPage;
+
+const LinkContainer = styled.div`
+  margin-top: 20px;
+`;

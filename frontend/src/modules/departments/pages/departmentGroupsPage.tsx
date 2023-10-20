@@ -5,15 +5,18 @@ import Card from '@main/components/card/card';
 import { IDepartmentGroup } from '../entity';
 import Container from '@main/components/container';
 import DepartmentGroupList from '../components/departmentGroupList';
-import NavigateLink from '@checkList/components/navigateLink';
+import NavigateLink from '@main/components/navigateLink';
 import { ERoutes } from '@lib/routes';
+import styled from 'styled-components';
 
 const DepartmentGroupsPage = () => {
   const departmentGroups = useLoaderData() as IDepartmentGroup[];
 
   return (
     <PageLayout>
-      <NavigateLink { ...style } href={ERoutes.ROOT} name="Назад" />
+      <LinkContainer>
+        <NavigateLink { ...style } href={ERoutes.ROOT} name="Назад" />
+      </LinkContainer>
       <h1>Группы подразделений</h1>
       <DepartmentGroupList departmentGroups={ departmentGroups } />
     </PageLayout>
@@ -28,3 +31,7 @@ const style = {
 };
 
 export default DepartmentGroupsPage;
+
+const LinkContainer = styled.div`
+  margin-top: 20px;
+`;

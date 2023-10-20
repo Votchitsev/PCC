@@ -18,7 +18,7 @@ const Card = ({ children, extraStyle }: IProps) => {
 export default Card;
 
 const CardWrapper = styled.div`
-  width: 300px;
+  width: 100%;
   box-shadow: black 1px 0px 16px -7px;
   border-radius: 15px;
   padding-top: 15px;

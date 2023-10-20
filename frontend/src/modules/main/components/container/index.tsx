@@ -1,12 +1,19 @@
 import React from 'react';
-import style from './container.module.scss';
+import styled from 'styled-components';
 
 const Container = ({ children }: React.PropsWithChildren) => {
   return (
-    <div className={style.container}>
+    <StyledContainer>
       { children }
-    </div>
-  );  
+    </StyledContainer>
+  );
 };
 
 export default Container;
+
+const StyledContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 20px;
+`;

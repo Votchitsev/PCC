@@ -7,7 +7,12 @@ import { useStore } from 'store';
 const Login = () => {
   const { AuthStore } = useStore();
   const navigate = useNavigate();
-  const [authMenuClasses, setAuthMenuClasses] = useState([style.menu, style.hide]);
+  const [
+    authMenuClasses,
+    setAuthMenuClasses,
+  ] = useState(
+      [style.menu, style.hide],
+    );
 
   function onLeave() {
     let timeout: ReturnType<typeof setTimeout>;
@@ -25,7 +30,9 @@ const Login = () => {
         return;
       }
 
-      timeout = setTimeout(() => setAuthMenuClasses([style.menu, style.hide]), 500);
+      timeout = setTimeout(
+        () => setAuthMenuClasses([style.menu, style.hide],
+      ), 500);
     };
   };
 
@@ -63,11 +70,14 @@ const Login = () => {
           onMouseLeave={ onLeave }
           onMouseEnter={ menuEnterHandle }
         >
-          { AuthStore.authUser && <div className={style.user}>{ AuthStore.authUser.username }</div> }
+          { AuthStore.authUser &&
+          <div className={style.user}>
+            { AuthStore.authUser.username }
+          </div> }
           { AuthStore.authUser
             ? 
             <>
-              <li onClick={logoutHandle}>Выйти</li>
+              <li onClick={  logoutHandle }>Выйти</li>
             </>
             : 
             <>

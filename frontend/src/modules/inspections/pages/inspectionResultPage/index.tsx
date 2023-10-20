@@ -1,5 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
-import NavigateLink from '@checkList/components/navigateLink';
+import styled from 'styled-components';
+import NavigateLink from '@main/components/navigateLink';
 import { ERoutes } from '@lib/routes';
 import PageLayout from '@main/layouts/page';
 import React from 'react';
@@ -11,18 +12,20 @@ const InspectionResultPage = () => {
 
   return (
     <PageLayout>
-      <NavigateLink { ...style } href={ERoutes.INSPECTIONS_ROOT} name="Назад" />
+      <StyledNavLink>
+        <NavigateLink href={ERoutes.INSPECTIONS_ROOT} name="Назад" />
+      </StyledNavLink>
       <h1>{ 'Результат проверки' }</h1>
       <ResultCheckList inspection={inspection} />
     </PageLayout>
   );
 };
 
-const style = {
-  style: {
-    marginTop: '20px',
-    marginLeft: '20px',
-  },
-};
-
 export default InspectionResultPage;
+
+
+const StyledNavLink = styled.div`
+  width: fit-content;
+  margin-top: 20px;
+  margin-left: 20px;
+`;
