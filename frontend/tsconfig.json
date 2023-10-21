@@ -18,6 +18,7 @@
       "@api/*": ["./api/*"],
       "@assets/*": ["./assets/*"],
       "@inspections/*": ["./modules/inspections/*"],
+      "@navigation/*": ["./modules/navigation/*"],
     },
     "esModuleInterop": true,
     "skipLibCheck": true,
