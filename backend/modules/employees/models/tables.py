@@ -1,7 +1,6 @@
 import sqlalchemy
 from  sqlalchemy import Column, ForeignKey, Integer
 
-# from modules.auth.models.tables import users
 from modules.departments.models.tables import department, department_group
 from modules.check_list.models.tables import questions
 
@@ -14,21 +13,6 @@ position = sqlalchemy.Table(
     metadata,
     Column("id", sqlalchemy.Integer, primary_key=True),
     Column("name", sqlalchemy.String()),
-    Column(
-        "responsibility_question_id",
-        Integer,
-        ForeignKey("responsibility_question.id")
-    ),
-    Column(
-        "responsibility_department_group_id",
-        Integer,
-        ForeignKey("responsibility_department_group.id")
-        ),
-    Column(
-        "responsibility_department_id",
-        Integer,
-        ForeignKey("responsibility_department.id")
-    )
 )
 
 
@@ -47,6 +31,7 @@ responsibility_question = sqlalchemy.Table(
     metadata,
     Column("id", Integer, primary_key=True),
     Column("question_id", ForeignKey(questions.c.id)),
+    Column("position_id", ForeignKey(position.c.id)),
 )
 
 
@@ -55,6 +40,7 @@ responsibility_department_group = sqlalchemy.Table(
     metadata,
     Column("id", Integer, primary_key=True),
     Column("department_group_id", ForeignKey(department_group.c.id)),
+    Column("position_id", ForeignKey(position.c.id)),
 )
 
 
@@ -63,4 +49,5 @@ responsibility_department = sqlalchemy.Table(
     metadata,
     Column("id", Integer, primary_key=True),
     Column("department_id", ForeignKey(department.c.id)),
+    Column("position_id", ForeignKey(position.c.id)),
 )
