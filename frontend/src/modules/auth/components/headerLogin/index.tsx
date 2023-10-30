@@ -1,7 +1,7 @@
 import React, { MouseEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import style from './LoginHeader.module.scss';
-import { AUTH_ROUTE, REG_ROUTE, ROOT_ROUTE } from '@lib/routes';
+import { AUTH_ROUTE, ERoutes, REG_ROUTE, ROOT_ROUTE } from '@lib/routes';
 import { useStore } from 'store';
 
 const Login = () => {
@@ -57,6 +57,11 @@ const Login = () => {
     }
   };
 
+  const profileHandle = () => {
+    setAuthMenuClasses([style.menu, style.hide]);
+    navigate(`${ERoutes.PROFILE_ROOT}/${AuthStore.authUser?.id}`);
+  };
+
   return (
     <>
       <div
@@ -77,6 +82,10 @@ const Login = () => {
           { AuthStore.authUser
             ? 
             <>
+              <li
+                onClick={ profileHandle }>
+                  Профиль
+                </li>
               <li onClick={  logoutHandle }>Выйти</li>
             </>
             : 

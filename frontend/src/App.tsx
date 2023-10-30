@@ -12,6 +12,7 @@ import { AUTH_ROUTE, ERoutes, REG_ROUTE, ROOT_ROUTE } from '@lib/routes';
 import checkListRouter from 'modules/checkList/router';
 import departmentsRouter from 'modules/departments/router';
 import inspectionsRouter from 'modules/inspections/router';
+import { ProfileRouter } from 'modules/profile/router';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: REG_ROUTE,
         element: <RegPage />,
+      },
+      {
+        path: ERoutes.PROFILE_ROOT,
+        children: ProfileRouter,
       },
       {
         path: '/check-list',

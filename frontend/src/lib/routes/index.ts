@@ -28,6 +28,10 @@ export enum ERoutes {
   INSPECTIONS_NEW = INSPECTIONS_ROOT + '/new',
   INSPECTIONS_NEW_DETAILS = INSPECTIONS_ROOT + '/new/details/:id',
   INSPECTIONS_DETAIL = INSPECTIONS_ROOT + '/:id',
+
+  PROFILE_ROOT = '/profile',
+  PROFILE_DETAILS = '/profile/:id',
+  PROFILE_ADD = '/profile/:id/add',
 }
 
 export enum EAPIRoutes {
@@ -42,5 +46,7 @@ export enum EAPIRoutes {
 
   INSPECTIONS = '/inspection',
   INSPECTIONS_CREATE = 'inspection/summary-info/',
-  INSPECTIONS_RESULT = 'inspection/result'
+  INSPECTIONS_RESULT = 'inspection/result',
+
+  PROFILE = '/employees/profile/',
 }

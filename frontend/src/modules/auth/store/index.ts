@@ -16,6 +16,7 @@ interface IRegCredentials {
 }
 
 interface IUser {
+  id: number;
   username: string;
   token: string;
 }
@@ -73,6 +74,7 @@ class AuthStore {
 
       if (response.status === 200) {
         this._authUser = {
+          id: response.data.id,
           username: response.data.username,
           token,
         };
@@ -94,6 +96,7 @@ class AuthStore {
 
       if (response.status === 200) {
         this.setAuthUser({
+          id: response.data.id,
           username: response.data.username,
           token: response.data.token,
         });
@@ -112,10 +115,13 @@ class AuthStore {
    */
   async fetchAuthData(credentials: any): Promise<void> {
     try {
-      const response = await FormDataApiClient.post(EAPIRoutes.SIGN_IN, credentials);
+      const response = await FormDataApiClient.post(
+        EAPIRoutes.SIGN_IN, credentials,
+      );
       
       if (response.status === 200) {
         this.setAuthUser({
+          id: response.data.id,
           username: credentials.get('username'),
           token: response.data.token,
         });

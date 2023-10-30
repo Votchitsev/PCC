@@ -8,5 +8,6 @@ router = APIRouter(prefix='/me')
 @router.get('/', summary="Получение информации о пользователе")
 def me(current_user: User = Depends(dependencies.get_current_user)):
     return {
+        "id": current_user.user_id,
         "username": current_user.username,
     }
