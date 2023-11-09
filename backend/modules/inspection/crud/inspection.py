@@ -1,12 +1,12 @@
 from typing import Union
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy import select, func
+
 from db.database import database
 from modules.auth.utils.dependencies import get_current_user
 from modules.inspection.schemas.schemas import SInspection, SInspectionQuestion, SInspectionQuestionChange
 from ..models.tables import inspection, inspection_question
 from modules.departments.models.tables import department, department_group
-from modules.check_list.models.tables import questions, check_list
 from ..utils.build_result import build_inspection_result
 
 

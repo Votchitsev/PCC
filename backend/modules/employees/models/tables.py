@@ -1,5 +1,5 @@
 import sqlalchemy
-from  sqlalchemy import Column, ForeignKey, Integer
+from  sqlalchemy import Column, ForeignKey, Integer, UniqueConstraint
 
 from modules.departments.models.tables import department, department_group
 from modules.check_list.models.tables import questions

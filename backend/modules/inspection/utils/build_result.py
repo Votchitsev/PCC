@@ -1,39 +1,13 @@
 from sqlalchemy import select
-from modules.check_list.models.tables import questions, check_list
-from ..models.tables import inspection, inspection_question
+from modules.check_list.models.tables import check_list
+from ..models.tables import inspection
 from modules.departments.models.tables import department, department_group
-from modules.auth.utils.dependencies import get_current_user
-from modules.inspection.schemas.schemas import SInspection, SInspectionQuestion
 from db.database import database
+from .common_result import ResultCalculation
+from .employee_result import EmployeeResultCalculation
 
 
 async def build_inspection_result(inspection_id: int):
-    inspection_result_query = (
-        select(
-            questions.c.id,
-            questions.c.text,
-            questions.c.grade,
-            inspection_question.c.result,
-        )
-        .join(questions, inspection_question.c.question_id == questions.c.id)
-        .join(inspection, inspection_question.c.inspection_id == inspection.c.id)
-        .where(inspection.c.id == inspection_id)
-        .group_by(
-            questions.c.id,
-            questions.c.text,
-            questions.c.grade,
-            inspection_question.c.result,
-        )
-        .order_by(
-            questions.c.id
-        )
-    )
-
-    inspection_result = await database.fetch_all(inspection_result_query)
-
-    if not inspection_result:
-        inspection_result = []
-
     inspection_summary_query = (
         select(
             inspection.c.id,
@@ -54,7 +28,7 @@ async def build_inspection_result(inspection_id: int):
             inspection.c.date,
             check_list.c.total_grade,
             department.c.name,
-            department_group.c.name
+            department_group.c.name,
         )
     )
 
@@ -62,17 +36,13 @@ async def build_inspection_result(inspection_id: int):
 
     if not inspection_summary:
         return None
-
-    result = 0
-
-    for i in inspection_result:
-        if i.result:
-            result += i.grade
     
-    total_result = 0
+    result_calculation = ResultCalculation(inspection_id)
+    inspection_result = await result_calculation.get_inspection_result()
+    total_result = await result_calculation.get_result()
 
-    if inspection_summary and inspection_summary["total_grade"] > 0:
-        total_result = (result / inspection_summary["total_grade"]) * 100
+    employee_result_calculation = EmployeeResultCalculation(inspection_id)
+    employees_result = await employee_result_calculation.get_result()
 
     add_total_result_query = (
         inspection.update()
@@ -90,6 +60,7 @@ async def build_inspection_result(inspection_id: int):
         "department": inspection_summary["department"],
         "department_group": inspection_summary["department_group"],
         "result": inspection_result,
+        "employees_result": employees_result,
         "check_list_id": inspection_summary["check_list_id"],
         "total_result": total_result,
     }

@@ -1,4 +1,5 @@
 from sqlalchemy import select, func
+from math import ceil
 
 from modules.check_list.models.tables import check_list
 from ..models.tables import inspection, inspection_question
@@ -62,7 +63,6 @@ class EmployeeResultCalculation:
         format_employees = []
 
         for employee in employees:
-            
             format_employee = {
                 "id": employee["profile_id"],
                 "first_name": employee["first_name"],
@@ -150,13 +150,16 @@ class EmployeeResultCalculation:
     
     def calculate_result(self, total_points: int, points_scored: int, not_checked_questions: int):
         """рассчитывает результат по конкретному сотруднику"""
-        print(total_points, points_scored, not_checked_questions)
+
+        if not total_points or not points_scored:
+            return 0
+
         if total_points > 0:
             result = (points_scored / (total_points - not_checked_questions)) * 100
         else:
             result = 0
 
-        return result
+        return ceil(result)
 
     async def get_result(self):
         """рассчитывает общий результат по всем сотрудникам"""
@@ -178,4 +181,3 @@ class EmployeeResultCalculation:
             })
 
         return total_result
-
