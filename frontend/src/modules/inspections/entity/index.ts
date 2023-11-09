@@ -5,6 +5,7 @@ export interface IInspection {
   date: string;
   total_result: number;
   result: IInspectionResult[];
+  employees_result: IEmployeeResult[];
 }
 
 export interface IInspectionResult {
@@ -14,8 +15,16 @@ export interface IInspectionResult {
   result: boolean | null;
 }
 
+interface IEmployeeResult {
+  first_name: string;
+  last_name: string;
+  position: string;
+  result: number;
+}
+
 export interface IInspectionExtended extends IInspection {
   result: IInspectionResult[];
+  employees_result: IEmployeeResult[];
 }
 
 export interface IInspectionList {

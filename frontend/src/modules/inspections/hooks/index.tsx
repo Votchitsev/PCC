@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IInspection, IInspectionResult } from '@inspections/entity';
 import { ApiClient } from '@api/index';
 import { EAPIRoutes, ERoutes } from '@lib/routes';
@@ -51,6 +51,10 @@ export function useInspectionResult (inspection: IInspection) {
 
     setChanged(false);
   };
+
+  // useEffect(() => {
+  //   console.log(resultState);
+  // }, [resultState]);
 
   return {
     inspectionResult: resultState,

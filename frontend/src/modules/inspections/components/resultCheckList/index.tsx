@@ -1,12 +1,13 @@
 import React from 'react';
+import styled from 'styled-components';
 import style from './index.module.scss';
 import ResultCheckListItem from '../resultCheckListItem';
-import { type IInspection } from '@inspections/entity';
+import { type IInspectionExtended } from '@inspections/entity';
 import { useInspection, useInspectionResult } from '@inspections/hooks';
 import Button, { EButtonColor } from '@main/components/button';
 
 interface IProps {
-  readonly inspection: IInspection;
+  readonly inspection: IInspectionExtended;
 }
 
 const ResultCheckList = ({ inspection }: IProps) => {
@@ -42,6 +43,19 @@ const ResultCheckList = ({ inspection }: IProps) => {
         )) }
         <div className={ style.total_result_container }>
           <span>{`Общая оценка: ${inspectionResult.total_result}`}</span>
+          <EmployeeResultContainer>
+            { inspectionResult.employees_result.map((employee, index) => (
+              <span
+                key={index}
+              >
+                { `${employee.position}
+                  ${employee.first_name ?? ''}
+                  ${employee.last_name ?? ''}:
+                  ${employee.result}`
+                } 
+              </span>
+            ))}
+          </EmployeeResultContainer>
         </div>
       </div>
       <div className={ style.button_wrapper }>
@@ -65,3 +79,9 @@ const ResultCheckList = ({ inspection }: IProps) => {
 };
 
 export default ResultCheckList;
+
+const EmployeeResultContainer = styled.div`
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+`;
