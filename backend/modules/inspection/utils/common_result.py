@@ -109,6 +109,9 @@ class ResultCalculation:
         points_scored = await self.get_points_scored()
         not_checked_questions = await self.get_not_checked_questions()
 
+        if points_scored is None:
+            points_scored = 0
+
         if total_points > 0:
             result = (points_scored / (total_points - not_checked_questions)) * 100
         else:
