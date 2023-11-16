@@ -33,7 +33,7 @@ class InspectionAnalytics:
     async def get_employees_result(self, inspection_id: int):
         employee_result = EmployeeResultCalculation(inspection_id)
         return await employee_result.get_result()
-    
+
     async def add_employees_result(self, inspection_records):
         """К проверкам в списке проверок добавляет результаты сотрудников"""
 
@@ -72,7 +72,7 @@ class InspectionAnalytics:
                 inspection["total_result"],
             ]
 
-            result["body"] = list_a
+            result["body"].append(list_a)
 
         return result
     
