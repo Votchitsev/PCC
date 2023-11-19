@@ -112,7 +112,7 @@ class ResultCalculation:
         if points_scored is None:
             points_scored = 0
 
-        if total_points > 0:
+        if total_points > 0 and points_scored > 0:
             result = (points_scored / (total_points - not_checked_questions)) * 100
         else:
             result = 0
