@@ -4,7 +4,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
+  min-width: 100px;
+  width: fit-content;
   height: 50px;
   border: none;
   border-radius: 5px;

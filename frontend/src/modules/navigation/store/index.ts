@@ -4,6 +4,7 @@ import CheckListIcon from '@assets/icons/checkList';
 import HomeIcon from '@assets/icons/home';
 import { ERoutes } from '@lib/routes';
 import DepartmentIcon from '@assets/icons/department';
+import ChartIcon from '@assets/icons/chart';
 
 interface INavigationRoute {
   name: string;
@@ -45,5 +46,10 @@ const navigationRoutes = [
     name: 'Подразделения',
     icon: DepartmentIcon,
     href: ERoutes.DEPARTMENT_GROUPS,
+  },
+  {
+    name: 'Аналитика',
+    icon: ChartIcon,
+    href: ERoutes.ANALYTICS_ROOT,
   },
 ];

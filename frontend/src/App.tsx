@@ -13,6 +13,7 @@ import checkListRouter from 'modules/checkList/router';
 import departmentsRouter from 'modules/departments/router';
 import inspectionsRouter from 'modules/inspections/router';
 import { ProfileRouter } from 'modules/profile/router';
+import { analyticsRouter } from '@analytics/router';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: ERoutes.INSPECTIONS_ROOT,
         children: inspectionsRouter,
+      },
+      {
+        path: ERoutes.ANALYTICS_ROOT,
+        children: analyticsRouter,
       },
     ],
   },

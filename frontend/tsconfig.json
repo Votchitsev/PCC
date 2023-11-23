@@ -19,6 +19,7 @@
       "@assets/*": ["./assets/*"],
       "@inspections/*": ["./modules/inspections/*"],
       "@navigation/*": ["./modules/navigation/*"],
+      "@analytics/*": ["./modules/analytics/*"],
     },
     "esModuleInterop": true,
     "skipLibCheck": true,

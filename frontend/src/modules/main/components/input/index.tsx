@@ -15,11 +15,11 @@ interface IProp {
   id: string;
   type?: 'text' | 'password' | 'date' | 'select';
   label: string;
-  value: any;
+  value?: any;
   error?: EError | null;
   selectData?: ISelectData[];
   isRequired?: boolean;
-  onChange: any;
+  onChange?: any;
 }
 
 registerLocale('ru', ru);

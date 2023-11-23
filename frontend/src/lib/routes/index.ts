@@ -32,6 +32,12 @@ export enum ERoutes {
   PROFILE_ROOT = '/profile',
   PROFILE_DETAILS = '/profile/:id',
   PROFILE_ADD = '/profile/:id/add',
+
+  ANALYTICS_ROOT = '/analytics',
+  MAIN_REPORT = ANALYTICS_ROOT + '/main',
+  MAIN_REPORT_BY_EMPLOYEES = ANALYTICS_ROOT + '/main/employees',
+  REPORT_QUESTIONS = ANALYTICS_ROOT + '/questions',
+  REPORT_DEPARTMENT_GROUPS = ANALYTICS_ROOT + '/department-groups',
 }
 
 export enum EAPIRoutes {
@@ -49,4 +55,7 @@ export enum EAPIRoutes {
   INSPECTIONS_RESULT = 'inspection/result',
 
   PROFILE = '/employees/profile/',
+
+  ANALYTICS = '/analytics/',
+  ANALYTICS_INSPECTIONS = '/analytics/inspections',
 }
