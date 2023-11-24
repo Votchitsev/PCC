@@ -1,18 +1,18 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
-import styled from 'styled-components';
-import PageLayout from '@main/layouts/page';
-import { ERoutes } from '@lib/routes';
-import NavigateLink from '@main/components/navigateLink';
-import { ReportForm, ReportView } from '@analytics/widgets';
-import { ReportLayout } from '@analytics/layouts';
+import {  ReportView } from '@analytics/widgets';
+import { ReportLayout } from '../shared';
+import { EReportTypes } from '@analytics/router';
 
 const ReportPage = () => {
-  const { title } = useLoaderData() as { title: string };
+  const { title, reportType } = useLoaderData() as {
+    title: string;
+    reportType: EReportTypes;
+  };
   
   return (
       <ReportLayout title={title}>
-        <ReportView/>
+        <ReportView reportType={reportType} />
       </ReportLayout>
   );
 };

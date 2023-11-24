@@ -1,7 +1,7 @@
 import React from 'react';
 import { ERoutes } from '@lib/routes';
 import { AnalyticsPage, ReportPage } from '../pages';
-import { MainReportLoader } from './loaders';
+import { MainReportLoader, MainReportByEmployeesLoader } from './loaders';
 
 const analyticsRouter = [
   {
@@ -12,6 +12,11 @@ const analyticsRouter = [
     path: ERoutes.MAIN_REPORT,
     element: <ReportPage />,
     loader: MainReportLoader,
+  },
+  {
+    path: ERoutes.MAIN_REPORT_BY_EMPLOYEES,
+    element: <ReportPage />,
+    loader: MainReportByEmployeesLoader,
   },
 ];
 

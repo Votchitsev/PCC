@@ -5,5 +5,3 @@ export {
   analyticsRouter,
   EReportTypes,
 };
-
-/** Батальная 52 Киевская 103 **/ 

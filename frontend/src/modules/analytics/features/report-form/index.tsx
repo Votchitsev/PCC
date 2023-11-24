@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Button from '@main/components/button';
-import { ApiClient } from '@api/index';
-import { EAPIRoutes } from '@lib/routes';
+import { useQuery } from './hooks';
+import { AnalyticContext } from '../../widgets/AnalyticsReport';
+import { EReportTypes } from '@analytics/router';
 
 type Inputs = {
   from: string;
@@ -25,7 +26,9 @@ const ReportForm = ({ setTable }: IProps) => {
 
     const watchedFields = watch(['from', 'to']);
 
-    const { isLoading, fetchData } = useQuery();
+    const reportType = useContext(AnalyticContext);
+
+    const { isLoading, fetchData } = useQuery(reportType ?? EReportTypes.MAIN);
 
     useEffect(() => {
       const subscription = watch((value) => {
@@ -98,27 +101,3 @@ const ErrorMessage = styled.span`
   font-size: 0.7em;
 `;
 
-const useQuery = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const fetchData = async (from: string, to: string) => {
-    setIsLoading(true);
-
-    try {
-      const { data } = await ApiClient.get(
-        `${
-          EAPIRoutes.ANALYTICS_INSPECTIONS
-        }?type=common&date_from=${from}&date_to=${to}`,
-      );
-
-      setIsLoading(false);
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  return {
-    isLoading,
-    fetchData,
-  };
-};

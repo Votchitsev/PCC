@@ -1,6 +1,6 @@
 import AnalyticsReportList from './AnalyticsReportList';
-import ReportForm from './ReportForm';
-import ReportView from './ReportView/ReportView';
+import ReportView from './AnalyticsReport';
+import { ReportForm, ReportTable } from '../features/';
 
 export {
   AnalyticsReportList,

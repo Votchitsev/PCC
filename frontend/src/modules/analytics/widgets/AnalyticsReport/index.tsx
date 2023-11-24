@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { createContext, useState } from 'react';
 import styled from 'styled-components';
-import ReportForm from '../ReportForm';
-import { TablePlug } from '@analytics/components';
-import ReportTable from './ReportTable';
+import { ReportForm, ReportTable } from '../../features/';
+import TablePlug from './TablePlug';
+import { EReportTypes } from '@analytics/router';
 
-const ReportView = () => {
+interface IProps {
+  reportType: EReportTypes;
+}
+
+export const AnalyticContext = createContext<null | EReportTypes>(null);
+
+const ReportView = ({ reportType }: IProps) => {
   const [table, setTable] = useState(null);
 
   return (
-    <Container>
+    <AnalyticContext.Provider value={reportType}>
+      <Container>
       <FormContainer>
         <ReportForm setTable={setTable} />
       </FormContainer>
@@ -18,6 +25,7 @@ const ReportView = () => {
         <TablePlug />
       ) }
     </Container>
+    </AnalyticContext.Provider>
   );
 };
 
