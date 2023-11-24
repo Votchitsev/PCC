@@ -58,4 +58,5 @@ export enum EAPIRoutes {
 
   ANALYTICS = '/analytics/',
   ANALYTICS_INSPECTIONS = '/analytics/inspections',
+  ANALYTICS_QUESTIONS = '/analytics/questions',
 }

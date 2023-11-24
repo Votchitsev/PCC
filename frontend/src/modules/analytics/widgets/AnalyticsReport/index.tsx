@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 import styled from 'styled-components';
 import { ReportForm, ReportTable } from '../../features/';
 import TablePlug from './TablePlug';
-import { EReportTypes } from '@analytics/router';
+import { EReportTypes } from '../../entities';
 
 interface IProps {
   reportType: EReportTypes;
@@ -16,15 +16,15 @@ const ReportView = ({ reportType }: IProps) => {
   return (
     <AnalyticContext.Provider value={reportType}>
       <Container>
-      <FormContainer>
-        <ReportForm setTable={setTable} />
-      </FormContainer>
-      { table ? (
-        <ReportTable table={table} />
-      ) : (
-        <TablePlug />
-      ) }
-    </Container>
+        <FormContainer>
+          <ReportForm setTable={setTable} />
+        </FormContainer>
+        { table ? (
+          <ReportTable table={table} />
+        ) : (
+          <TablePlug />
+        ) }
+      </Container>
     </AnalyticContext.Provider>
   );
 };

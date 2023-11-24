@@ -35,11 +35,12 @@ module.exports = {
       new TsconfigPathsPlugin({
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
       }),
-    ]
+    ],
   },
   plugins: [
     new Dotenv(),
   ],
   watch: true,
   mode: 'development',
+  devtool: 'inline-source-map',
 };

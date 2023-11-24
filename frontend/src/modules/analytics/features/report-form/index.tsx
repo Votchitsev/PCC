@@ -2,9 +2,9 @@ import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Button from '@main/components/button';
-import { useQuery } from './hooks';
+import { useQuery } from './api';
 import { AnalyticContext } from '../../widgets/AnalyticsReport';
-import { EReportTypes } from '@analytics/router';
+import { EReportTypes } from '../../entities';
 
 type Inputs = {
   from: string;

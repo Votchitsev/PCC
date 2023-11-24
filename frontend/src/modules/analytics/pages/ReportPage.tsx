@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
-import {  ReportView } from '@analytics/widgets';
+import { ReportView } from '@analytics/widgets';
 import { ReportLayout } from '../shared';
-import { EReportTypes } from '@analytics/router';
+import { EReportTypes } from '../entities';
 
 const ReportPage = () => {
   const { title, reportType } = useLoaderData() as {

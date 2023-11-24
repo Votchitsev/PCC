@@ -1,7 +1,4 @@
-export enum EReportTypes {
-  MAIN = 'common',
-  MAIN_BY_EMPLOYEES = 'employee',
-}
+import { EReportTypes } from '../entities';
 
 export const MainReportLoader = async () => {
   return {
@@ -14,5 +11,12 @@ export const MainReportByEmployeesLoader = () => {
   return {
     title: 'Отчёт по сотрудникам',
     reportType: EReportTypes.MAIN_BY_EMPLOYEES,
+  };
+};
+
+export const QuestionsReportLoader = () => {
+  return {
+    title: 'Отчёт по вопросам',
+    reportType: EReportTypes.QUESTIONS,
   };
 };
