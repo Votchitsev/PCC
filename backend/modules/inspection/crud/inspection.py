@@ -76,7 +76,10 @@ async def put(id: int, result: Union[list[SInspectionQuestionChange], list[SInsp
                     .values(
                         result=question.result,
                     )
-                    .where(inspection_question.c.question_id == question.question_id)
+                    .where(
+                        inspection_question.c.question_id == question.question_id,
+                        inspection_question.c.inspection_id == id,
+                    )
             )
 
             await database.execute(update_query)
