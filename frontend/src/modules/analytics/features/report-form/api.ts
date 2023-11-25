@@ -59,8 +59,19 @@ const getQuestionsReport = async (from: string, to: string) => {
   return data;
 };
 
+const getDepartmentGroupReport = async (from: string, to: string) => {
+  const { data } = await ApiClient.get(
+    `${
+      EAPIRoutes.ANALYTICS_DEPARTMENT_GROUPS
+    }?date_from=${from}&date_to=${to}`,
+  );
+
+  return data;
+};
+
 const AnalyticApiController = new Map([
   [EReportTypes.MAIN, getMainReport],
   [EReportTypes.MAIN_BY_EMPLOYEES, getMainReportByEmployees],
   [EReportTypes.QUESTIONS, getQuestionsReport],
+  [EReportTypes.DEPARTMENT_GROUPS, getDepartmentGroupReport],
 ]);

@@ -20,3 +20,10 @@ export const QuestionsReportLoader = () => {
     reportType: EReportTypes.QUESTIONS,
   };
 };
+
+export const DepartmentReportLoader = () => {
+  return {
+    title: 'Рейтинг групп подразделений',
+    reportType: EReportTypes.DEPARTMENT_GROUPS,
+  };
+};

@@ -5,6 +5,7 @@ import {
   MainReportLoader,
   MainReportByEmployeesLoader,
   QuestionsReportLoader,
+  DepartmentReportLoader,
 } from './loaders';
 
 const analyticsRouter = [
@@ -26,6 +27,11 @@ const analyticsRouter = [
     path: ERoutes.REPORT_QUESTIONS,
     element: <ReportPage />,
     loader: QuestionsReportLoader,
+  },
+  {
+    path: ERoutes.REPORT_DEPARTMENT_GROUPS,
+    element: <ReportPage />,
+    loader: DepartmentReportLoader,
   },
 ];
 
