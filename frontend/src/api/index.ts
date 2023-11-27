@@ -12,4 +12,4 @@ export const FormDataApiClient = axios.create({
   headers: {
     'Content-Type': 'multipart/form-data',
   },
-})
+});

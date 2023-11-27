@@ -5,6 +5,7 @@ import Button from '@main/components/button';
 import { useQuery } from './api';
 import { AnalyticContext } from '../../widgets/AnalyticsReport';
 import { EReportTypes } from '../../entities';
+import { DownloadButton } from './UI/DownloadButton';
 
 type Inputs = {
   from: string;
@@ -28,7 +29,12 @@ const ReportForm = ({ setTable }: IProps) => {
 
     const reportType = useContext(AnalyticContext);
 
-    const { isLoading, fetchData } = useQuery(reportType ?? EReportTypes.MAIN);
+    const {
+      isLoading,
+      fetchData,
+      downloadFile,
+      interval,
+    } = useQuery(reportType ?? EReportTypes.MAIN);
 
     useEffect(() => {
       const subscription = watch((value) => {
@@ -55,6 +61,11 @@ const ReportForm = ({ setTable }: IProps) => {
       setTable(tableData);
     }
   };
+
+  const onDownload = async () => {
+    const { from, to } = interval;
+    await downloadFile(from, to);
+  };
   
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -74,6 +85,10 @@ const ReportForm = ({ setTable }: IProps) => {
         isLoading={isLoading}
       />
       { errors.to && <ErrorMessage>{ errors.to.message }</ErrorMessage> }
+      <DownloadButton
+        clickHandler={onDownload}
+        active={ isValid && interval.from.length > 0 && interval.to.length > 0 }
+      />
     </Form>
   );
 };
@@ -100,4 +115,3 @@ const ErrorMessage = styled.span`
   color: var(--red);
   font-size: 0.7em;
 `;
-
