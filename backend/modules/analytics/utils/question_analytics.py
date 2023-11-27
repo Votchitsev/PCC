@@ -85,7 +85,7 @@ class QuestionAnalytics:
         """Подготавливает конечный результат отчёта"""
 
         questions_list = await self.get_questions()
-        print(self.to_dict(questions_list))
+
         with_percent = await self.add_percent(self.to_dict(questions_list))
 
         raw_data = sorted(with_percent, key=lambda x: x["percent"], reverse=True)

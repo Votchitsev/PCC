@@ -73,6 +73,16 @@ const getMainReportByEmployees = async (
   to: string,
   download = false,
 ) => {
+  if (download) {
+    const link = document.createElement('a');
+    link.href = `/api${
+      EAPIRoutes.ANALYTICS_INSPECTIONS
+    }?type=employee&date_from=${from}&date_to=${to}&download=${download}`;
+
+    link.click();
+    return;
+  }
+
   const { data } = await ApiClient.get(
     `${
       EAPIRoutes.ANALYTICS_INSPECTIONS
@@ -87,6 +97,16 @@ const getQuestionsReport = async (
   to: string,
   download = false,
 ) => {
+  if (download) {
+    const link = document.createElement('a');
+    link.href = `/api${
+      EAPIRoutes.ANALYTICS_QUESTIONS
+    }?date_from=${from}&date_to=${to}&download=${download}`;
+    
+    link.click();
+    return;
+  }
+
   const { data } = await ApiClient.get(
     `${
       EAPIRoutes.ANALYTICS_QUESTIONS
@@ -101,6 +121,16 @@ const getDepartmentGroupReport = async (
   to: string,
   download = false,
 ) => {
+  if (download) {
+    const link = document.createElement('a');
+    link.href = `/api${
+      EAPIRoutes.ANALYTICS_DEPARTMENT_GROUPS
+    }?date_from=${from}&date_to=${to}&download=${download}`;
+
+    link.click();
+    return;
+  }
+
   const { data } = await ApiClient.get(
     `${
       EAPIRoutes.ANALYTICS_DEPARTMENT_GROUPS
