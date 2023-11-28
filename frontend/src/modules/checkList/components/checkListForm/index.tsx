@@ -56,11 +56,15 @@ const CheckListForm = ({ checkListData }: IProps) => {
     }
   };
 
-  const addQuestionHandler = () => {
+  const addQuestionHandler = (parentQuestionId: number|null = null) => {
     CheckListStore.updateQuestions(
       [
         ...CheckListStore.questions,
-        { text: 'Новый вопрос', grade: 0 },
+        {
+          text: 'Новый вопрос',
+          grade: 0,
+          parent_question_id: parentQuestionId,
+        },
       ],
     );
   };
@@ -107,6 +111,10 @@ const CheckListForm = ({ checkListData }: IProps) => {
     }
   }, [checkListData]);
 
+  useEffect(() => {
+    console.log(CheckListStore.questions);
+  }, [CheckListStore.questions]);
+
   return (
     <form
       className={style.form}
@@ -133,7 +141,11 @@ const CheckListForm = ({ checkListData }: IProps) => {
       </div>
       {
         CheckListStore.questions.map((question, index) =>
-          <Question key={ index }>
+          <Question
+            key={ index }
+            addQuestionHandler={addQuestionHandler}
+            question={question}
+          >
             <DynamicInput
               id={ `${index}` }
               type="text"
@@ -164,7 +176,7 @@ const CheckListForm = ({ checkListData }: IProps) => {
         <Button
           type={'button'}
           text={'Добавить'}
-          clickHandler={addQuestionHandler}
+          clickHandler={() => addQuestionHandler(null)}
         />
         <Button
           type={'submit'}

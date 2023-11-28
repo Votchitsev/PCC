@@ -3,6 +3,7 @@ from modules.auth.utils.dependencies import get_current_user
 from db.database import database
 from ..models.tables import check_list, questions
 from ..schemas.schemas import SCheckListData
+from ..utils.get_total_grade import update_check_list_total_grade
 
 
 router = APIRouter(
@@ -67,24 +68,46 @@ async def put(id: int, data: SCheckListData, _ = Depends(get_current_user)):
 
     await database.execute(update_query)
 
+    for question in data.questions:
+        if question.id != None:
+            update_question_query = (
+                questions.update()
+                    .where(questions.c.id == question.id)
+                    .values(
+                        text=question.text,
+                        grade=question.grade,
+                        parent_question_id=question.parent_question_id
+                    )
+            )
+
+            await database.execute(update_question_query)
+        
+        else:
+            create_question_query = (
+                questions.insert()
+                    .values(
+                        text=question.text,
+                        grade=question.grade,
+                        check_list_id=id,
+                        parent_question_id=question.parent_question_id
+                    )
+            )
+
+            await database.execute(create_question_query)
+    
+    data_questions = [i.id for i in data.questions]
+
     delete_questions_query = (
         questions.delete()
-            .where(questions.c.check_list_id == id)
+            .where(
+                questions.c.check_list_id == id,
+                questions.c.id.not_in(data_questions)
+            )
     )
 
     await database.execute(delete_questions_query)
 
-    for question in data.questions:
-        question_query = (
-                questions.insert()
-                .values(
-                    text=question.text,
-                    grade=question.grade,
-                    check_list_id=id,
-                )
-            )
-
-        await database.execute(question_query)
+    await update_check_list_total_grade(id)
 
 
 @router.delete('/', summary="Удаление чек-листа")

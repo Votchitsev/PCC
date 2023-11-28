@@ -1,4 +1,12 @@
-import React, { CSSProperties, ChangeEvent, ChangeEventHandler, useEffect, useRef, useState, KeyboardEvent } from 'react';
+import React, {
+  CSSProperties,
+  ChangeEvent,
+  ChangeEventHandler,
+  useEffect,
+  useRef,
+  useState,
+  KeyboardEvent,
+} from 'react';
 import style from './dynamicInput.module.scss';
 
 interface IProp {
@@ -70,7 +78,9 @@ const DynamicInput = ({
       <input
         id={ id }
         type={type}
-        className={`${style.input} ${ !inputVisibility && style.hidden } ${extraStyle}`}
+        className={
+          `${style.input} ${ !inputVisibility && style.hidden } ${extraStyle}`
+        }
         value={value}
         onChange={onChange}
         onBlur={changeVisibility}
@@ -81,7 +91,9 @@ const DynamicInput = ({
         required={isRequired}
       />
       <div
-        className={`${style.preview} ${!previewVisibility && style.hidden} ${extraStyle}`}
+        className={
+          `${style.preview} ${!previewVisibility && style.hidden} ${extraStyle}`
+        }
         onClick={changeVisibility}
         title={clue}
       >{ value }</div>

@@ -20,4 +20,5 @@ questions = sqlalchemy.Table(
     sqlalchemy.Column("text", sqlalchemy.String()),
     sqlalchemy.Column("grade", sqlalchemy.Integer),
     sqlalchemy.Column("check_list_id", sqlalchemy.Integer, sqlalchemy.ForeignKey("check_list.id")),
+    sqlalchemy.Column("parent_question_id", sqlalchemy.Integer, sqlalchemy.ForeignKey("questions.id")),
 )

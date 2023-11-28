@@ -23,13 +23,6 @@ const CheckListPage = () => {
   );
 };
 
-const style = {
-  style: {
-    marginTop: '20px',
-    marginLeft: '20px',
-  },
-};
-
 export default CheckListPage;
 
 const StyledNavLink = styled.div`

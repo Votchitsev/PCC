@@ -32,11 +32,14 @@ async def create_check_list(CheckListData: SCheckListData, _ = Depends(get_curre
                     text=question.text,
                     grade=question.grade,
                     check_list_id=check_list_id,
+                    parent_question_id=question.parent_question_id
                 )
             )
-
+ 
             await database.execute(question_query)
-            total_grade += question.grade
+
+            if question.parent_question_id is None:
+                total_grade += question.grade
 
         total_grade_query = (
             check_list.update()
