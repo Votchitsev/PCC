@@ -1,5 +1,5 @@
 import React, { type ReactNode, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { type IQuestion } from '@checkList/entity';
 import style from './question.module.scss';
 
@@ -24,10 +24,16 @@ const Question = ({
     }
   };
 
+  const mouseEnterHandler = () => {
+    if (!question.parent_question_id) {
+      setShowRelQuestions(true);
+    }
+  };
+
   return (
     <div
       className={style.question}
-      onMouseEnter={() => setShowRelQuestions(true)}
+      onMouseEnter={mouseEnterHandler}
       onMouseLeave={() => setShowRelQuestions(false)}
       {...props}
     >
@@ -51,6 +57,28 @@ const Question = ({
 
 export default Question;
 
+const appear = keyframes`
+  0% {
+		transform: scale(0.5);
+		transform-origin: 0% 50%;
+	}
+
+	100% {
+		transform: scale(1);
+		transform-origin: 0% 50%;
+	}
+`;
+
+const hoverAnimation = keyframes`
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.2);
+  }
+`;
+
 const RelativeQuestion = styled.a`
   position: absolute;
   width: 1.5rem;
@@ -67,10 +95,12 @@ const RelativeQuestion = styled.a`
   cursor: pointer;
   font-size: 0.7rem;
   padding: 0 1em;
+  animation: ${appear} 0.3s ease 0s 1 normal forwards;
 
   &:hover {
     width: fit-content;
     border-radius: 5px;
+    animation: ${hoverAnimation} 0.3s ease 0s 1 normal forwards;
   }
 `;
 

@@ -111,10 +111,6 @@ const CheckListForm = ({ checkListData }: IProps) => {
     }
   }, [checkListData]);
 
-  useEffect(() => {
-    console.log(CheckListStore.questions);
-  }, [CheckListStore.questions]);
-
   return (
     <form
       className={style.form}
