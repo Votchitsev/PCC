@@ -1,6 +1,7 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import PageLayout from '@main/layouts/page';
+import Button, { EButtonColor } from '@main/components/button';
 import CheckLists from '../components/checkLists';
 import EmptyList from '@checkList/components/emptyList';
 import NavigateLink from '@main/components/navigateLink';
@@ -14,15 +15,24 @@ export interface ICheckListInformation {
 
 const CheckListsPage = () => {
   const loaderData = useLoaderData() as ICheckListInformation[];
+  const navigate = useNavigate();
 
   return (
     <PageLayout>
-      <StyledNavLink>
+      <LinksContainer>
         <NavigateLink
           href={ERoutes.ROOT}
           name="Назад"
         />
-      </StyledNavLink>
+        <Button
+          type="button"
+          text="Создать"
+          clickHandler={() => {
+            navigate(ERoutes.ADD_CHECK_LIST);
+          }}
+          color={EButtonColor.danger}
+        />
+      </LinksContainer>
       <h1>Чек-листы</h1>
       { loaderData.length
         ? <CheckLists checkLists={ loaderData } />
@@ -33,8 +43,10 @@ const CheckListsPage = () => {
 
 export default CheckListsPage;
 
-const StyledNavLink = styled.div`
-  width: fit-content;
+const LinksContainer = styled.div`
+  width: 100%;
   margin-top: 20px;
   margin-left: 20px;
+  display: flex;
+  justify-content: space-between;
 `;
