@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { IInspection, IInspectionResult } from '@inspections/entity';
 import { ApiClient } from '@api/index';
 import { EAPIRoutes, ERoutes } from '@lib/routes';
@@ -10,7 +10,23 @@ export function useInspectionResult (inspection: IInspection) {
   const [resultState, setResultState] = useState(inspection);
   const [isLoading, setIsLoading] = useState(false);
   const [changed, setChanged] = useState(false);
+  const [disabledQuestions, setDisabledQuestions] = useState<number[]>([]);
   const { AuthStore } = useStore();
+  const relQuestions = useMemo(() => {
+    const result: number[][] = [];
+    
+    resultState.result.forEach(r => {
+      if (r.parent_question_id) {
+        const questions: number[] = [
+          r.parent_question_id,
+          r.id,
+        ];
+        result.push(questions);
+      }
+    });
+
+    return result;
+  }, [inspection]);
 
   const setResult = (result: {id: number, result: boolean | null}) => {
     setChanged(true);
@@ -24,6 +40,23 @@ export function useInspectionResult (inspection: IInspection) {
         ...resultState,
         result: oldResult,
       });
+
+      const questions = relQuestions.find(r => r.includes(result.id));
+      const targetQuestion = questions?.find(
+        r => r !== result.id,
+      );
+
+      if (result.result !== null && targetQuestion) {
+        setDisabledQuestions(
+          [...disabledQuestions, targetQuestion],
+        );
+      }
+
+      if (targetQuestion && result.result === null) {
+        setDisabledQuestions(
+          disabledQuestions.filter(q => q !== targetQuestion),
+        );
+      }
     }
   };
 
@@ -52,16 +85,13 @@ export function useInspectionResult (inspection: IInspection) {
     setChanged(false);
   };
 
-  // useEffect(() => {
-  //   console.log(resultState);
-  // }, [resultState]);
-
   return {
     inspectionResult: resultState,
     setResult,
     onSubmit,
     isLoading,
     changed,
+    disabledQuestions,
   };
 }
 

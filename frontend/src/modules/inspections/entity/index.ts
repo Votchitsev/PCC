@@ -13,6 +13,7 @@ export interface IInspectionResult {
   text: string;
   grade: number;
   result: boolean | null;
+  parent_question_id: number | null;
 }
 
 interface IEmployeeResult {

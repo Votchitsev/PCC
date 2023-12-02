@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import style from './index.module.scss';
 import ResultCheckListItem from '../resultCheckListItem';
@@ -17,9 +17,10 @@ const ResultCheckList = ({ inspection }: IProps) => {
     isLoading,
     onSubmit,
     changed,
+    disabledQuestions,
   } = useInspectionResult(inspection);
 
-  const { onDelete } = useInspection(inspection.id); 
+  const { onDelete } = useInspection(inspection.id);
 
   return (
     <>
@@ -39,6 +40,7 @@ const ResultCheckList = ({ inspection }: IProps) => {
             key={ result_question.id }
             result_question={ result_question }
             setResult={setResult}
+            disabled={disabledQuestions.includes(result_question.id)}
           />
         )) }
         <div className={ style.total_result_container }>

@@ -4,10 +4,11 @@ import style from './index.module.scss';
 interface IProps {
   id: number;
   result: {id: number, result: boolean | null}
+  disabled?: boolean;
   setResult: ({}: {id: number, result: boolean | null}) => void;
 }
 
-const CheckBox = ({ id, result, setResult }: IProps) => {
+const CheckBox = ({ id, result, setResult, disabled = false }: IProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked && e.target.name === 'yes') {
@@ -43,6 +44,7 @@ const CheckBox = ({ id, result, setResult }: IProps) => {
           checked={result.result === true}
           name="yes"
           onChange={handleChange}
+          disabled={disabled}
         />
       </label>
       <label className={style.label}>
@@ -53,6 +55,7 @@ const CheckBox = ({ id, result, setResult }: IProps) => {
           checked={result.result === false}
           name="no"
           onChange={handleChange}
+          disabled={disabled}
         />
       </label>
     </div>
