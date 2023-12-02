@@ -7,6 +7,7 @@ class SQuestion(BaseModel):
     text: str
     grade: int
     parent_question_id: Optional[int] = None
+    order: int
 
 class SCheckListData(BaseModel):
     title: str

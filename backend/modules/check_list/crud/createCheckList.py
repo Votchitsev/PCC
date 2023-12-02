@@ -32,7 +32,8 @@ async def create_check_list(CheckListData: SCheckListData, _ = Depends(get_curre
                     text=question.text,
                     grade=question.grade,
                     check_list_id=check_list_id,
-                    parent_question_id=question.parent_question_id
+                    parent_question_id=question.parent_question_id,
+                    order=question.order,
                 )
             )
  

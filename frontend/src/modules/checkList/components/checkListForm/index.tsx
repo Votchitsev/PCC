@@ -3,6 +3,7 @@ import React, {
   MouseEvent,
   FormEvent,
   useEffect,
+  useState,
 } from 'react';
 import DynamicInput from '@main/components/dynamicInput';
 import Question from '../question';
@@ -20,13 +21,10 @@ interface IProps {
   readonly checkListData?: ICheckList;
 }
 
-interface IContext {
-  isLoading: boolean;
-}
-
 const CheckListForm = ({ checkListData }: IProps) => {
   const { CheckListStore, ModalStore } = useStore();
   const navigate = useNavigate();
+  const { getOrderIndex } = useOrder();
 
   const onSubmitHandler = async (e: FormEvent) => {
     e.preventDefault();
@@ -64,6 +62,7 @@ const CheckListForm = ({ checkListData }: IProps) => {
           text: 'Новый вопрос',
           grade: 0,
           parent_question_id: parentQuestionId,
+          order: getOrderIndex(),
         },
       ],
     );
@@ -111,6 +110,13 @@ const CheckListForm = ({ checkListData }: IProps) => {
     }
   }, [checkListData]);
 
+  const {
+    dragStartHandler,
+    dragEndHandler,
+    dragOverHandler,
+    dropHandler,
+  } = useDragNDrop();
+
   return (
     <form
       className={style.form}
@@ -141,6 +147,18 @@ const CheckListForm = ({ checkListData }: IProps) => {
             key={ index }
             addQuestionHandler={addQuestionHandler}
             question={question}
+            draggable={true}
+            onDragStart={
+              (e: React.DragEvent<HTMLDivElement>) =>
+                dragStartHandler(e, question)
+              }
+            onDragLeave={dragEndHandler}
+            onDragEnd={dragEndHandler}
+            onDragOver={dragOverHandler}
+            onDrop={
+              (e: React.DragEvent<HTMLDivElement>) =>
+                dropHandler(e, question)
+              }
           >
             <DynamicInput
               id={ `${index}` }
@@ -186,3 +204,61 @@ const CheckListForm = ({ checkListData }: IProps) => {
 };
 
 export default observer(CheckListForm);
+
+function useDragNDrop() {
+  const [
+    currentQuestion,
+    setCurrentQuestion,
+  ] = useState<null | IQuestion>(null);
+
+  const { CheckListStore } = useStore();
+
+  const dragStartHandler = (
+    e: React.DragEvent<HTMLDivElement>,
+    question: IQuestion,
+  ) => {
+    setCurrentQuestion(question);
+  };
+
+  const dragEndHandler = (e: React.DragEvent<HTMLDivElement>) => {
+    (e.currentTarget as HTMLDivElement).style.background = 'none';
+  };
+
+  const dragOverHandler = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    (e.currentTarget as HTMLDivElement).style.background = 'var(--grey)';
+  };
+
+  const dropHandler = (
+    e: React.DragEvent<HTMLDivElement>,
+    question: IQuestion,
+  ) => {
+    e.preventDefault();
+    if (currentQuestion) {
+      CheckListStore.changeOrder(currentQuestion, question);
+      setCurrentQuestion(null);
+      (e.currentTarget as HTMLDivElement).style.background = 'none';
+    }
+  };
+
+  return {
+    dragStartHandler,
+    dragEndHandler,
+    dragOverHandler,
+    dropHandler,
+  };
+};
+
+function useOrder() {
+  const { CheckListStore } = useStore();
+  const { questions } = CheckListStore;
+
+  const getOrderIndex = () => {
+    const lastIndex = questions.length - 1;
+    return lastIndex === -1 ? 0 : questions[lastIndex].order + 1;
+  };
+
+  return {
+    getOrderIndex,
+  };
+}

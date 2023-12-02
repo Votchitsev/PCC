@@ -2,6 +2,7 @@ import React, { type ReactNode, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { type IQuestion } from '@checkList/entity';
 import style from './question.module.scss';
+import { useStore } from 'store';
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -17,6 +18,7 @@ const Question = ({
 }: IProps) => {
   const [showRelQuestions, setShowRelQuestions] = useState(false);
   const [showRelQuestionText, setShowRelQuestionText] = useState(false);
+  const { CheckListStore } = useStore();
 
   const handleClick = () => {
     if (question.id) {
@@ -28,6 +30,15 @@ const Question = ({
     if (!question.parent_question_id) {
       setShowRelQuestions(true);
     }
+  };
+
+  const getTitle = () => {
+    const parentQuestion = CheckListStore.questions.find(
+      q => q.id === question.parent_question_id,
+    );
+
+    return parentQuestion ? parentQuestion.text : '';
+    
   };
 
   return (
@@ -47,7 +58,7 @@ const Question = ({
         { showRelQuestionText ? 'Добавить связанный вопрос' : '+' } 
       </RelativeQuestion>}
       { question.parent_question_id && 
-      <MainQuestionMark>
+      <MainQuestionMark title={getTitle()}>
         { 'Есть связанный вопрос' }
       </MainQuestionMark>
       }

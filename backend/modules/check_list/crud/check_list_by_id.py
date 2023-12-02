@@ -76,7 +76,8 @@ async def put(id: int, data: SCheckListData, _ = Depends(get_current_user)):
                     .values(
                         text=question.text,
                         grade=question.grade,
-                        parent_question_id=question.parent_question_id
+                        parent_question_id=question.parent_question_id,
+                        order=question.order,
                     )
             )
 
@@ -89,7 +90,8 @@ async def put(id: int, data: SCheckListData, _ = Depends(get_current_user)):
                         text=question.text,
                         grade=question.grade,
                         check_list_id=id,
-                        parent_question_id=question.parent_question_id
+                        parent_question_id=question.parent_question_id,
+                        order=question.order,
                     )
             )
 

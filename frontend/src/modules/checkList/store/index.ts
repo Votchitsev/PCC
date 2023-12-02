@@ -54,12 +54,12 @@ class CheckListStore {
    * Обновляет список вопросов
    * @param name содержание вопроса
    */
-  public updateQuestions(questions: IQuestion[]) {
+  public updateQuestions(questions: IQuestion[]) {    
     this._questions = questions;
   }
 
   public get questions () {
-    return this._questions;
+    return this._questions.slice().sort((a, b) => a.order - b.order);
   }
 
   public async saveToDb (id?: number) {
@@ -71,6 +71,8 @@ class CheckListStore {
       this._isLoading.create = false;
       return;
     }
+
+    this.updateOrder();
     
     const data = {
       title: this._title,
@@ -101,7 +103,6 @@ class CheckListStore {
       });
 
     this._isLoading.create = false;
-    console.log(response);
   }
 
   public async deleteFromDb (id: number) {
@@ -129,6 +130,25 @@ class CheckListStore {
 
   public get isLoading () {
     return this._isLoading;
+  }
+
+  updateOrder() {
+    this._questions = this._questions.map((question, index) => {
+      question.order = index;
+      return question;
+    });
+  }
+
+  public changeOrder(sourceQuestion: IQuestion, targetQuestion: IQuestion) {
+    const sourceIndex = this._questions.indexOf(sourceQuestion);
+    const targetIndex = this._questions.indexOf(targetQuestion);
+
+    [this._questions[sourceIndex], this._questions[targetIndex]] = [
+      this._questions[targetIndex],
+      this._questions[sourceIndex],
+    ];
+
+    this.updateOrder();
   }
 }
 
