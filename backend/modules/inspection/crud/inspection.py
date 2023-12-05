@@ -8,6 +8,7 @@ from modules.inspection.schemas.schemas import SInspection, SInspectionQuestion,
 from ..models.tables import inspection, inspection_question
 from modules.departments.models.tables import department, department_group
 from ..utils.build_result import build_inspection_result
+from ..utils.validate_result import validate_result
 
 
 router = APIRouter(
@@ -62,6 +63,11 @@ async def create_result(result: list[SInspectionQuestion], _ = Depends(get_curre
 
 @router.put('/result/{id}', summary="Изменение результатов проверки")
 async def put(id: int, result: Union[list[SInspectionQuestionChange], list[SInspectionQuestion]], _ = Depends(get_current_user)):
+    isValid = await validate_result(result)
+
+    if not isValid:
+        raise HTTPException(status_code=400, detail="VALIDATION_ERROR")
+
     result_query = (
         inspection_question.select()
             .where(inspection_question.c.inspection_id == id)

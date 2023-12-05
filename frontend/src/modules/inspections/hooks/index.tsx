@@ -14,7 +14,7 @@ export function useInspectionResult (inspection: IInspection) {
   const { AuthStore } = useStore();
   const relQuestions = useMemo(() => {
     const result: number[][] = [];
-    
+
     resultState.result.forEach(r => {
       if (r.parent_question_id) {
         const questions: number[] = [
@@ -26,7 +26,7 @@ export function useInspectionResult (inspection: IInspection) {
     });
 
     return result;
-  }, [inspection]);
+  }, [inspection, resultState]);
 
   const setResult = (result: {id: number, result: boolean | null}) => {
     setChanged(true);
@@ -40,25 +40,31 @@ export function useInspectionResult (inspection: IInspection) {
         ...resultState,
         result: oldResult,
       });
+  }};
 
-      const questions = relQuestions.find(r => r.includes(result.id));
-      const targetQuestion = questions?.find(
-        r => r !== result.id,
+  useEffect(() => {
+    relQuestions.forEach(questions => {
+      const questionWithResult = resultState.result.find(
+        r => questions.includes(r.id) && r.result !== null,
       );
 
-      if (result.result !== null && targetQuestion) {
-        setDisabledQuestions(
-          [...disabledQuestions, targetQuestion],
+      if (questionWithResult) {
+        const anotherQuestions = questions.filter(
+          r => r !== questionWithResult.id,
         );
-      }
 
-      if (targetQuestion && result.result === null) {
+        if (anotherQuestions) {
+          setDisabledQuestions(
+            [...disabledQuestions, ...anotherQuestions],
+          );
+        }
+      } else {
         setDisabledQuestions(
-          disabledQuestions.filter(q => q !== targetQuestion),
+          disabledQuestions.filter(q => !questions.includes(q)),
         );
       }
-    }
-  };
+    });
+  }, [resultState]);
 
   const onSubmit = async () => {
     const requestData = resultState.result.map(r => {

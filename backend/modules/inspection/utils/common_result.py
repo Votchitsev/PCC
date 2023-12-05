@@ -21,6 +21,7 @@ class ResultCalculation:
                 questions.c.id,
                 questions.c.text,
                 questions.c.grade,
+                questions.c.parent_question_id,
                 inspection_question.c.result,
             )
             .join(questions, inspection_question.c.question_id == questions.c.id)
@@ -30,6 +31,7 @@ class ResultCalculation:
                 questions.c.id,
                 questions.c.text,
                 questions.c.grade,
+                questions.c.parent_question_id,
                 inspection_question.c.result,
             )
             .order_by(
