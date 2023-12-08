@@ -12,6 +12,7 @@ class ResultCalculation:
 
     def __init__(self, inspection_id: int):
         self.inspection_id = inspection_id
+        self.inspection_result = None
 
     async def get_inspection_result(self):
         """Получает объект с результатом проверки"""
@@ -43,6 +44,8 @@ class ResultCalculation:
 
         if not inspection_result:
             inspection_result = []
+
+        self.inspection_result = inspection_result
 
         return inspection_result
 
@@ -91,18 +94,51 @@ class ResultCalculation:
 
         query = (
             select(
-                func.sum(questions.c.grade),
-            ).where(
+                questions.c.id,
+                questions.c.parent_question_id,
+                questions.c.grade,
+            )
+            .join(inspection_question, inspection_question.c.question_id == questions.c.id)
+            .where(
                 questions.c.id.not_in(subquery),
+            )
+            .group_by(
+                questions.c.id,
+                questions.c.parent_question_id,
+                questions.c.grade,
             )
         )
 
-        response = await database.execute(query)
+        response = await database.fetch_all(query)
+
+        if self.inspection_result == None:
+            inspection_result = await self.get_inspection_result()
+        else:
+            inspection_result = self.inspection_result
+        
+        grade = 0
+
+        for question in response:
+            children = list(filter(lambda x: x.parent_question_id == question.id, inspection_result))
+            
+            if len(children) > 0:
+                is_non_checked = True
+
+                for child in children:
+                    if child.result != None:
+                        is_non_checked = False
+                
+                if is_non_checked:
+                    grade += question.grade
+            elif question.parent_question_id != None:
+                continue
+            else:
+                grade += question.grade
 
         if (response is None):
             return 0
         
-        return response
+        return 0
 
     async def get_result(self):
         """рассчитывает результат по проверке"""

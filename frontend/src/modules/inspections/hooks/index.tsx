@@ -10,17 +10,34 @@ export function useInspectionResult (inspection: IInspection) {
   const [resultState, setResultState] = useState(inspection);
   const [isLoading, setIsLoading] = useState(false);
   const [changed, setChanged] = useState(false);
-  const [disabledQuestions, setDisabledQuestions] = useState<number[]>([]);
+  const [disabledQuestions, setDisabledQuestions] = useState<number[][]>([]);
   const { AuthStore } = useStore();
+
   const relQuestions = useMemo(() => {
     const result: number[][] = [];
 
     resultState.result.forEach(r => {
       if (r.parent_question_id) {
+        const parent_question = resultState.result
+          .find(q => q.id === r.parent_question_id)?.id;
+        
+        if (!parent_question) {
+          return;
+        }
+
+        if (result.flat().includes(parent_question)) {
+          return;
+        }
+
+        const children_questions = resultState.result
+          .filter(q => q.parent_question_id === parent_question)
+          .map(q => q.id);
+
         const questions: number[] = [
-          r.parent_question_id,
-          r.id,
+          parent_question,
+          ...children_questions,
         ];
+
         result.push(questions);
       }
     });
@@ -55,13 +72,21 @@ export function useInspectionResult (inspection: IInspection) {
 
         if (anotherQuestions) {
           setDisabledQuestions(
-            [...disabledQuestions, ...anotherQuestions],
+            [...disabledQuestions, [...anotherQuestions]],
           );
         }
-      } else {
-        setDisabledQuestions(
-          disabledQuestions.filter(q => !questions.includes(q)),
-        );
+      } else {        
+        disabledQuestions.forEach((disabledQuestion, index) => {
+          const commonQuest = questions.filter(
+            q => disabledQuestion.includes(q),
+          );
+
+          if (commonQuest.length) {
+            setDisabledQuestions(
+              disabledQuestions.filter((_, i) => i !== index),
+            );
+          }
+        });
       }
     });
   }, [resultState]);
@@ -97,7 +122,7 @@ export function useInspectionResult (inspection: IInspection) {
     onSubmit,
     isLoading,
     changed,
-    disabledQuestions,
+    disabledQuestions: disabledQuestions.flat(),
   };
 }
 

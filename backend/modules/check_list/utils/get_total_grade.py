@@ -7,7 +7,10 @@ async def update_check_list_total_grade(check_list_id: int):
     
     questions_query = (
         questions.select()
-            .where(questions.c.check_list_id == check_list_id)
+            .where(
+                questions.c.check_list_id == check_list_id,
+                questions.c.parent_question_id == None,
+            )
     )
 
     questions_list = await database.fetch_all(questions_query)
