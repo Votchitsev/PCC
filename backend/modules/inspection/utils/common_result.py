@@ -36,7 +36,7 @@ class ResultCalculation:
                 inspection_question.c.result,
             )
             .order_by(
-                questions.c.id
+                questions.c.order
             )
         )
 

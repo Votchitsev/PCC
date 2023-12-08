@@ -10,7 +10,10 @@ export function useInspectionResult (inspection: IInspection) {
   const [resultState, setResultState] = useState(inspection);
   const [isLoading, setIsLoading] = useState(false);
   const [changed, setChanged] = useState(false);
-  const [disabledQuestions, setDisabledQuestions] = useState<number[][]>([]);
+  const [
+    disabledQuestions,
+    setDisabledQuestions,
+] = useState<number[]>([]);
   const { AuthStore } = useStore();
 
   const relQuestions = useMemo(() => {
@@ -69,24 +72,24 @@ export function useInspectionResult (inspection: IInspection) {
         const anotherQuestions = questions.filter(
           r => r !== questionWithResult.id,
         );
-
+        
         if (anotherQuestions) {
           setDisabledQuestions(
-            [...disabledQuestions, [...anotherQuestions]],
+            prevState => [...prevState, ...anotherQuestions],
           );
         }
-      } else {        
-        disabledQuestions.forEach((disabledQuestion, index) => {
-          const commonQuest = questions.filter(
-            q => disabledQuestion.includes(q),
-          );
-
-          if (commonQuest.length) {
-            setDisabledQuestions(
-              disabledQuestions.filter((_, i) => i !== index),
-            );
-          }
+      } else {
+        const common = questions.filter(question => {
+          return disabledQuestions.includes(question);
         });
+
+        if (common.length) {
+          setDisabledQuestions(
+            prevState => prevState
+              .filter(question => !common.includes(question),
+            ),
+          );
+        }
       }
     });
   }, [resultState]);
@@ -122,7 +125,7 @@ export function useInspectionResult (inspection: IInspection) {
     onSubmit,
     isLoading,
     changed,
-    disabledQuestions: disabledQuestions.flat(),
+    disabledQuestions: new Set(disabledQuestions.flat()),
   };
 }
 

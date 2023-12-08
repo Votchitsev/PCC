@@ -40,7 +40,7 @@ const ResultCheckList = ({ inspection }: IProps) => {
             key={ result_question.id }
             result_question={ result_question }
             setResult={setResult}
-            disabled={disabledQuestions.includes(result_question.id)}
+            disabled={disabledQuestions.has(result_question.id)}
           />
         )) }
         <div className={ style.total_result_container }>
