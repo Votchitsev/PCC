@@ -93,7 +93,7 @@ class EmployeeResultCalculation:
 
         query = select(
             func.sum(questions.c.grade)
-        ).where(questions.c.id.in_(questions_list))
+        ).where(questions.c.id.in_(questions_list), questions.c.parent_question_id == None)
 
         return await database.execute(query)
     
@@ -134,19 +134,66 @@ class EmployeeResultCalculation:
 
         query = (
             select(
-                func.sum(questions.c.grade),
+                questions.c.id,
+                questions.c.text,
+                questions.c.parent_question_id,
+                questions.c.grade,
             ).where(
                 questions.c.id.in_(questions_list),
                 questions.c.id.not_in(subquery),
             )
         )
 
-        response = await database.execute(query)
+        inspection_result_query = (
+            select(
+                inspection_question.c.question_id,
+                inspection_question.c.result,
+                questions.c.parent_question_id,
+                questions.c.grade,
+            )
+            .join(inspection_question, inspection_question.c.question_id == questions.c.id)
+            .where(
+                questions.c.id.in_(questions_list),
+            )
+            .group_by(
+                inspection_question.c.question_id,
+                inspection_question.c.result,
+                questions.c.grade,
+                questions.c.parent_question_id,
+            )
+        )
 
-        if (response is None):
-            return 0
-        
-        return response
+        non_checked_questions = await database.fetch_all(query)
+        inspection_result = await database.fetch_all(inspection_result_query)
+
+        grade = 0
+
+        for q in non_checked_questions:
+            print(q.grade)
+
+        if non_checked_questions is None:
+            return grade
+
+        for question in non_checked_questions:
+            children = list(filter(lambda x: x.parent_question_id == question.id, inspection_result))
+            print("question", question.grade)
+            if len(children) > 0:
+                is_non_checked = True
+
+                for child in children:
+                    if child.result != None:
+                        is_non_checked = False
+                
+                if is_non_checked:
+                    grade += question.grade
+            
+            elif question.parent_question_id != None:
+                continue
+            else:
+                grade += question.grade
+
+        return grade
+
     
     def calculate_result(self, total_points: int, points_scored: int, not_checked_questions: int):
         """рассчитывает результат по конкретному сотруднику"""

@@ -118,6 +118,9 @@ class ResultCalculation:
         
         grade = 0
 
+        if (response is None):
+            return grade
+
         for question in response:
             children = list(filter(lambda x: x.parent_question_id == question.id, inspection_result))
             
@@ -134,11 +137,8 @@ class ResultCalculation:
                 continue
             else:
                 grade += question.grade
-
-        if (response is None):
-            return 0
         
-        return 0
+        return grade
 
     async def get_result(self):
         """рассчитывает результат по проверке"""
