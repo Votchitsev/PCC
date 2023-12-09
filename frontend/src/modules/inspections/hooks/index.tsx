@@ -136,7 +136,7 @@ export function useInspection(inspectionId: number) {
   const onDelete = () => {
     ModalStore.setModal(
       <DialogModal
-        title="Удалить чек-лист?"
+        title="Удалить проверку?"
         confirmAction={executeDelete}
         store={ModalStore}
         breakAction={() => ModalStore.setModal(null)}
