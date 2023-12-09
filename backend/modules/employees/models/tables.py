@@ -19,7 +19,7 @@ position = sqlalchemy.Table(
 profile = sqlalchemy.Table(
     "profile",
     metadata,
-    Column("id", sqlalchemy.Integer, primary_key=True),
+    Column("id", sqlalchemy.Integer, primary_key=True, autoincrement=True),
     Column("first_name", sqlalchemy.String()),
     Column("last_name", sqlalchemy.String()),
     Column("position_id", Integer, ForeignKey(position.c.id)),
