@@ -32,6 +32,7 @@ async def get(id: int, _ = Depends(get_current_user)):
         details_query = (
             questions.select()
                 .where(questions.c.check_list_id == id)
+                .order_by(questions.c.order)
         )
         
         details = await database.fetch_all(details_query)
