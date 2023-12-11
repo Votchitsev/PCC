@@ -19,6 +19,7 @@ export default Card;
 
 const CardWrapper = styled.div`
   width: 100%;
+  height: 100%;
   box-shadow: black 1px 0px 16px -7px;
   border-radius: 15px;
   padding-top: 15px;

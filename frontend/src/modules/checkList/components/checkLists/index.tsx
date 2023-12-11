@@ -1,7 +1,7 @@
 import React from 'react';
 import { ICheckListInformation } from 'modules/checkList/pages/checkListsPage';
 import CheckListItem from '../checkListItem/checkListItem';
-import style from './checkLists.module.scss';
+import Container from '@main/components/container';
 
 interface IProps {
   checkLists: ICheckListInformation[];
@@ -10,7 +10,7 @@ interface IProps {
 const CheckLists = ({ checkLists } : IProps) => {
   
   return (
-    <ul className={style.check_lists}>
+    <Container>
       { checkLists.map(
           checkList => (
             <CheckListItem
@@ -21,7 +21,7 @@ const CheckLists = ({ checkLists } : IProps) => {
             />
           ),
         )}
-    </ul>
+    </Container>
   );
 };
 
