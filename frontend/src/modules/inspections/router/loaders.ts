@@ -38,8 +38,10 @@ export const getAllInspectionsLoader = async ({ request }) => {
 };
 
 export const getInspectionResultLoader = async ({ request, params }) => {
+  console.log(params);
+  
   const { data } = await ApiClient.get(
-    EAPIRoutes.INSPECTIONS + `/${params.id}/`,
+    EAPIRoutes.INSPECTIONS + `/${params.department_id}/`,
   );
 
   if (data.result.length > 0) {

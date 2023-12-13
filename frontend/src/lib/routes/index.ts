@@ -23,11 +23,13 @@ export enum ERoutes {
   DEPARTMENT_GROUPS = DEPARTMENTS_ROOT + '/department-groups',
   DEPARTMENTS = DEPARTMENT_GROUPS + '/departments',
   DEPARTMENTS_BY_ID = DEPARTMENT_GROUPS + '/departments/:id',
+  DEPARTMENT = DEPARTMENTS_BY_ID + '/department',
+  DEPARTMENT_BY_ID = DEPARTMENT + '/:department_id',
 
   INSPECTIONS_ROOT = '/inspections',
   INSPECTIONS_NEW = INSPECTIONS_ROOT + '/new',
   INSPECTIONS_NEW_DETAILS = INSPECTIONS_ROOT + '/new/details/:id',
-  INSPECTIONS_DETAIL = INSPECTIONS_ROOT + '/:id',
+  INSPECTIONS_DETAIL = INSPECTIONS_ROOT + '/:department_id',
 
   PROFILE_ROOT = '/profile',
   PROFILE_DETAILS = '/profile/:id',
@@ -53,6 +55,7 @@ export enum EAPIRoutes {
   INSPECTIONS = '/inspection',
   INSPECTIONS_CREATE = 'inspection/summary-info/',
   INSPECTIONS_RESULT = 'inspection/result',
+  INSPECTIONS_BY_DEPARTMENT = 'inspection/department/',
 
   PROFILE = '/employees/profile/',
 

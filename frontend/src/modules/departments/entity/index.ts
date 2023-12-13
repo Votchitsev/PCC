@@ -7,5 +7,5 @@ export interface IDepartmentGroup {
 export interface IDepartment {
   id: number;
   name: string;
-  departmentGroup: IDepartmentGroup;
+  department_group_id: number;
 }

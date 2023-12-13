@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from .crud.inspection import router as inspection_router
+from .crud.inspection_by_department import router as inspection_by_department_router
 
 
 router = APIRouter(
@@ -9,3 +10,4 @@ router = APIRouter(
 
 
 router.include_router(inspection_router)
+router.include_router(inspection_by_department_router)
