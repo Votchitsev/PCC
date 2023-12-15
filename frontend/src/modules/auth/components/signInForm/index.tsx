@@ -87,7 +87,6 @@ const SignInForm = () => {
           text="ОК"
           type="submit"
         />
-        <Link className={ style.back } to={ROOT_ROUTE}>Назад</Link>
       </div>
     </form>
   );
