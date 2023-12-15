@@ -33,10 +33,24 @@ async function sendFormData (data: any) {
 
 export function useForm() {
   const [date, setDate] = useState<Date | string>(new Date());
-  const [checkList, setCheckList] = useState<{ id: number, name: string} | null>(null);
-  const [departmentGroup, setDepartmentGroup] = useState<{ id: number, name: string} | null>(null);
+
+  const [
+    checkList,
+    setCheckList,
+  ] = useState<{ id: number, name: string} | null>(null);
+
+  const [
+    departmentGroup,
+    setDepartmentGroup,
+  ] = useState<{ id: number, name: string} | null>(null);
+  
   const [departmentList, setDepartmentList] = useState<IDepartment[]>([]);
-  const [department, setDepartment] = useState<{ id: number, name: string } | null>(null);
+  
+  const [
+    department,
+    setDepartment,
+  ] = useState<{ id: number, name: string } | null>(null);
+  
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -58,7 +72,9 @@ export function useForm() {
     );
   };
 
-  const handleDepartmentGroupChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleDepartmentGroupChange = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     const value = e.target.value;
 
     if (isEmpty(value)) {   

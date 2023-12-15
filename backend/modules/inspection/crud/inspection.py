@@ -17,7 +17,7 @@ router = APIRouter(
 
 
 @router.post('/summary-info', summary="Создание проверки")
-async def create_inspection(inspection_data: SInspection, _ = Depends(get_current_user)):
+async def create_inspection(inspection_data: SInspection, token = Depends(get_current_user)):
     department_query = (
         department.select()
             .where(department.c.id == inspection_data.department_id)
@@ -34,6 +34,7 @@ async def create_inspection(inspection_data: SInspection, _ = Depends(get_curren
                 department_id=inspection_department.id,
                 date=inspection_data.date,
                 check_list_id=inspection_data.check_list_id,
+                user_id=token.user_id
             ).returning(inspection)
     )
 
