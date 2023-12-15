@@ -23,7 +23,7 @@ const ResultCheckList = ({ inspection }: IProps) => {
   const { onDelete } = useInspection(inspection.id);
 
   return (
-    <>
+    <Container>
       <div className={ style.container }>
         <div className={ style.title_container }>
           <span>{ inspection.date }</span>
@@ -75,7 +75,7 @@ const ResultCheckList = ({ inspection }: IProps) => {
           clickHandler={onDelete}
         />
       </div>
-    </>
+    </Container>
     
   );
 };
@@ -86,4 +86,8 @@ const EmployeeResultContainer = styled.div`
   margin-top: 1em;
   display: flex;
   flex-direction: column;
+`;
+
+const Container = styled.div`
+  margin-bottom: 5rem;
 `;
