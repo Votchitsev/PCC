@@ -70,7 +70,9 @@ const SignInForm = () => {
         id="username"
         value={formData.username}
         isRequired={true}
-        error={AuthStore.error === EError.BAD_CREDENTIALS ? AuthStore.error : null}
+        error={AuthStore.error === EError.BAD_CREDENTIALS
+          ? AuthStore.error
+          : null}
       />
       <Input
         label="Пароль"

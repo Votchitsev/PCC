@@ -29,6 +29,7 @@ interface IAuthData {
 class AuthStore {
   _authUser: IUser | null = null;
   _error: EError | null = null;
+  _loading: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -42,6 +43,8 @@ class AuthStore {
    *  Возвращает данные об авторизованном пользователе
    */
   public get authUser () {
+    console.log('get authUser');
+    
     return this._authUser;
   }
 
@@ -58,6 +61,10 @@ class AuthStore {
     return this._error;
   }
 
+  public get loading(): boolean {
+    return this._loading;
+  }
+
   /**
    * Получает данные авторизованного пользователя
    * @param token токен авторизации
@@ -66,6 +73,7 @@ class AuthStore {
 
   async fetchUser(token: string): Promise<IUser | null> {
     try {
+      this._loading = true;
       const response = await ApiClient.get('/auth/me/', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -80,6 +88,7 @@ class AuthStore {
         };
       }
 
+      this._loading = false;
       return null;
     } catch (error) {
       return null;
@@ -120,10 +129,12 @@ class AuthStore {
       );
       
       if (response.status === 200) {
+        console.log(response.data);
+        
         this.setAuthUser({
           id: response.data.id,
           username: credentials.get('username'),
-          token: response.data.token,
+          token: response.data.access_token,
         });
 
         LocalStorage.set('token', response.data.access_token);

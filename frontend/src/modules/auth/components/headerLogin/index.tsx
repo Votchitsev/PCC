@@ -47,13 +47,13 @@ const Login = () => {
     setAuthMenuClasses([...authMenuClasses, style.show]);
   };
 
-  const logoutHandle = () => {
+  const logoutHandle = async () => {
     const token = AuthStore.authUser?.token;
-    
+  
     if (token) {      
-      AuthStore.fetchLogout(token);
+      await AuthStore.fetchLogout(token);
       setAuthMenuClasses([style.menu, style.hide]);
-      navigate(ROOT_ROUTE);
+      navigate(AUTH_ROUTE);
     }
   };
 

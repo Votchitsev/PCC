@@ -14,50 +14,48 @@ import departmentsRouter from 'modules/departments/router';
 import inspectionsRouter from 'modules/inspections/router';
 import { ProfileRouter } from 'modules/profile/router';
 import { analyticsRouter } from '@analytics/router';
+import { Protected } from '@main/specialComponents';
 
 const router = createBrowserRouter([
   {
-    element: <MainLayout />,
-    children: [
-      {
-        path: ROOT_ROUTE,
-        element: <MainPage />,
-      },
-      {
-        path: AUTH_ROUTE,
-        element: <AuthPage />,
-      },
-      {
-        path: REG_ROUTE,
-        element: <RegPage />,
-      },
-      {
-        path: ERoutes.PROFILE_ROOT,
-        children: ProfileRouter,
-      },
-      {
-        path: '/check-list',
-        children: checkListRouter,
-      },
-      {
-        path: ERoutes.DEPARTMENTS_ROOT,
-        children: departmentsRouter,
-      },
-      {
-        path: ERoutes.INSPECTIONS_ROOT,
-        children: inspectionsRouter,
-      },
-      {
-        path: ERoutes.ANALYTICS_ROOT,
-        children: analyticsRouter,
-      },
-    ],
+    path: AUTH_ROUTE,
+    element: <AuthPage />,
+  },
+  {
+    element: <Protected />,
+    children: [{
+      element: <MainLayout />,
+      children: [
+        {
+          path: ROOT_ROUTE,
+          element: <MainPage />,
+        },
+        {
+          path: ERoutes.PROFILE_ROOT,
+          children: ProfileRouter,
+        },
+        {
+          path: '/check-list',
+          children: checkListRouter,
+        },
+        {
+          path: ERoutes.DEPARTMENTS_ROOT,
+          children: departmentsRouter,
+        },
+        {
+          path: ERoutes.INSPECTIONS_ROOT,
+          children: inspectionsRouter,
+        },
+        {
+          path: ERoutes.ANALYTICS_ROOT,
+          children: analyticsRouter,
+        },
+      ],
+    }],
   },
 ]);
 
 const App = () => {
-  useAuth();
-
   return (
       <RouterProvider router={router} />
     );
