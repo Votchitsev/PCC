@@ -160,3 +160,9 @@ export function useInspection(inspectionId: number) {
     onDelete,
   };
 }
+
+import { useUserInspections } from './useUserInspections';
+
+export {
+  useUserInspections,
+};

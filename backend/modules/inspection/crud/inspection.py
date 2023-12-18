@@ -109,7 +109,7 @@ async def put(id: int, result: Union[list[SInspectionQuestionChange], list[SInsp
 
 
 @router.get('/', summary="Получение списка проверок")
-async def get_all(page: int = 1):
+async def get_all(page: int = 1, user_id: int = None):
     inspections_count_query = (
         select(func.count(inspection.c.id))
     )
@@ -119,27 +119,51 @@ async def get_all(page: int = 1):
     offset = (page - 1) * 12
     limit = 12
 
-    inspection_list_query = (
-        select(
-            inspection.c.id,
-            department.c.name.label("department"),
-            department_group.c.name.label("department_group"),
-            inspection.c.date,
-            inspection.c.total_result
+    if user_id:
+        inspection_list_query = (
+            select(
+                inspection.c.id,
+                department.c.name.label("department"),
+                department_group.c.name.label("department_group"),
+                inspection.c.date,
+                inspection.c.total_result
+            )
+            .join(department, inspection.c.department_id == department.c.id)
+            .join(department_group, department.c.department_group_id == department_group.c.id)
+            .where(inspection.c.user_id == user_id)
+            .group_by(
+                inspection.c.id,
+                department.c.name,
+                department_group.c.name,
+                inspection.c.date,
+                inspection.c.total_result,
+            ).
+            order_by(inspection.c.date.desc())
+            .offset(offset)
         )
-        .join(department, inspection.c.department_id == department.c.id)
-        .join(department_group, department.c.department_group_id == department_group.c.id)
-        .group_by(
-            inspection.c.id,
-            department.c.name,
-            department_group.c.name,
-            inspection.c.date,
-            inspection.c.total_result,
-        ).
-        order_by(inspection.c.date.desc())
-        .offset(offset)
-        .limit(limit)
-    )
+
+    else:
+        inspection_list_query = (
+            select(
+                inspection.c.id,
+                department.c.name.label("department"),
+                department_group.c.name.label("department_group"),
+                inspection.c.date,
+                inspection.c.total_result
+            )
+            .join(department, inspection.c.department_id == department.c.id)
+            .join(department_group, department.c.department_group_id == department_group.c.id)
+            .group_by(
+                inspection.c.id,
+                department.c.name,
+                department_group.c.name,
+                inspection.c.date,
+                inspection.c.total_result,
+            ).
+            order_by(inspection.c.date.desc())
+            .offset(offset)
+            .limit(limit)
+        )
 
     inspection_list = await database.fetch_all(inspection_list_query)
 

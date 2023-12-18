@@ -5,10 +5,8 @@ import {
 } from 'react-router-dom';
 import MainLayout from '@main/layouts/main';
 import AuthPage from '@auth/pages/auth';
-import RegPage from '@auth/pages/reg';
-import { useAuth } from '@lib/hooks/auth';
 import MainPage from '@main/pages';
-import { AUTH_ROUTE, ERoutes, REG_ROUTE, ROOT_ROUTE } from '@lib/routes';
+import { AUTH_ROUTE, ERoutes, ROOT_ROUTE } from '@lib/routes';
 import checkListRouter from 'modules/checkList/router';
 import departmentsRouter from 'modules/departments/router';
 import inspectionsRouter from 'modules/inspections/router';

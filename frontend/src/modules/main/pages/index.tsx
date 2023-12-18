@@ -1,11 +1,11 @@
-import MainMenuBar from '@main/components/mainMenuBar';
-import PageLayout from '@main/layouts/page';
 import React from 'react';
+import PageLayout from '@main/layouts/page';
+import UserInspections from '@main/components/UserInspections';
 
 const MainPage = () => {
   return (
     <PageLayout>
-      <MainMenuBar />
+      <UserInspections />
     </PageLayout>
   );
 };
