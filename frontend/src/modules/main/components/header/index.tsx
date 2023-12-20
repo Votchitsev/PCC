@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import style from './Header.module.scss';
 import Login from '@auth/components/headerLogin';
-import Button, { EButtonColor } from '../button';
 import { AddInspectionButton } from '@inspections/index';
+import logo from '@assets/icons/logo.png';
 
 const Header = () => {
   return (
     <header className={ style.header }>
       <div className={ style.container }>
-        <div />
+        <ImageContainer />
         <ButtonContainer>
           <AddInspectionButton />
         </ButtonContainer>
@@ -33,4 +33,17 @@ const ButtonContainer = styled.div`
   @media screen and (max-width: 768px) {
     justify-content: flex-start;
   }
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 50px;
+
+  background-image: url(${ logo });
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 `;
