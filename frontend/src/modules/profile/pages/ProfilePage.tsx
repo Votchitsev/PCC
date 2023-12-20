@@ -6,9 +6,14 @@ import { useLoaderData } from 'react-router-dom';
 import styled from 'styled-components';
 import { ProfileInfo, ProfilePlug } from '../widgets';
 import { IProfileResponse } from '../entities';
+import { useDocumentTitle } from '@main/hooks';
 
 const ProfilePage = () => {
   const profile = useLoaderData() as IProfileResponse;
+
+  useDocumentTitle(
+    `Профиль пользователя|${profile.first_name} ${profile.last_name}`,
+  );
 
   return (
     <PageLayout>

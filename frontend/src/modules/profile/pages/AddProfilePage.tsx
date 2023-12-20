@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useProfileForm } from '../hooks';
 import { useLocation } from 'react-router-dom';
+import { useDocumentTitle } from '@main/hooks';
 
 const AddProfilePage = () => {
   const location = useLocation();
@@ -13,6 +14,8 @@ const AddProfilePage = () => {
     firstName: profileData?.first_name || '',
     lastName: profileData?.last_name || '',
   });
+
+  useDocumentTitle('Профиль пользователя');
 
   return (
     <PageLayout>

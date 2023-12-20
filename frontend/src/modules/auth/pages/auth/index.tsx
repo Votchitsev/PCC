@@ -1,9 +1,12 @@
 import SignInForm from '@auth/components/signInForm';
+import { useDocumentTitle } from '@main/hooks';
 import FormLayout from '@main/layouts/form';
 import React from 'react';
 import styled from 'styled-components';
 
 const Page = () => {
+  useDocumentTitle('Авторизация');
+
   return (
     <Container>
       <FormLayout title={'Авторизация'}>

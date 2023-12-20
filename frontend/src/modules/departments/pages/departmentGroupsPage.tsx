@@ -1,16 +1,17 @@
 import React from 'react';
 import PageLayout from '@main/layouts/page';
 import { useLoaderData } from 'react-router-dom';
-import Card from '@main/components/card/card';
 import { IDepartmentGroup } from '../entity';
-import Container from '@main/components/container';
 import DepartmentGroupList from '../components/departmentGroupList';
 import NavigateLink from '@main/components/navigateLink';
 import { ERoutes } from '@lib/routes';
 import styled from 'styled-components';
+import { useDocumentTitle } from '@main/hooks';
 
 const DepartmentGroupsPage = () => {
   const departmentGroups = useLoaderData() as IDepartmentGroup[];
+
+  useDocumentTitle('Группы подразделений');
 
   return (
     <PageLayout>

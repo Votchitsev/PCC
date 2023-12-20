@@ -6,9 +6,11 @@ import { IDepartmentGroup } from '../entity';
 import DepartmentList from '../components/departmentList';
 import NavigateLink from '@main/components/navigateLink';
 import { ERoutes } from '@lib/routes';
+import { useDocumentTitle } from '@main/hooks';
 
 const DepartmentsPage = () => {
   const departmentsData = useLoaderData() as IDepartmentGroup;
+  useDocumentTitle(`Подразделения|${departmentsData.name}`);
 
   return (
     <PageLayout>

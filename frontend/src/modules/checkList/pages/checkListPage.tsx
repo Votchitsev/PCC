@@ -7,9 +7,11 @@ import { ERoutes } from '@lib/routes';
 import NavigateLink from '@main/components/navigateLink';
 import styled from 'styled-components';
 import CheckListView from '@checkList/components/checkListView';
+import { useDocumentTitle } from '@main/hooks';
 
 const CheckListPage = () => {  
   const checkList = useLoaderData() as ICheckList;
+  useDocumentTitle(`Чек-лист|${checkList.name}`);
 
   return (
     <PageLayout>

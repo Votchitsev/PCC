@@ -6,9 +6,12 @@ import PageLayout from '@main/layouts/page';
 import React from 'react';
 import { type IInspectionExtended } from '@inspections/entity';
 import ResultCheckList from '@inspections/components/resultCheckList';
+import { useDocumentTitle } from '@main/hooks';
 
 const InspectionResultPage = () => {
   const inspection = useLoaderData() as IInspectionExtended;
+
+  useDocumentTitle(`Результат проверки|${inspection.department}`);
 
   return (
     <PageLayout>

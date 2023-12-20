@@ -4,8 +4,11 @@ import PageLayout from '@main/layouts/page';
 import { ERoutes } from '@lib/routes';
 import NavigateLink from '@main/components/navigateLink';
 import { AnalyticsReportList } from '../widgets/';
+import { useDocumentTitle } from '@main/hooks';
 
 const AnalyticsPage = () => {
+  useDocumentTitle('Аналитика');
+
   return (
     <PageLayout>
       <TopContainer>

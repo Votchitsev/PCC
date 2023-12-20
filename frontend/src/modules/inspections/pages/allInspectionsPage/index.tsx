@@ -8,6 +8,7 @@ import { type IInspectionList } from '@inspections/entity';
 import PaginationBar from '@main/components/paginationBar';
 import styled from 'styled-components';
 import { usePagination } from '@lib/hooks/usePagination';
+import { useDocumentTitle } from '@main/hooks';
 
 const AllInspectionsPage = () => {
   const inspectionList = useLoaderData() as IInspectionList;
@@ -20,6 +21,8 @@ const AllInspectionsPage = () => {
     inspectionList.count,
     inspectionList.page,
   );
+
+  useDocumentTitle('Проверки');
 
   return (
     <PageLayout>

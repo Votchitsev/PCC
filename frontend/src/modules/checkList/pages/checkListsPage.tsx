@@ -7,6 +7,7 @@ import CheckLists from '../components/checkLists';
 import EmptyList from '@checkList/components/emptyList';
 import NavigateLink from '@main/components/navigateLink';
 import { ERoutes } from '@lib/routes';
+import { useDocumentTitle } from '@main/hooks';
 
 export interface ICheckListInformation {
   id: number;
@@ -16,6 +17,8 @@ export interface ICheckListInformation {
 const CheckListsPage = () => {
   const loaderData = useLoaderData() as ICheckListInformation[];
   const navigate = useNavigate();
+
+  useDocumentTitle('Чек-листы');
 
   return (
     <PageLayout>
