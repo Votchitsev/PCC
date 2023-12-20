@@ -43,8 +43,6 @@ class AuthStore {
    *  Возвращает данные об авторизованном пользователе
    */
   public get authUser () {
-    console.log('get authUser');
-    
     return this._authUser;
   }
 

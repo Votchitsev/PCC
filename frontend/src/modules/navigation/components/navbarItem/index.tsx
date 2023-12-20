@@ -18,7 +18,7 @@ const NavbarItem: FC<IProps> = ({ name, icon, href }) => {
         <IconWrapper>
           { icon() }
         </IconWrapper>
-        <p>{ name }</p>
+        <Name>{ name }</Name>
       </Item>
     </Link>
   );
@@ -34,6 +34,11 @@ const Item = styled.li`
   padding: 0 1em;
   cursor: pointer;
   border-radius: 50%;
+
+  @media screen and (max-width: 768px) {
+    padding: 1em;
+    justify-content: center;
+  }
 `;
 
 const IconWrapper = styled.div`
@@ -49,5 +54,17 @@ const Link = styled(NavLink)`
 
   &.active {
     background-color: var(--grey);
+  }
+
+  /* @media screen and (max-width: 768px) {
+    border-radius: 50%;
+  } */
+`;
+
+const Name = styled.p`
+  display: block;
+  
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 `;

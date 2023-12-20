@@ -25,10 +25,18 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 1rem;
+  }
 `;
 
 const Title = styled.h2`
   font-size: 1.5rem;
+
+  @media screen and (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const AllInspectionsLink = styled.a`

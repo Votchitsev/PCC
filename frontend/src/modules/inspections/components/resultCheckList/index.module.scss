@@ -38,3 +38,30 @@
   flex-direction: column;
   margin-top: 2em;
 }
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding-right: 1em;
+    padding-left: 1em;
+  }
+
+  .title_container {
+    margin-bottom: 0;
+
+    span {
+      font-size: 0.7em;
+    }
+  }
+
+  .total_result_container {
+    span {
+      font-size: 0.7em;
+    }
+  }
+
+  .title_department {
+    span {
+      text-align: end;
+    }
+  }
+}

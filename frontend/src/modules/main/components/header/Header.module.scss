@@ -2,6 +2,7 @@
   display: grid;
   grid-column: 1 / span 3;
   width: 100%;
+  max-width: 100vw;
   height: 70px;
   box-shadow: black 0px -10px 10px 5px;
 }
@@ -10,5 +11,10 @@
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 2fr 5fr 1fr;
+  grid-template-columns: 2fr 3fr 2fr;
+  width: 90%;
+
+  &:nth-last-child(1) {
+    justify-self: end;
+  }
 }

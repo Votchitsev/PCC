@@ -42,11 +42,19 @@ const ControlsContainer = styled.div`
   height: 100%;
   justify-content: space-between;
   align-items: center;
+
+  @media screen and (max-width: 768px) {
+    width: 50px;
+  }
 `;
 
 const InfoContainer = styled.div`
   align-self: center;
   line-height: 1em;
+
+  @media screen and (max-width: 768px) {
+    font-size: 0.8em;
+  }
 `;
 
 const Button = styled.button`

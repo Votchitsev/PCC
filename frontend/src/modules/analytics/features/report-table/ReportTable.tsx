@@ -31,11 +31,17 @@ export default ReportTable;
 const Table = styled.table`
   width: 100%;
   margin-bottom: 5rem;
+  overflow-x: scroll;
 `;
 
 const THead = styled.thead`
   width: 100%;
   
+  @media screen and (max-width: 768px) {
+    th {
+      font-size: 0.8em;
+    }
+  }
 `;
 
 const TRow = styled.tr<{$cols: number}>`

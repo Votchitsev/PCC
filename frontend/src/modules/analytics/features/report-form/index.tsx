@@ -77,18 +77,21 @@ const ReportForm = ({ setTable }: IProps) => {
       <DateInput { ...register('to', { required: true })
         } type="date"
       />
-      
-      <Button
-        isDisable={ !isValid }
-        type="submit"
-        text="Показать"
-        isLoading={isLoading}
-      />
-      { errors.to && <ErrorMessage>{ errors.to.message }</ErrorMessage> }
-      <DownloadButton
-        clickHandler={onDownload}
-        active={ isValid && interval.from.length > 0 && interval.to.length > 0 }
-      />
+      <ButtonsContainer>
+        <Button
+          isDisable={ !isValid }
+          type="submit"
+          text="Показать"
+          isLoading={isLoading}
+        />
+        { errors.to && <ErrorMessage>{ errors.to.message }</ErrorMessage> }
+        <DownloadButton
+          clickHandler={onDownload}
+          active={
+            isValid && interval.from.length > 0 && interval.to.length > 0
+          }
+        />
+      </ButtonsContainer> 
     </Form>
   );
 };
@@ -101,6 +104,10 @@ const DateInput = styled.input`
   padding: 10px;
   outline: none;
   border: 1px solid var(--grey);
+
+  @media (max-width: 834px) {
+    width: 100%;
+  }
 `;
 
 const Form = styled.form`
@@ -109,9 +116,22 @@ const Form = styled.form`
   align-items: center;
   justify-content: center;
   gap: 1em;
+
+  @media (max-width: 834px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+
+
+  }
 `;
 
 const ErrorMessage = styled.span`
   color: var(--red);
   font-size: 0.7em;
+`;
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  gap: 1em;
 `;

@@ -37,3 +37,9 @@
   display: flex;
   justify-content: space-between;
 }
+
+@media screen and (max-width: 768px) {
+  .title_container {
+    flex-direction: column;
+  }
+}

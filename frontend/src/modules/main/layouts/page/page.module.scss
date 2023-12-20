@@ -2,25 +2,14 @@
   display: flex;
   flex-direction: column;
   max-width: 1024px;
-  width: 1024px;
+  min-width: 768px;
   margin: 0 auto;
+  padding-bottom: 1em;
 }
 
-
-@media (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
   .page {
-    width: 768px;
+    width: 100%;
+    min-width: 0;
   }
 }
-
-@media (max-width: 768px) {
-  .page {
-    width: 640px;
-  }
-}
-
-@media (max-width: 640px) {
-  .page {
-    width: 90%;
-  }
-};

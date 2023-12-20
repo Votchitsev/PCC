@@ -46,4 +46,8 @@ const FormContainer = styled.div`
   border: 1px solid var(--grey);
   padding: 1rem;
   border-radius: 5px;
+
+  @media (max-width: 834px) {
+    grid-template-columns: 1fr;
+  }
 `;

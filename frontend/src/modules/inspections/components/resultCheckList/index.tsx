@@ -86,6 +86,12 @@ const EmployeeResultContainer = styled.div`
   margin-top: 1em;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: 768px) {
+    span {
+      font-size: 0.5em;
+    }
+  }
 `;
 
 const Container = styled.div`

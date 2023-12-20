@@ -9,3 +9,10 @@
 .text {
   margin-right: 1em;
 }
+
+@media screen and (max-width: 768px) {
+  .text {
+    font-size: 0.5em;
+  }
+  
+}

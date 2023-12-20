@@ -17,7 +17,7 @@ const Login = () => {
   function onLeave() {
     let timeout: ReturnType<typeof setTimeout>;
     
-    return function (e: MouseEvent ,isBreak = false) {
+    return function (e: MouseEvent, isBreak = false) {
       if (timeout) {
         clearTimeout(timeout);
       }
@@ -62,12 +62,21 @@ const Login = () => {
     navigate(`${ERoutes.PROFILE_ROOT}/${AuthStore.authUser?.id}`);
   };
 
+  const handleAccountClick = () => {
+    if (authMenuClasses.includes(style.show)) {
+      setAuthMenuClasses([style.menu, style.hide]);
+    } else {
+      setAuthMenuClasses([...authMenuClasses, style.show]);
+    }
+  };
+
   return (
     <>
       <div
         className={ style.login }
         onMouseEnter={ loginEnterHandle }
         onMouseLeave={ leaveHandle }
+        onClick={handleAccountClick}
       >
         <span>Личный кабинет</span>
         <ul

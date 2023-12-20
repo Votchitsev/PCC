@@ -26,4 +26,10 @@ const PageContainer = styled.div`
   grid-template-rows: auto auto;
   grid-template-columns: 1fr 3fr 1fr;
   column-gap: 1em;
+  max-width: 100vw;
+  overflow-x: hidden;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 3fr;
+  }
 `;

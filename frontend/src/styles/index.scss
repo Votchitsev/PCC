@@ -21,6 +21,10 @@ h1 {
   font-size: 48px;
   text-align: center;
   color: $light_blue;
+
+  @media screen and (max-width: 768px) {
+    font-size: 36px;
+  }
 }
 
 input::-webkit-outer-spin-button,

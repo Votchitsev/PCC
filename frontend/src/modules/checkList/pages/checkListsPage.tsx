@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import PageLayout from '@main/layouts/page';
 import Button, { EButtonColor } from '@main/components/button';
@@ -6,7 +7,6 @@ import CheckLists from '../components/checkLists';
 import EmptyList from '@checkList/components/emptyList';
 import NavigateLink from '@main/components/navigateLink';
 import { ERoutes } from '@lib/routes';
-import styled from 'styled-components';
 
 export interface ICheckListInformation {
   id: number;
@@ -24,14 +24,16 @@ const CheckListsPage = () => {
           href={ERoutes.ROOT}
           name="Назад"
         />
-        <Button
-          type="button"
-          text="Создать"
-          clickHandler={() => {
-            navigate(ERoutes.ADD_CHECK_LIST);
-          }}
-          color={EButtonColor.danger}
-        />
+        <ButtonWrapper>
+          <Button
+            type="button"
+            text="Создать"
+            clickHandler={() => {
+              navigate(ERoutes.ADD_CHECK_LIST);
+            }}
+            color={EButtonColor.danger}
+          />
+        </ButtonWrapper>
       </LinksContainer>
       <h1>Чек-листы</h1>
       { loaderData.length
@@ -44,9 +46,15 @@ const CheckListsPage = () => {
 export default CheckListsPage;
 
 const LinksContainer = styled.div`
-  width: 100%;
+  width: 90%;
   margin-top: 20px;
   margin-left: 20px;
   display: flex;
   justify-content: space-between;
+`;
+
+const ButtonWrapper = styled.div`
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
 `;
