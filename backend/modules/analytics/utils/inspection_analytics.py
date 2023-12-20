@@ -91,8 +91,8 @@ class InspectionAnalytics:
         for inspection in data:
             for inspection_result in inspection["result"]:
                 employee = "{first_name} {last_name} ({position})".format(
-                    first_name=inspection_result["first_name"],
-                    last_name=inspection_result["last_name"],
+                    first_name=inspection_result["first_name"] or "",
+                    last_name=inspection_result["last_name"] or "",
                     position=inspection_result["position"],
                 )
 

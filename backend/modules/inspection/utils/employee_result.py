@@ -168,15 +168,12 @@ class EmployeeResultCalculation:
 
         grade = 0
 
-        for q in non_checked_questions:
-            print(q.grade)
-
         if non_checked_questions is None:
             return grade
 
         for question in non_checked_questions:
             children = list(filter(lambda x: x.parent_question_id == question.id, inspection_result))
-            print("question", question.grade)
+
             if len(children) > 0:
                 is_non_checked = True
 
