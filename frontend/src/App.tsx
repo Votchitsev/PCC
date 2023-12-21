@@ -13,11 +13,16 @@ import inspectionsRouter from 'modules/inspections/router';
 import { ProfileRouter } from 'modules/profile/router';
 import { analyticsRouter } from '@analytics/router';
 import { Protected } from '@main/specialComponents';
+import { Page404 } from '@main/pages';
 
 const router = createBrowserRouter([
   {
     path: AUTH_ROUTE,
     element: <AuthPage />,
+  },
+  {
+    path: '*',
+    element: <Page404 />,
   },
   {
     element: <Protected />,

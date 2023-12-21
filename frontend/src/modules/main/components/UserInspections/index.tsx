@@ -11,9 +11,9 @@ const UserInspections = () => {
     <Container>
       <Title>Мои проверки...</Title>
       <InspectionList inspections={userInspections} />
-      <AllInspectionsLink href="/inspections">
+      {/* <AllInspectionsLink href="/inspections">
         Посмотреть все проверки
-      </AllInspectionsLink>
+      </AllInspectionsLink> */}
     </Container>
   );
 };
