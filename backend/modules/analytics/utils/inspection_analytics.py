@@ -1,5 +1,6 @@
 from datetime import date
 from sqlalchemy import select
+from utils.format_date import format_date
 
 from modules.inspection.models.tables import inspection
 from modules.departments.models.tables import department, department_group
@@ -66,7 +67,7 @@ class InspectionAnalytics:
 
         for inspection in data:
             list_a = [
-                inspection["date"],
+                format_date(inspection["date"]),
                 inspection["department"],
                 inspection["department_group"],
                 inspection["total_result"],
@@ -97,7 +98,7 @@ class InspectionAnalytics:
                 )
 
                 inspection_info = "{date} {department} {department_group}".format(
-                    date=inspection["date"],
+                    date=format_date(inspection["date"]),
                     department=inspection["department"],
                     department_group=inspection["department_group"],
                 )

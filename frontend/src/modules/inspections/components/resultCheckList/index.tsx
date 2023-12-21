@@ -5,6 +5,7 @@ import ResultCheckListItem from '../resultCheckListItem';
 import { type IInspectionExtended } from '@inspections/entity';
 import { useInspection, useInspectionResult } from '@inspections/hooks';
 import Button, { EButtonColor } from '@main/components/button';
+import { formatDate } from '@main/utils';
 
 interface IProps {
   readonly inspection: IInspectionExtended;
@@ -26,7 +27,7 @@ const ResultCheckList = ({ inspection }: IProps) => {
     <Container>
       <div className={ style.container }>
         <div className={ style.title_container }>
-          <span>{ inspection.date }</span>
+          <span>{ formatDate(inspection.date) }</span>
           <div className={ style.title_department }>
             <span>{ inspection.department }</span>
             <span
