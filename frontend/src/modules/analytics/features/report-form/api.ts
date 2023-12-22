@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { EAPIRoutes } from '@lib/routes';
 import { ApiClient } from '@api/index';
 import { EReportTypes } from '../../entities';
+import LocalStorage from '@lib/utils/localStorage';
 
 export const useQuery = (reportType: EReportTypes) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -55,7 +56,26 @@ const getMainReport = async (from: string, to: string, download = false) => {
       EAPIRoutes.ANALYTICS_INSPECTIONS
     }?type=common&date_from=${from}&date_to=${to}&download=${download}`;
 
-    link.click();
+    ApiClient.get(link.href, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${LocalStorage.get('token')}`,
+      },
+      responseType: 'blob',
+    })
+      .then(response => {
+        const blob = new Blob(
+          [response.data],
+          { type: 'application/octet-stream' },
+        );
+
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = 'report.xlsx';
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+
     return;
   }
 
@@ -63,6 +83,11 @@ const getMainReport = async (from: string, to: string, download = false) => {
     `${
       EAPIRoutes.ANALYTICS_INSPECTIONS
     }?type=common&date_from=${from}&date_to=${to}&download=${download}`,
+    {
+      headers: {
+        Authorization: `Bearer ${LocalStorage.get('token')}`,
+      },
+    },
   );
 
   return data;
@@ -87,6 +112,11 @@ const getMainReportByEmployees = async (
     `${
       EAPIRoutes.ANALYTICS_INSPECTIONS
     }?type=employee&date_from=${from}&date_to=${to}&download=${download}`,
+    {
+      headers: {
+        Authorization: `Bearer ${LocalStorage.get('token')}`,
+      },
+    },
   );
 
   return data;
@@ -111,6 +141,11 @@ const getQuestionsReport = async (
     `${
       EAPIRoutes.ANALYTICS_QUESTIONS
     }?date_from=${from}&date_to=${to}&download=${download}`,
+    {
+      headers: {
+        Authorization: `Bearer ${LocalStorage.get('token')}`,
+      },
+    },
   );
 
   return data;
@@ -135,6 +170,11 @@ const getDepartmentGroupReport = async (
     `${
       EAPIRoutes.ANALYTICS_DEPARTMENT_GROUPS
     }?date_from=${from}&date_to=${to}&download=${download}`,
+    {
+      headers: {
+        Authorization: `Bearer ${LocalStorage.get('token')}`,
+      },
+    },
   );
 
   return data;

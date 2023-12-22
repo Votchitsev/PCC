@@ -2,6 +2,7 @@
   margin-top: 60px;
   margin-bottom: 3rem;
   width: 100%;
+  max-width: 1024px;
   padding-inline: 20px;
   box-sizing: border-box;
   display: grid;
@@ -30,12 +31,19 @@
 .close {
   background: none;
   border: none;
+  min-width: 30px;
   cursor: pointer;
 }
 
 .title_container {
   display: flex;
   justify-content: space-between;
+}
+
+@media (max-width: 1280px) {
+  .form {
+    width: 768px;
+  }
 }
 
 @media screen and (max-width: 768px) {

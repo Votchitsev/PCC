@@ -38,6 +38,10 @@ export function useProfileForm(initValues?: IProfileForm) {
         first_name: profile.firstName,
         last_name: profile.lastName,
         user_id: authUser.id,
+      }, {
+        headers: {
+          Authorization: `Bearer ${authUser.token}`,
+        },
       });
 
       if (response.status === 200) {

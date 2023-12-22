@@ -1,6 +1,7 @@
 import { ApiClient } from '@api/index';
 import { IInspection } from '@inspections/entity';
 import { EAPIRoutes } from '@lib/routes';
+import LocalStorage from '@lib/utils/localStorage';
 
 export interface IEmployee {
   first_name: string;
@@ -16,15 +17,28 @@ export interface IDepartmentData {
 }
 
 export const departmentGroupsLoader = async () => {
-  const { data } = await ApiClient.get(EAPIRoutes.DEPARTMENT_GROUPS);
+  const { data } = await ApiClient.get(
+    EAPIRoutes.DEPARTMENT_GROUPS,
+    {
+      headers: {
+        Authorization: `Bearer ${LocalStorage.get('token')}`,
+      },
+    },
+  );
   return data;
 };
 
 export const departmentsLoader = async ({ request, params }) => {
   const { id } = params;
 
-  const { data } = await ApiClient.get(`${EAPIRoutes.DEPARTMENT_GROUPS}${id}`);
-  console.log(data);
+  const { data } = await ApiClient.get(
+    `${EAPIRoutes.DEPARTMENT_GROUPS}${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${LocalStorage.get('token')}`,
+      },
+    },
+  );
   
   return data;
 };
@@ -39,7 +53,14 @@ export const departmentLoader = async ({
     const queryString = `department_id=${department_id}&limit=10`;
 
     const { data } = await ApiClient
-      .get(`${EAPIRoutes.INSPECTIONS_BY_DEPARTMENT}?${queryString}`);
+      .get(
+        `${EAPIRoutes.INSPECTIONS_BY_DEPARTMENT}?${queryString}`,
+        {
+          headers: {
+            Authorization: `Bearer ${LocalStorage.get('token')}`,
+          },
+        },
+      );
 
     return data;
   } catch (error) {

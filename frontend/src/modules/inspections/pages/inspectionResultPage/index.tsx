@@ -1,7 +1,5 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import NavigateLink from '@main/components/navigateLink';
-import { ERoutes } from '@lib/routes';
 import PageLayout from '@main/layouts/page';
 import React from 'react';
 import { type IInspectionExtended } from '@inspections/entity';
@@ -13,10 +11,12 @@ const InspectionResultPage = () => {
 
   useDocumentTitle(`Результат проверки|${inspection.department}`);
 
+  const navigate = useNavigate();
+
   return (
     <PageLayout>
-      <StyledNavLink>
-        <NavigateLink href={ERoutes.INSPECTIONS_ROOT} name="Назад" />
+      <StyledNavLink onClick={() => navigate(-1)}>
+        Назад
       </StyledNavLink>
       <h1>{ 'Результат проверки' }</h1>
       <ResultCheckList inspection={inspection} />
@@ -31,4 +31,10 @@ const StyledNavLink = styled.div`
   width: fit-content;
   margin-top: 20px;
   margin-left: 20px;
+  cursor: pointer;
+  color: var(--blue);
+
+  &:hover {
+    color: var(--blue_hover);
+  }
 `;

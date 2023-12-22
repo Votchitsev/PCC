@@ -14,7 +14,14 @@ export const newInspectionLoader = async () => {
     },
   });
 
-  const departmentGroups = ApiClient.get(EAPIRoutes.DEPARTMENT_GROUPS);
+  const departmentGroups = ApiClient.get(
+    EAPIRoutes.DEPARTMENT_GROUPS,
+    {
+      headers: {
+        Authorization: `Bearer ${LocalStorage.get('token')}`,
+      },
+    },
+  );
 
   const data = Promise.all([checkLists, departmentGroups])
     .then(([checkLists, departmentGroups]) => ({
@@ -32,6 +39,11 @@ export const getAllInspectionsLoader = async ({ request }) => {
 
   const { data } = await ApiClient.get(
     `${EAPIRoutes.INSPECTIONS}${page ? `?page=${page}` : ''}`,
+    {
+      headers: {
+        Authorization: `Bearer ${LocalStorage.get('token')}`,
+      },
+    },
   );
 
   return data as IInspection[];
@@ -42,6 +54,11 @@ export const getInspectionResultLoader = async ({ request, params }) => {
   
   const { data } = await ApiClient.get(
     EAPIRoutes.INSPECTIONS + `/${params.department_id}/`,
+    {
+      headers: {
+        Authorization: `Bearer ${LocalStorage.get('token')}`,
+      },
+    },
   );
 
   if (data.result.length > 0) {

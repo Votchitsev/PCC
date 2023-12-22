@@ -12,6 +12,7 @@ import style from './form.module.scss';
 import { observer } from 'mobx-react';
 import { useStore } from 'store';
 import { EError } from '@auth/store';
+import LocalStorage from '@lib/utils/localStorage';
 
 interface IFormData {
   username: string;
@@ -35,13 +36,13 @@ const SignInForm = () => {
     );
   };
 
-  const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData();
     data.append('username', formData.username);
     data.append('password', formData.password);
     
-    AuthStore.fetchAuthData(data);
+    await AuthStore.fetchAuthData(data);
   };
 
   useEffect(() => {   
@@ -51,6 +52,7 @@ const SignInForm = () => {
 
     if (AuthStore.authUser) {
       setFormData(initFormData);
+      console.log(LocalStorage.get('token'));
       navigate(ROOT_ROUTE);
     }
   }, [AuthStore.error, AuthStore.authUser]);

@@ -19,7 +19,7 @@ users = sqlalchemy.Table(
 tokens = sqlalchemy.Table(
     "tokens",
     metadata,
-    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
+    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True, autoincrement=True),
     sqlalchemy.Column(
         "token",
         UUID(as_uuid=False),

@@ -7,7 +7,7 @@ metadata = sqlalchemy.MetaData()
 department = sqlalchemy.Table(
     "department",
     metadata,
-    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
+    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True, autoincrement=True),
     sqlalchemy.Column("name", sqlalchemy.String(), unique=True),
     sqlalchemy.Column(
         "department_group_id",
@@ -20,6 +20,6 @@ department = sqlalchemy.Table(
 department_group = sqlalchemy.Table(
     "department_group",
     metadata,
-    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
+    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True, autoincrement=True),
     sqlalchemy.Column("name", sqlalchemy.String(), unique=True),
 )

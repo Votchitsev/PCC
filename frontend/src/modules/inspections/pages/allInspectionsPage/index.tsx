@@ -1,6 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
-import NavigateLink from '@main/components/navigateLink';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import PageLayout from '@main/layouts/page';
 import { ERoutes } from '@lib/routes';
 import InspectionList from '@inspections/components/InspectionList';
@@ -24,10 +23,14 @@ const AllInspectionsPage = () => {
 
   useDocumentTitle('Проверки');
 
+  const navigate = useNavigate();
+
   return (
     <PageLayout>
       <TopContainer>
-        <NavigateLink { ...style } href={ERoutes.ROOT} name="Назад" />
+        <StyledNavLink onClick={() => navigate(-2)}>
+          Назад
+        </StyledNavLink>
         <PaginationBar
           start={start}
           end={end}
@@ -56,4 +59,16 @@ const TopContainer = styled.div`
   justify-content: space-between;
   align-items: baseline;
   margin-top: 20px;
+`;
+
+const StyledNavLink = styled.div`
+  width: fit-content;
+  margin-top: 20px;
+  margin-left: 20px;
+  cursor: pointer;
+  color: var(--blue);
+
+  &:hover {
+    color: var(--blue_hover);
+  }
 `;

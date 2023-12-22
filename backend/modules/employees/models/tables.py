@@ -11,7 +11,7 @@ metadata = sqlalchemy.MetaData()
 position = sqlalchemy.Table(
     "position",
     metadata,
-    Column("id", sqlalchemy.Integer, primary_key=True),
+    Column("id", sqlalchemy.Integer, primary_key=True, autoincrement=True),
     Column("name", sqlalchemy.String()),
 )
 
@@ -29,7 +29,7 @@ profile = sqlalchemy.Table(
 responsibility_question = sqlalchemy.Table(
     "responsibility_question",
     metadata,
-    Column("id", Integer, primary_key=True),
+    Column("id", Integer, primary_key=True, autoincrement=True),
     Column("question_id", ForeignKey(questions.c.id)),
     Column("position_id", ForeignKey(position.c.id)),
 )
@@ -38,7 +38,7 @@ responsibility_question = sqlalchemy.Table(
 responsibility_department_group = sqlalchemy.Table(
     "responsibility_department_group",
     metadata,
-    Column("id", Integer, primary_key=True),
+    Column("id", Integer, primary_key=True, autoincrement=True),
     Column("department_group_id", ForeignKey(department_group.c.id)),
     Column("position_id", ForeignKey(position.c.id)),
 )
@@ -47,7 +47,7 @@ responsibility_department_group = sqlalchemy.Table(
 responsibility_department = sqlalchemy.Table(
     "responsibility_department",
     metadata,
-    Column("id", Integer, primary_key=True),
+    Column("id", Integer, primary_key=True, autoincrement=True),
     Column("department_id", ForeignKey(department.c.id)),
     Column("position_id", ForeignKey(position.c.id)),
 )

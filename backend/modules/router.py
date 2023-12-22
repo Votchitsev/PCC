@@ -8,7 +8,9 @@ from .employees import router as employees_router
 from modules.analytics import router as analytics_router
 
 
-router = APIRouter(prefix='/api')
+router = APIRouter(
+    prefix='/api',
+)
 
 
 router.include_router(auth_router.router)

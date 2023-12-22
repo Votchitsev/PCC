@@ -125,6 +125,11 @@ export function useForm() {
     const fetchDepartments = async () => {
       const { data } = await ApiClient.get(
         EAPIRoutes.DEPARTMENT_GROUPS + `${departmentGroup?.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${LocalStorage.get('token')}`,
+          },
+        },
       );
 
       setDepartmentList(data.departments);

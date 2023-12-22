@@ -149,6 +149,11 @@ export function useInspection(inspectionId: number) {
 
     await ApiClient.delete(
       `${EAPIRoutes.INSPECTIONS_RESULT}/${inspectionId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${LocalStorage.get('token')}`,
+        },
+      },
     );
     
     ModalStore.setIsLoading(false);
@@ -162,6 +167,7 @@ export function useInspection(inspectionId: number) {
 }
 
 import { useUserInspections } from './useUserInspections';
+import LocalStorage from '@lib/utils/localStorage';
 
 export {
   useUserInspections,

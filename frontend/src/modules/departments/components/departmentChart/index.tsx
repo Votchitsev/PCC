@@ -29,10 +29,6 @@ const DepartmentChart = ({ inspectionsData }: IProps) => {
     };
   }, [inspectionsData]);
 
-  useEffect(() => {
-    console.log(chartData);
-  }, [chartData]);
-
   return (
     <ChartWrapper>
       <Line

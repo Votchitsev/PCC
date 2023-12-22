@@ -1,4 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+
+from modules.auth.utils.dependencies import get_current_user
 from .crud.inspection import router as inspection_router
 from .crud.inspection_by_department import router as inspection_by_department_router
 
@@ -6,6 +8,7 @@ from .crud.inspection_by_department import router as inspection_by_department_ro
 router = APIRouter(
     prefix="/inspection",
     tags=["Создание, редактирование и удаление проверок"],
+    dependencies=[Depends(get_current_user)]
 )
 
 

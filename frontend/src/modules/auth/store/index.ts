@@ -127,7 +127,7 @@ class AuthStore {
       );
       
       if (response.status === 200) {
-        console.log(response.data);
+        LocalStorage.set('token', response.data.access_token);
         
         this.setAuthUser({
           id: response.data.id,
@@ -135,7 +135,6 @@ class AuthStore {
           token: response.data.access_token,
         });
 
-        LocalStorage.set('token', response.data.access_token);
         this._error = null;
       }
     } catch (error) {      

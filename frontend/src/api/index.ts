@@ -1,4 +1,5 @@
 import axios from 'axios';
+import LocalStorage from '@lib/utils/localStorage';
 
 export const ApiClient = axios.create({
   baseURL: process.env.BASE_URL,

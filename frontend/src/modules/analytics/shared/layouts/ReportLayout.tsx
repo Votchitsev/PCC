@@ -1,7 +1,6 @@
 import React from 'react';
-import NavigateLink from '@main/components/navigateLink';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ERoutes } from '@lib/routes';
 
 interface IProps {
   title: string;
@@ -9,13 +8,14 @@ interface IProps {
 }
 
 const ReportLayout = ({ title, children }: IProps) => {
+  const navigate = useNavigate();
+
   return (
     <Report>
       <TopContainer>
-        <NavigateLink
-          name="Назад"
-          href={ERoutes.ROOT}
-        />
+        <StyledNavLink role="button" onClick={() => navigate(-1)}>
+          Назад
+        </StyledNavLink>
       </TopContainer>
       <ReportTitle>{ title }</ReportTitle>
       { children }
@@ -41,4 +41,16 @@ const TopContainer = styled.div`
 const ReportTitle = styled.h1`
   grid-column-start: 1;
   grid-column-end: span col2-start;
+`;
+
+const StyledNavLink = styled.div`
+  width: fit-content;
+  margin-top: 20px;
+  margin-left: 20px;
+  cursor: pointer;
+  color: var(--blue);
+
+  &:hover {
+    color: var(--blue_hover);
+  }
 `;
