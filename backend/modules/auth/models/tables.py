@@ -13,7 +13,7 @@ users = sqlalchemy.Table(
     sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
     sqlalchemy.Column("username", sqlalchemy.String(22), unique=True),
     sqlalchemy.Column("password", sqlalchemy.String()),
-    sqlalchemy.Column("profile_id", sqlalchemy.ForeignKey(profile.c.id, back_populates="user")),
+    sqlalchemy.Column("profile_id", sqlalchemy.ForeignKey(profile.c.id)),
 )
 
 tokens = sqlalchemy.Table(
