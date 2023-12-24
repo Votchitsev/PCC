@@ -12,7 +12,7 @@ const ProfilePage = () => {
   const profile = useLoaderData() as IProfileResponse;
 
   useDocumentTitle(
-    `Профиль пользователя|${profile.first_name} ${profile.last_name}`,
+    'Профиль пользователя',
   );
 
   return (

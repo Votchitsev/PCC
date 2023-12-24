@@ -11,7 +11,7 @@ import { useDocumentTitle } from '@main/hooks';
 
 const CheckListPage = () => {  
   const checkList = useLoaderData() as ICheckList;
-  useDocumentTitle(`Чек-лист|${checkList.name}`);
+  useDocumentTitle(`Чек-лист|${checkList?.name ? ` ${checkList.name}` : ''}`);
 
   return (
     <PageLayout>

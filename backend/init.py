@@ -2,6 +2,8 @@ import asyncio
 from os import environ
 import os
 
+import asyncpg
+
 from modules.auth.utils.users import create_user
 from db.database import database
 
@@ -22,7 +24,12 @@ async def init():
     await database.execute('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')
     os.system('alembic upgrade head')
     user = User()
-    await create_user(user)
+
+    try:
+        await create_user(user)
+    except asyncpg.exceptions.UniqueViolationError:
+        print("User already exists...")
+
     os.system('./run.sh')
     await database.disconnect()
 

@@ -5,8 +5,11 @@ run:
 build:
 	docker-compose up --build -d
 
-dev:
+start:
 	docker-compose up -d
+
+dev:
+	docker-compose -f docker-compose.dev.yml up --build
 
 down:
 	docker-compose down
