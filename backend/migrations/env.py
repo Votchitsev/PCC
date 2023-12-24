@@ -19,7 +19,7 @@ config = context.config
 config = context.config
 section = config.config_ini_section
 config.set_section_option(section, "DB_USER", environ.get("DB_USER", "pcc_admin"))
-config.set_section_option(section, "DB_PASS", environ.get("DB_PASS", "password"))
+config.set_section_option(section, "DB_PASS", environ.get("DB_PASSWORD", "password"))
 config.set_section_option(section, "DB_NAME", environ.get("DB_NAME", "PCC"))
 config.set_section_option(section, "DB_HOST", environ.get("DB_HOST", "localhost"))
 
