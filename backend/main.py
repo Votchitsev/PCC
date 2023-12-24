@@ -23,7 +23,7 @@ origins = [
     'https://45.140.146.226/',
 ]
 
-app.middleware(
+app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
