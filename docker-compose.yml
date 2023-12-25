@@ -23,6 +23,7 @@ services:
       DB_USER: ${POSTGRES_USER}
       SUPERUSER_NAME: ${SUPERUSER_NAME}
       SUPERUSER_PASSWORD: ${SUPERUSER_PASSWORD}
+      STATIC_PATH: ${STATIC_PATH}
     ports:
       - "8000:8000"
     depends_on:
