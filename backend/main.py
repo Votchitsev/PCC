@@ -16,7 +16,7 @@ app = FastAPI(
 
 static_path = os.getenv("STATIC_PATH", '/static')
 
-app.mount('/static', StaticFiles(directory='../frontend/dist'))
+app.mount(static_path, StaticFiles(directory='../frontend/dist'))
 
 frontend = Jinja2Templates(directory="templates")
 
