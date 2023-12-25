@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -11,6 +13,8 @@ app = FastAPI(
     title="Public Catering Check API",
     version="0.0.1",
 )
+
+static_path = os.getenv("STATIC_PATH", '/static')
 
 app.mount('/static', StaticFiles(directory='../frontend/dist'))
 
