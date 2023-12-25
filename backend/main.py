@@ -14,7 +14,7 @@ app = FastAPI(
     version="0.0.1",
 )
 
-static_path = os.getenv("STATIC_PATH", '/static')
+static_path = os.getenv("STATIC_PATH", '/test/static')
 
 app.mount(static_path, StaticFiles(directory='../frontend/dist'))
 
@@ -61,8 +61,9 @@ def redirect_to_client(request: Request, _):
     return frontend.TemplateResponse(
         "index.html", {
             "request": request,
+            "static_path": static_path,
         }
-    )   
+    )
 
 
 app.include_router(api_router);
