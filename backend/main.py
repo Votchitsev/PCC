@@ -51,6 +51,7 @@ def root(request: Request):
     return frontend.TemplateResponse(
         "index.html", {
             "request": request,
+            "static_path": static_path,
         }
     )
 
