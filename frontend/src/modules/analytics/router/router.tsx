@@ -1,36 +1,59 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { ERoutes } from '@lib/routes';
-import { AnalyticsPage, ReportPage } from '../pages';
 import {
   MainReportLoader,
   MainReportByEmployeesLoader,
   QuestionsReportLoader,
   DepartmentReportLoader,
 } from './loaders';
+import Loader from '@main/components/screenLoader';
+
+const AnalyticsPage = lazy(() => import('../pages/AnalyticsPage'));
+const ReportPage = lazy(() => import('../pages/ReportPage'));
 
 const analyticsRouter = [
   {
     path: ERoutes.ANALYTICS_ROOT,
-    element: <AnalyticsPage />,
+    element: (
+      <Suspense fallback={ <Loader />}>
+        <AnalyticsPage />
+      </Suspense>
+    ),
   },
   {
     path: ERoutes.MAIN_REPORT,
-    element: <ReportPage />,
+    element: (
+      <Suspense fallback={ <Loader /> }>
+        <ReportPage />
+      </Suspense>
+    ),
     loader: MainReportLoader,
   },
   {
     path: ERoutes.MAIN_REPORT_BY_EMPLOYEES,
-    element: <ReportPage />,
+    element: (
+      <Suspense fallback={ <Loader /> }>
+        <ReportPage />
+      </Suspense>
+    ),
     loader: MainReportByEmployeesLoader,
   },
   {
     path: ERoutes.REPORT_QUESTIONS,
-    element: <ReportPage />,
+    element: (
+      <Suspense fallback={ <Loader /> }>
+        <ReportPage />
+      </Suspense>
+    ),
     loader: QuestionsReportLoader,
   },
   {
     path: ERoutes.REPORT_DEPARTMENT_GROUPS,
-    element: <ReportPage />,
+    element: (
+      <Suspense fallback={ <Loader /> }>
+        <ReportPage />
+      </Suspense>
+    ),
     loader: DepartmentReportLoader,
   },
 ];

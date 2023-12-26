@@ -1,18 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import ButtonLoader from '@assets/icons/ButtonLoader.svg';
+import Loader from '@assets/icons/loader.gif';
 
 
 
 const ScreenLoader = () => (
   <Screen>
-    LOADING ...
+    <img src={Loader} alt="loader" />
   </Screen>
 );
 
 export default ScreenLoader;
 
 const Screen = styled.div`
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;

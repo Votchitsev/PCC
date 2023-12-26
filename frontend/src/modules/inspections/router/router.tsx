@@ -1,28 +1,43 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { ERoutes } from '@lib/routes';
-import NewInspectionPage from '../pages/newInspectionPage';
-import AllInspectionsPage from '@inspections/pages/allInspectionsPage';
 import {
   newInspectionLoader,
   getAllInspectionsLoader,
   getInspectionResultLoader,
 } from './loaders';
 import InspectionResultPage from '@inspections/pages/inspectionResultPage';
+import Loader from '@main/components/screenLoader';
+
+const NewInspectionPage = lazy(() => import('../pages/newInspectionPage'));
+const AllInspectionsPage = lazy(() =>
+  import('@inspections/pages/allInspectionsPage'));
 
 const inspectionsRouter = [
   {
     path: ERoutes.INSPECTIONS_NEW,
-    element: <NewInspectionPage />,
+    element: (
+      <Suspense fallback={ <Loader />}>
+        <NewInspectionPage />
+      </Suspense>
+    ),
     loader: newInspectionLoader,
   },
   {
     path: ERoutes.INSPECTIONS_ROOT,
-    element: <AllInspectionsPage />,
+    element: (
+      <Suspense fallback={ <Loader />}>
+        <AllInspectionsPage />
+      </Suspense>
+    ),
     loader: getAllInspectionsLoader,
   },
   {
     path: ERoutes.INSPECTIONS_DETAIL,
-    element: <InspectionResultPage />,
+    element: (
+      <Suspense fallback={ <Loader />}>
+        <InspectionResultPage />
+      </Suspense>
+    ),
     loader: getInspectionResultLoader,
   },
 ];

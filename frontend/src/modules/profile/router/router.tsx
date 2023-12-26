@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { ERoutes } from '@lib/routes';
-import { AddProfilePage, ProfilePage } from '../pages';
 import { profileLoader } from './loaders';
+import Loader from '@main/components/screenLoader';
+
+const AddProfilePage = lazy(() => import('../pages/AddProfilePage'));
+const ProfilePage = lazy(() => import('../pages/ProfilePage'));
 
 const ProfileRouter = [
   {
     path: ERoutes.PROFILE_DETAILS,
-    element: <ProfilePage />,
+    element: (
+      <Suspense fallback={ <Loader /> }>
+        <ProfilePage />
+      </Suspense>
+    ),
     loader: profileLoader,
   },
   {
     path: ERoutes.PROFILE_ADD,
-    element: <AddProfilePage />,
+    element: (
+      <Suspense fallback={ <Loader /> }>
+        <AddProfilePage />
+      </Suspense>
+    ),
   },
 ];
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { ERoutes } from '@lib/routes';
 import DepartmentGroupsPage from '../pages/departmentGroupsPage';
 import {
@@ -6,23 +6,37 @@ import {
   departmentsLoader,
   departmentLoader,
 } from './loaders';
-import DepartmentsPage from '../pages/departmentsPage';
-import DepartmentPage from '@departments/pages/departmentPage';
+import Loader from '@main/components/screenLoader';
+
+const DepartmentsPage = lazy(() => import('../pages/departmentsPage'));
+const DepartmentPage = lazy(() => import('@departments/pages/departmentPage'));
 
 const departmentsRouter = [
   {
     path: ERoutes.DEPARTMENT_GROUPS,
-    element: <DepartmentGroupsPage />,
+    element: (
+      <Suspense fallback={ <Loader /> }>
+        <DepartmentGroupsPage />
+      </Suspense>
+    ),
     loader: departmentGroupsLoader,
   },
   {
     path: ERoutes.DEPARTMENTS_BY_ID,
-    element: <DepartmentsPage />,
+    element: (
+      <Suspense fallback={ <Loader /> }>
+        <DepartmentsPage />
+      </Suspense>
+    ),
     loader: departmentsLoader,
   },
   {
     path: ERoutes.DEPARTMENT_BY_ID,
-    element: <DepartmentPage />,
+    element: (
+      <Suspense fallback={ <Loader /> }>
+        <DepartmentPage />
+      </Suspense>
+    ),
     loader: departmentLoader,
   },
 ];
