@@ -80,7 +80,7 @@ class CheckListStore {
     };
 
     if (id) {
-      await ApiClient.put(
+      const response = await ApiClient.put(
         EAPIRoutes.CHECK_LIST + `/${id}/`,
         data,
         {
@@ -90,7 +90,7 @@ class CheckListStore {
         });
 
         this._isLoading.create = false;
-        return;
+        return response;
     }
     
     const response = await ApiClient.post(

@@ -28,7 +28,8 @@ const CheckListForm = ({ checkListData }: IProps) => {
 
   const onSubmitHandler = async (e: FormEvent) => {
     e.preventDefault();
-    await CheckListStore.saveToDb(checkListData?.id);
+    const response = await CheckListStore.saveToDb(checkListData?.id);
+    CheckListStore.updateQuestions(response?.data ?? []);
   };
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

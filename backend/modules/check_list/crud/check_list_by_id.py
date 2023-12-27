@@ -112,6 +112,14 @@ async def put(id: int, data: SCheckListData, _ = Depends(get_current_user)):
 
     await update_check_list_total_grade(id)
 
+    get_check_list_query = (
+        questions.select()
+            .where(questions.c.check_list_id == id)
+            .order_by(questions.c.order)
+    )
+
+    return await database.fetch_all(get_check_list_query)
+
 
 @router.delete('/', summary="Удаление чек-листа")
 async def delete(id: int, _ = Depends(get_current_user)):

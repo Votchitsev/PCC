@@ -27,7 +27,7 @@ const Question = ({
   };
 
   const mouseEnterHandler = () => {
-    if (!question.parent_question_id) {
+    if (!question.parent_question_id && question.id) {
       setShowRelQuestions(true);
     }
   };
