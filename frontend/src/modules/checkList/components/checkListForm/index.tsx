@@ -11,7 +11,7 @@ import { observer } from 'mobx-react';
 import { useStore } from 'store';
 import Button, { EButtonColor } from '@main/components/button';
 import { useNavigate } from 'react-router-dom';
-import { EAPIRoutes, ERoutes } from '@lib/routes';
+import { EAPIRoutes } from '@lib/routes';
 import style from './checkListForm.module.scss';
 import TrashIcon from '@assets/icons/trash';
 import { ICheckList, IQuestion } from 'modules/checkList/entity';
@@ -29,7 +29,6 @@ const CheckListForm = ({ checkListData }: IProps) => {
   const onSubmitHandler = async (e: FormEvent) => {
     e.preventDefault();
     await CheckListStore.saveToDb(checkListData?.id);
-    navigate(ERoutes.CHECK_LISTS);
   };
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
