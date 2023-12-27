@@ -104,7 +104,26 @@ const getMainReportByEmployees = async (
       EAPIRoutes.ANALYTICS_INSPECTIONS
     }?type=employee&date_from=${from}&date_to=${to}&download=${download}`;
 
-    link.click();
+    ApiClient.get(link.href, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${LocalStorage.get('token')}`,
+      },
+      responseType: 'blob',
+    })
+      .then(response => {
+        const blob = new Blob(
+          [response.data],
+          { type: 'application/octet-stream' },
+        );
+
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = 'report.xlsx';
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+
     return;
   }
 

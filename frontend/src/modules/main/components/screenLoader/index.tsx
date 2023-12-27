@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ButtonLoader from '@assets/icons/ButtonLoader.svg';
 import Loader from '@assets/icons/loader.gif';
-
-
 
 const ScreenLoader = () => (
   <Screen>
