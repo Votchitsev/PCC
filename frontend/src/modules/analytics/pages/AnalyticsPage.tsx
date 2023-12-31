@@ -1,11 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import PageLayout from '@main/layouts/page';
-import { ERoutes } from '@lib/routes';
 import NavigateLink from '@main/components/navigateLink';
 import { AnalyticsReportList } from '../widgets/';
 import { useDocumentTitle } from '@main/hooks';
 import { useNavigate } from 'react-router-dom';
+import TopContainer from '@main/components/topContainer';
 
 const AnalyticsPage = () => {
   useDocumentTitle('Аналитика');
@@ -15,9 +14,10 @@ const AnalyticsPage = () => {
   return (
     <PageLayout>
       <TopContainer>
-        <StyledNavLink role="button" onClick={() => navigate(-1)}>
-          Назад
-        </StyledNavLink>
+        <NavigateLink
+          name="Назад"
+          callback={() => navigate(-1)}
+        />
       </TopContainer>
       <h1>Аналитика</h1>
       <AnalyticsReportList />
@@ -27,23 +27,3 @@ const AnalyticsPage = () => {
 
 
 export default AnalyticsPage;
-
-const TopContainer = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-top: 20px;
-`;
-
-const StyledNavLink = styled.div`
-  width: fit-content;
-  margin-top: 20px;
-  margin-left: 20px;
-  cursor: pointer;
-  color: var(--blue);
-
-  &:hover {
-    color: var(--blue_hover);
-  }
-`;

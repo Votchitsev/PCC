@@ -1,41 +1,30 @@
 import PageLayout from '@main/layouts/page';
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
-import styled from 'styled-components';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { IDepartmentGroup } from '../entity';
 import DepartmentList from '../components/departmentList';
 import NavigateLink from '@main/components/navigateLink';
-import { ERoutes } from '@lib/routes';
 import { useDocumentTitle } from '@main/hooks';
+import TopContainer from '@main/components/topContainer';
 
 const DepartmentsPage = () => {
   const departmentsData = useLoaderData() as IDepartmentGroup;
   useDocumentTitle(`Подразделения|${departmentsData.name}`);
 
+  const navigate = useNavigate();
+
   return (
     <PageLayout>
-      <LinkContainer>
+      <TopContainer>
         <NavigateLink
-          { ...style }
-          href={ERoutes.DEPARTMENT_GROUPS}
           name="Назад"
+          callback={() => navigate(-1)}
         />
-      </LinkContainer>
+      </TopContainer>
       <h1>{ departmentsData.name }</h1>
       <DepartmentList departments={ departmentsData.departments }/>
     </PageLayout>
   );
 };
 
-const style = {
-  style: {
-    marginTop: '20px',
-    marginLeft: '20px',
-  },
-};
-
 export default DepartmentsPage;
-
-const LinkContainer = styled.div`
-  margin-top: 20px;
-`;

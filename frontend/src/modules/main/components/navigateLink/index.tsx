@@ -5,15 +5,37 @@ import styled from 'styled-components';
 
 interface IProps {
   name: string;
-  href: ERoutes;
+  href?: ERoutes;
   className?: CSSProperties;
+  callback?: () => void;
 }
 
-const NavigateLink = ({ name, href, className, ...props }: IProps) => {
+const NavigateLink = ({
+  name,
+  href,
+  className,
+  callback,
+  ...props
+}: IProps) => {
+  if (callback) {
+    return (
+      <StyledLink
+        onClick={callback}
+      >
+        <div
+          role="button"
+          className={`${{ className }}`} {...props}
+        >
+          { name }
+        </div>
+      </StyledLink>
+    );
+  }
+
   return (
     <StyledLink>
       <Link
-        to={href}
+        to={href ?? ERoutes.ROOT}
         className={`${{ className }}`} {...props}
       >
         { name }

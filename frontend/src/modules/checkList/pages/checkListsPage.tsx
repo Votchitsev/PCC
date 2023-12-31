@@ -1,11 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import PageLayout from '@main/layouts/page';
 import Button, { EButtonColor } from '@main/components/button';
 import CheckLists from '../components/checkLists';
 import EmptyList from '@checkList/components/emptyList';
 import NavigateLink from '@main/components/navigateLink';
+import TopContainer from '@main/components/topContainer';
 import { ERoutes } from '@lib/routes';
 import { useDocumentTitle } from '@main/hooks';
 
@@ -22,13 +22,12 @@ const CheckListsPage = () => {
 
   return (
     <PageLayout>
-      <LinksContainer>
+      <TopContainer>
         <NavigateLink
-          href={ERoutes.ROOT}
           name="Назад"
+          callback={() => navigate(-1)}
         />
-        <ButtonWrapper>
-          <Button
+        <Button
             type="button"
             text="Создать"
             clickHandler={() => {
@@ -36,8 +35,7 @@ const CheckListsPage = () => {
             }}
             color={EButtonColor.danger}
           />
-        </ButtonWrapper>
-      </LinksContainer>
+      </TopContainer>
       <h1>Чек-листы</h1>
       { loaderData.length
         ? <CheckLists checkLists={ loaderData } />
@@ -47,17 +45,3 @@ const CheckListsPage = () => {
 };
 
 export default CheckListsPage;
-
-const LinksContainer = styled.div`
-  width: 90%;
-  margin-top: 20px;
-  margin-left: 20px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const ButtonWrapper = styled.div`
-  @media screen and (max-width: 1024px) {
-    display: none;
-  }
-`;

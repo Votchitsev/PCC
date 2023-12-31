@@ -1,26 +1,28 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import PageLayout from '@main/layouts/page';
 import CheckListForm from '../components/checkListForm';
 import { ICheckList } from '../entity';
-import { ERoutes } from '@lib/routes';
 import NavigateLink from '@main/components/navigateLink';
 import styled from 'styled-components';
 import CheckListView from '@checkList/components/checkListView';
 import { useDocumentTitle } from '@main/hooks';
+import TopContainer from '@main/components/topContainer';
 
-const CheckListPage = () => {  
+const CheckListPage = () => {
   const checkList = useLoaderData() as ICheckList;
   useDocumentTitle(`Чек-лист|${checkList?.name ? ` ${checkList.name}` : ''}`);
+  
+  const navigate = useNavigate();
 
   return (
     <PageLayout>
-      <StyledNavLink>
+      <TopContainer>
         <NavigateLink
           name="Назад"
-          href={ERoutes.CHECK_LISTS}
+          callback={() => navigate(-1)}
         />
-      </StyledNavLink>
+      </TopContainer>
       <CheckListFormContainer>
         <CheckListForm checkListData={checkList} />
       </CheckListFormContainer>
@@ -32,12 +34,6 @@ const CheckListPage = () => {
 };
 
 export default CheckListPage;
-
-const StyledNavLink = styled.div`
-  width: fit-content;
-  margin-top: 20px;
-  margin-left: 20px;
-`;
 
 const CheckListFormContainer = styled.div`
   display: block;

@@ -1,10 +1,11 @@
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import PageLayout from '@main/layouts/page';
 import React from 'react';
 import { type IInspectionExtended } from '@inspections/entity';
 import ResultCheckList from '@inspections/components/resultCheckList';
 import { useDocumentTitle } from '@main/hooks';
+import TopContainer from '@main/components/topContainer';
+import NavigateLink from '@main/components/navigateLink';
 
 const InspectionResultPage = () => {
   const inspection = useLoaderData() as IInspectionExtended;
@@ -15,9 +16,12 @@ const InspectionResultPage = () => {
 
   return (
     <PageLayout>
-      <StyledNavLink onClick={() => navigate(-1)}>
-        Назад
-      </StyledNavLink>
+      <TopContainer>
+        <NavigateLink
+          name="Назад"
+          callback={() => navigate(-1)}
+        />
+      </TopContainer>
       <h1>{ 'Результат проверки' }</h1>
       <ResultCheckList inspection={inspection} />
     </PageLayout>
@@ -25,16 +29,3 @@ const InspectionResultPage = () => {
 };
 
 export default InspectionResultPage;
-
-
-const StyledNavLink = styled.div`
-  width: fit-content;
-  margin-top: 20px;
-  margin-left: 20px;
-  cursor: pointer;
-  color: var(--blue);
-
-  &:hover {
-    color: var(--blue_hover);
-  }
-`;

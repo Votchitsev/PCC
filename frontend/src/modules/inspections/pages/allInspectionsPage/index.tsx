@@ -8,6 +8,8 @@ import PaginationBar from '@main/components/paginationBar';
 import styled from 'styled-components';
 import { usePagination } from '@lib/hooks/usePagination';
 import { useDocumentTitle } from '@main/hooks';
+import TopContainer from '@main/components/topContainer';
+import NavigateLink from '@main/components/navigateLink';
 
 const AllInspectionsPage = () => {
   const inspectionList = useLoaderData() as IInspectionList;
@@ -28,9 +30,10 @@ const AllInspectionsPage = () => {
   return (
     <PageLayout>
       <TopContainer>
-        <StyledNavLink onClick={() => navigate(-2)}>
-          Назад
-        </StyledNavLink>
+        <NavigateLink
+          name="Назад"
+          callback={() => navigate(-2)}
+        />
         <PaginationBar
           start={start}
           end={end}
@@ -44,31 +47,4 @@ const AllInspectionsPage = () => {
   );
 };
 
-const style = {
-  style: {
-    marginTop: '20px',
-    marginLeft: '20px',
-  },
-};
-
 export default AllInspectionsPage;
-
-const TopContainer = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-top: 20px;
-`;
-
-const StyledNavLink = styled.div`
-  width: fit-content;
-  margin-top: 20px;
-  margin-left: 20px;
-  cursor: pointer;
-  color: var(--blue);
-
-  &:hover {
-    color: var(--blue_hover);
-  }
-`;
