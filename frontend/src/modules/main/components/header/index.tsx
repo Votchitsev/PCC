@@ -42,8 +42,8 @@ const ImageContainer = styled.div`
   height: 100%;
   width: 50px;
 
-  background-image: url(${ logo });
+  /* background-image: url(${ logo });
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: contain; */
 `;
