@@ -21,6 +21,7 @@ const NewInspectionForm = () => {
     onSubmit,
     isValid,
     isLoading,
+    allowDepartmentInput,
   } = useForm();
 
   return (
@@ -66,6 +67,7 @@ const NewInspectionForm = () => {
         }))}
         onChange={department.onChange}
         isRequired={true}
+        disabled={!allowDepartmentInput}
       />
       <Button
         text="Далее"

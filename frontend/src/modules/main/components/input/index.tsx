@@ -1,8 +1,7 @@
-import React, { useEffect, useState, type ChangeEventHandler, SyntheticEvent } from 'react';
-import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
+import React from 'react';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 import { EError } from '@auth/store/index';
-import { isEmpty as isEmptyValid } from '@lib/utils/validators';
 import 'react-datepicker/dist/react-datepicker.css';
 import style from './input.module.scss';
 
@@ -20,6 +19,7 @@ interface IProp {
   selectData?: ISelectData[];
   isRequired?: boolean;
   onChange?: any;
+  disabled?: boolean;
 }
 
 registerLocale('ru', ru);
@@ -32,6 +32,7 @@ const Input = ({
   selectData = [],
   onChange,
   isRequired = false,
+  disabled = false,
 } : IProp) => {
   return (
     <label className={ style.container } onClick={(e) => e.preventDefault()}>
@@ -44,6 +45,7 @@ const Input = ({
           id={id}
           onChange={onChange}
           required={isRequired}
+          disabled={disabled}
         >
           <option>-</option>
           { selectData?.map((item: any) => (

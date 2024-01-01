@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ApiClient } from '@api/index';
 import { type IDepartment } from '@departments/entity';
@@ -54,6 +54,14 @@ export function useForm() {
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  const allowDepartmentInput = useMemo(() => {
+    if (departmentGroup) {
+      return true;
+    }
+
+    return false;
+  }, [departmentGroup]);
 
   const handleDateChange = (value: Date) => {
     setDate(value);
@@ -170,5 +178,6 @@ export function useForm() {
     onSubmit,
     isValid,
     isLoading,
+    allowDepartmentInput,
   };
 }
