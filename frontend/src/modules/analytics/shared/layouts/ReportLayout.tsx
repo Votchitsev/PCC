@@ -1,6 +1,8 @@
+import TopContainer from '@main/components/topContainer';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import NavigateLink from '@main/components/navigateLink';
 
 interface IProps {
   title: string;
@@ -13,9 +15,10 @@ const ReportLayout = ({ title, children }: IProps) => {
   return (
     <Report>
       <TopContainer>
-        <StyledNavLink role="button" onClick={() => navigate(-1)}>
-          Назад
-        </StyledNavLink>
+        <NavigateLink
+          callback={() => navigate(-1)}
+          name="Назад"
+        />
       </TopContainer>
       <ReportTitle>{ title }</ReportTitle>
       { children }
@@ -32,25 +35,8 @@ const Report = styled.div`
   gap: 1em;
 `;
 
-const TopContainer = styled.div`
-  grid-column-start: 1;
-  grid-column-end: span col2-start;
-  padding: 1em;
-`;
-
 const ReportTitle = styled.h1`
   grid-column-start: 1;
   grid-column-end: span col2-start;
 `;
 
-const StyledNavLink = styled.div`
-  width: fit-content;
-  margin-top: 20px;
-  margin-left: 20px;
-  cursor: pointer;
-  color: var(--blue);
-
-  &:hover {
-    color: var(--blue_hover);
-  }
-`;

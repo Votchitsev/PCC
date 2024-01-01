@@ -48,6 +48,7 @@ export default NavigateLink;
 
 const StyledLink = styled.div`
   color: var(--blue);
+  cursor: pointer;
 
   &:hover {
     color: var(--blue_hover);
